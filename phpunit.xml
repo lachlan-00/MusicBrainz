@@ -1,38 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-    forceCoversAnnotation="true"
-    mapTestClassNameToCoveredClassName="true"
-    bootstrap="vendor/autoload.php"
-    colors="true"
-    backupGlobals="false"
-    backupStaticAttributes="false"
-    syntaxCheck="false"
-    stopOnError="false"
->
-
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.2/phpunit.xsd" backupGlobals="true" colors="true" displayDetailsOnTestsThatTriggerDeprecations="true" displayDetailsOnTestsThatTriggerErrors="true" displayDetailsOnTestsThatTriggerNotices="true" displayDetailsOnTestsThatTriggerWarnings="true" displayDetailsOnIncompleteTests="true" displayDetailsOnSkippedTests="true">
     <testsuites>
-        <testsuite name="MusicBrainz Test Suite">
-            <directory>./tests/MusicBrainz/</directory>
+        <testsuite name="default">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <blacklist>
-            <directory>./tests/</directory>
-            <directory>./vendor/</directory>
-        </blacklist>
-    </filter>
-
-    <logging>
-        <log
-            type="coverage-html"
-            target="./tests/MusicBrainz/Coverage"
-            charset="UTF-8"
-            yui="true"
-            lowUpperBound="35"
-            highLowerBound="70"
-            showUncoveredFiles="true"
-        />
-    </logging>
-
+    <source restrictNotices="true" restrictWarnings="true" ignoreIndirectDeprecations="true">
+        <include>
+            <directory>src</directory>
+        </include>
+        <exclude>
+            <directory suffix="service_definition.php">src</directory>
+        </exclude>
+    </source>
 </phpunit>

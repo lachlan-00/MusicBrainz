@@ -2,31 +2,31 @@
 
 namespace MusicBrainz\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Guzzle\Http\ClientInterface;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 /**
- * @covers MusicBrainz\MusicBrainz
+ * @covers MusicBrainz
  */
-class MusicBrainzTest extends PHPUnit_Framework_TestCase
+class MusicBrainzTest extends TestCase
 {
     /**
      * @var MusicBrainz
      */
     protected $brainz;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        /** @noinspection PhpParamsInspection */
-        $this->brainz = new MusicBrainz(new GuzzleHttpAdapter($this->getMock(ClientInterface::class)));
+        $this->brainz = new MusicBrainz(new GuzzleHttpAdapter($this->createMock(ClientInterface::class)));
     }
 
     /**
-     * @return array
+     * @return array{0: bool, 1: string}[]
      */
-    public function MBIDProvider()
+    public static function MBIDProvider()
     {
         return [
             [true, '4dbf5678-7a31-406a-abbe-232f8ac2cd63'],
@@ -41,6 +41,6 @@ class MusicBrainzTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidMBID($validation, $mbid)
     {
-        $this->assertEquals($validation, $this->brainz->isValidMBID($mbid));
+        static::assertEquals($validation, $this->brainz->isValidMBID($mbid));
     }
 }
