@@ -12,20 +12,12 @@ namespace MusicBrainz\Filters;
  */
 abstract class AbstractFilter
 {
-    /**
-     * @var array
-     */
-    protected $validArgTypes;
+    protected array $validArgTypes;
 
-    /**
-     * @var array
-     */
-    protected $validArgs = [];
+    protected array $validArgs = [];
 
-    /**
-     * @var array
-     */
-    protected $protectedArgs = [
+    /** @var string[] */
+    protected array $protectedArgs = [
         'arid','reid','rgid','tid'
     ];
 
@@ -39,13 +31,16 @@ abstract class AbstractFilter
     }
 
     /**
-     * @return array
+     * createParameters
      */
-    public function createParameters(array $params = [])
+    public function createParameters(array $params = []): array
     {
         $params = ['query' => ''] + $params;
 
-        if ($this->validArgs === [] || $params['query'] != '') {
+        if (
+            $this->validArgs === [] ||
+            $params['query'] != ''
+        ) {
             return $params;
         }
 

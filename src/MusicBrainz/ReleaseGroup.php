@@ -8,22 +8,18 @@ namespace MusicBrainz;
  */
 class ReleaseGroup
 {
-    /**
-     * @var string
-     */
-    public $id;
-    /**
-     * @var array
-     */
-    private $data;
-    /**
-     * @var MusicBrainz
-     */
-    private $brainz;
-    /**
-     * @var Release[]
-     */
-    private $releases = [];
+    public string $id;
+
+    public string $title;
+
+    public int $score;
+
+    private array $data;
+
+    private MusicBrainz $brainz;
+
+    /** @var Release[] */
+    private array $releases = [];
 
     /**
      * @param array       $releaseGroup
@@ -34,44 +30,37 @@ class ReleaseGroup
         $this->data   = $releaseGroup;
         $this->brainz = $brainz;
 
-        $this->id = isset($releaseGroup['id']) ? (string)$releaseGroup['id'] : '';
+        $this->id    = (string)($releaseGroup['id'] ?? '');
+        $this->title = (string)($releaseGroup['title'] ?? '');
+        $this->score = (int)($releaseGroup['score'] ?? 0);
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
-        return $this->data['title'];
+        return $this->title;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getScore()
+    public function getScore(): int
     {
-        return $this->data['score'];
+        return $this->score;
     }
 
     /**
      * @return Release[]
      */
-    public function getReleases()
+    public function getReleases(): array
     {
         if (!empty($this->releases)) {
             return $this->releases;
         }
 
         foreach ($this->data['releases'] as $release) {
-            array_push($this->releases, new Release($release, $this->brainz));
+            $this->releases[] = new Release($release, $this->brainz);
         }
 
         return $this->releases;

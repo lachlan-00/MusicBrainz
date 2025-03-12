@@ -12,10 +12,7 @@ use MusicBrainz\MusicBrainz;
  */
 class LabelFilter extends AbstractFilter implements FilterInterface
 {
-    /**
-     * @var array
-     */
-    protected $validArgTypes = [
+    protected array $validArgTypes = [
         'alias', // fix typo
         'begin',
         'code',

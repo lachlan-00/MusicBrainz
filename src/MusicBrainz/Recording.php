@@ -8,26 +8,22 @@ namespace MusicBrainz;
  */
 class Recording
 {
-    /**
-     * @var string
-     */
-    public $id;
-    /**
-     * @var string
-     */
-    public $title;
-    /**
-     * @var int
-     */
-    public $score;
-    /**
-     * @var Release[]
-     */
-    public $releases = [];
-    /**
-     * @var array
-     */
-    private $data;
+    public string $id;
+
+    public string $title;
+
+    public int $length;
+
+    public int $score;
+
+    public string $artistID;
+
+    /** @var Release[] */
+    public array $releases = [];
+
+    private array $data;
+
+    protected MusicBrainz $brainz;
 
     /**
      * @param array       $recording
@@ -40,8 +36,8 @@ class Recording
 
         $this->id       = (string)$recording['id'];
         $this->title    = (string)$recording['title'];
-        $this->length   = (isset($recording['length'])) ? (int)$recording['length'] : 0;
-        $this->score    = (isset($recording['score'])) ? (int)$recording['score'] : 0;
+        $this->length   = (int)($recording['length'] ?? 0);
+        $this->score    = (int)($recording['score'] ?? 0);
         $this->artistID = $recording['artist-credit'][0]['artist']['id'];
 
         if (isset($recording['releases'])) {
@@ -51,22 +47,18 @@ class Recording
 
     /**
      * @param array $releases
-     *
-     * @return $this
+     * @return Recording
      */
-    public function setReleases(array $releases)
+    public function setReleases(array $releases): Recording
     {
         foreach ($releases as $release) {
-            array_push($this->releases, new Release($release, $this->brainz));
+            $this->releases[] = new Release($release, $this->brainz);
         }
 
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getScore()
+    public function getScore(): int
     {
         return $this->score;
     }
@@ -75,7 +67,7 @@ class Recording
      * @throws Exception
      * @return array
      */
-    public function getReleaseDates()
+    public function getReleaseDates(): array
     {
 
         if (empty($this->releases)) {
@@ -85,8 +77,7 @@ class Recording
         $releaseDates = [];
 
         foreach ($this->releases as $release) {
-            /** @var Release $release */
-            array_push($releaseDates, $release->getReleaseDate());
+            $releaseDates[] = $release->getReleaseDate();
         }
 
         asort($releaseDates);
@@ -94,18 +85,16 @@ class Recording
         return $releaseDates;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
      * @return Artist
+     * @throws Exception
      */
-    public function getArtist()
+    public function getArtist(): Artist
     {
         $includes = [
             'releases',
@@ -129,10 +118,8 @@ class Recording
         switch ($format) {
             case 'short':
                 return str_replace('.', ':', number_format(($this->length / 1000 / 60), 2));
-                break;
             case 'long':
                 return str_replace('.', 'm ', number_format(($this->length / 1000 / 60), 2)) . 's';
-                break;
             case 'int':
             default:
                 return $this->length;

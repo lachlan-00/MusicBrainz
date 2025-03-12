@@ -13,7 +13,7 @@ use MusicBrainz\ReleaseGroup;
  */
 class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 {
-    protected $validArgTypes = [
+    protected array $validArgTypes = [
         'arid',
         'artist',
         'artistname',

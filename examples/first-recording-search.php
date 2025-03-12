@@ -43,7 +43,10 @@ try {
 
         // if the recording has a lower score than the previous recording, stop the loop.
         // This is because scores less than 100 usually don't match the search well
-        if (null != $lastScore && $recording->getScore() < $lastScore) {
+        if (
+            $lastScore !== null &&
+            $recording->getScore() < $lastScore
+        ) {
             break;
         }
 

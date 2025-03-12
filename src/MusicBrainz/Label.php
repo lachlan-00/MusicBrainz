@@ -7,35 +7,23 @@ namespace MusicBrainz;
  */
 class Label
 {
-    /**
-     * @var string
-     */
-    public $id;
-    /**
-     * @var string
-     */
-    public $name;
-    /**
-     * @var array
-     */
-    public $aliases;
-    /**
-     * @var int
-     */
-    public $score;
-    /**
-     * @var string
-     */
-    public $sortName;
-    /**
-     * @var string
-     */
-    public $country;
+    public string $id;
 
-    /**
-     * @var array
-     */
-    private $data;
+    public string $name;
+
+    public string $type;
+
+    public array $aliases;
+
+    public int $score;
+
+    public string $sortName;
+
+    public string $country;
+
+    private array $data;
+
+    private MusicBrainz $brainz;
 
     /**
      * @param array       $label
@@ -46,12 +34,12 @@ class Label
         $this->data   = $label;
         $this->brainz = $brainz;
 
-        $this->id       = isset($label['id']) ? (string)$label['id'] : '';
-        $this->type     = isset($label['type']) ? (string)$label['type'] : '';
-        $this->score    = isset($label['score']) ? (int)$label['score'] : 0;
-        $this->sortName = isset($label['sort-name']) ? (string)$label['sort-name'] : '';
-        $this->name     = isset($label['name']) ? (string)$label['name'] : '';
-        $this->country  = isset($label['country']) ? (string)$label['country'] : '';
-        $this->aliases  = isset($label['aliases']) ? $label['aliases'] : [];
+        $this->id       = (string)($label['id'] ?? '');
+        $this->type     = (string)($label['type'] ?? '');
+        $this->score    = (int)($label['score'] ?? 0);
+        $this->sortName = (string)($label['sort-name'] ?? '');
+        $this->name     = (string)($label['name'] ?? '');
+        $this->country  = (string)($label['country'] ?? '');
+        $this->aliases  = $label['aliases'] ?? [];
     }
 }

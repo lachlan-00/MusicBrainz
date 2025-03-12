@@ -10,14 +10,12 @@ use WpOrg\Requests\Requests;
  */
 class RequestsHttpAdapter extends AbstractHttpAdapter
 {
-    /**
-     * Initializes the class.
-     *
-     * @param null $endpoint Override the default endpoint (useful for local development)
-     */
-    public function __construct($endpoint = null)
+    public function __construct(?string $endpoint = null)
     {
-        if (filter_var($endpoint, FILTER_VALIDATE_URL)) {
+        if (
+            $endpoint !== null &&
+            filter_var($endpoint, FILTER_VALIDATE_URL)
+        ) {
             $this->endpoint = $endpoint;
         }
     }
@@ -25,13 +23,15 @@ class RequestsHttpAdapter extends AbstractHttpAdapter
     /**
      * Perform an HTTP request on MusicBrainz
      *
-     * @param  string  $path
-     * @param  boolean $isAuthRequired
-     * @param  boolean $returnArray force json_decode to return an array instead of an object
-     * @throws Exception
+     * @param string $path
+     * @param array $params
+     * @param array $options
+     * @param boolean $isAuthRequired
+     * @param boolean $returnArray force json_decode to return an array instead of an object
      * @return array
+     * @throws Exception
      */
-    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false)
+    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false): array
     {
         if ($options['user-agent'] == '') {
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');

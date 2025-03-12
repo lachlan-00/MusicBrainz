@@ -11,42 +11,12 @@ parameters:
 			path: src/MusicBrainz/Artist.php
 
 		-
-			message: "#^Offset 'id' on array in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 2
-			path: src/MusicBrainz/Artist.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$beginDate is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Artist.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$country is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Artist.php
-
-		-
 			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Artist.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$endDate is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Artist.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$gender is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Artist.php
-
-		-
 			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$releases type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Artist.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$sortName is never read, only written\\.$#"
 			count: 1
 			path: src/MusicBrainz/Artist.php
 
@@ -71,12 +41,7 @@ parameters:
 			path: src/MusicBrainz/Collection.php
 
 		-
-			message: "#^Method MusicBrainz\\\\Country\\:\\:getName\\(\\) has parameter \\$countryCode with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/Country.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Country\\:\\:\\$countries has no type specified\\.$#"
+			message: "#^Property MusicBrainz\\\\Country\\:\\:\\$countries type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Country.php
 
@@ -92,11 +57,6 @@ parameters:
 
 		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:createParameters\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/AbstractFilter.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:\\$protectedArgs type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/AbstractFilter.php
 
@@ -226,26 +186,6 @@ parameters:
 			path: src/MusicBrainz/HttpAdapters/GuzzleHttpAdapter.php
 
 		-
-			message: "#^Method MusicBrainz\\\\HttpAdapters\\\\GuzzleHttpAdapter\\:\\:call\\(\\) should return array but returns array\\|bool\\|float\\|int\\|string\\.$#"
-			count: 1
-			path: src/MusicBrainz/HttpAdapters/GuzzleHttpAdapter.php
-
-		-
-			message: "#^Parameter \\#3 \\$scheme of method Guzzle\\\\Http\\\\Message\\\\RequestInterface\\:\\:setAuth\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: src/MusicBrainz/HttpAdapters/GuzzleHttpAdapter.php
-
-		-
-			message: "#^Property MusicBrainz\\\\HttpAdapters\\\\AbstractHttpAdapter\\:\\:\\$endpoint \\(string\\) does not accept null\\.$#"
-			count: 1
-			path: src/MusicBrainz/HttpAdapters/GuzzleHttpAdapter.php
-
-		-
-			message: "#^Call to static method get\\(\\) on an unknown class Requests\\.$#"
-			count: 1
-			path: src/MusicBrainz/HttpAdapters/RequestsHttpAdapter.php
-
-		-
 			message: "#^Method MusicBrainz\\\\HttpAdapters\\\\RequestsHttpAdapter\\:\\:call\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/HttpAdapters/RequestsHttpAdapter.php
@@ -261,27 +201,17 @@ parameters:
 			path: src/MusicBrainz/HttpAdapters/RequestsHttpAdapter.php
 
 		-
-			message: "#^Property MusicBrainz\\\\HttpAdapters\\\\AbstractHttpAdapter\\:\\:\\$endpoint \\(string\\) does not accept null\\.$#"
-			count: 1
-			path: src/MusicBrainz/HttpAdapters/RequestsHttpAdapter.php
-
-		-
-			message: "#^Access to an undefined property MusicBrainz\\\\Label\\:\\:\\$brainz\\.$#"
-			count: 1
-			path: src/MusicBrainz/Label.php
-
-		-
-			message: "#^Access to an undefined property MusicBrainz\\\\Label\\:\\:\\$type\\.$#"
-			count: 1
-			path: src/MusicBrainz/Label.php
-
-		-
 			message: "#^Method MusicBrainz\\\\Label\\:\\:__construct\\(\\) has parameter \\$label with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Label.php
 
 		-
 			message: "#^Property MusicBrainz\\\\Label\\:\\:\\$aliases type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Label.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Label\\:\\:\\$brainz is never read, only written\\.$#"
 			count: 1
 			path: src/MusicBrainz/Label.php
 
@@ -296,7 +226,7 @@ parameters:
 			path: src/MusicBrainz/Label.php
 
 		-
-			message: "#^Deprecated in PHP 8\\.0\\: Required parameter \\$includes follows optional parameter \\$offset\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:_isValidEntity\\(\\) has parameter \\$entity with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -466,32 +396,12 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:getHttpOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isAuthRequired\\(\\) has parameter \\$entity with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isAuthRequired\\(\\) has parameter \\$includes with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isValidEntity\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isValidMBID\\(\\) has parameter \\$mbid with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isValidMBID\\(\\) should return int but returns int\\|false\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -511,17 +421,7 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:setPassword\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:setUser\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:setUserAgent\\(\\) has no return type specified\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:setPassword\\(\\) has parameter \\$password with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -566,21 +466,6 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Access to an undefined property MusicBrainz\\\\Recording\\:\\:\\$artistID\\.$#"
-			count: 2
-			path: src/MusicBrainz/Recording.php
-
-		-
-			message: "#^Access to an undefined property MusicBrainz\\\\Recording\\:\\:\\$brainz\\.$#"
-			count: 4
-			path: src/MusicBrainz/Recording.php
-
-		-
-			message: "#^Access to an undefined property MusicBrainz\\\\Recording\\:\\:\\$length\\.$#"
-			count: 4
-			path: src/MusicBrainz/Recording.php
-
-		-
 			message: "#^Method MusicBrainz\\\\Recording\\:\\:__construct\\(\\) has parameter \\$recording with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Recording.php
@@ -606,22 +491,7 @@ parameters:
 			path: src/MusicBrainz/Recording.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: src/MusicBrainz/Recording.php
-
-		-
-			message: "#^Access to an undefined property MusicBrainz\\\\Release\\:\\:\\$brainz\\.$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
 			message: "#^Method MusicBrainz\\\\Release\\:\\:__construct\\(\\) has parameter \\$release with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Release\\:\\:getReleaseDate\\(\\) should return DateTime but returns array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Release.php
 
@@ -631,27 +501,7 @@ parameters:
 			path: src/MusicBrainz/Release.php
 
 		-
-			message: "#^Method MusicBrainz\\\\Release\\:\\:getReleaseEventDates\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Release\\:\\:getReleaseEventDates\\(\\) should return array but returns DateTime\\.$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\)\\: Unexpected token \"\\\\n     \", expected type at offset 15$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
 			message: "#^Property MusicBrainz\\\\Release\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Release\\:\\:\\$releaseDate has no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/Release.php
 
@@ -666,12 +516,12 @@ parameters:
 			path: src/MusicBrainz/ReleaseGroup.php
 
 		-
-			message: "#^Access to an undefined property MusicBrainz\\\\Tag\\:\\:\\$brainz\\.$#"
+			message: "#^Method MusicBrainz\\\\Tag\\:\\:__construct\\(\\) has parameter \\$tag with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Tag.php
 
 		-
-			message: "#^Method MusicBrainz\\\\Tag\\:\\:__construct\\(\\) has parameter \\$tag with no value type specified in iterable type array\\.$#"
+			message: "#^Property MusicBrainz\\\\Tag\\:\\:\\$brainz is never read, only written\\.$#"
 			count: 1
 			path: src/MusicBrainz/Tag.php
 

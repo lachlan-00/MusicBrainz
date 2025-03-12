@@ -8,18 +8,13 @@ namespace MusicBrainz;
  */
 class Tag
 {
-    /**
-     * @var string
-     */
-    public $name;
-    /**
-     * @var string
-     */
-    public $score;
-    /**
-     * @var array
-     */
-    private $data;
+    public string $name;
+
+    public int $score;
+
+    private array $data;
+
+    private MusicBrainz $brainz;
 
     /**
      * @param array       $tag
@@ -30,7 +25,7 @@ class Tag
         $this->data   = $tag;
         $this->brainz = $brainz;
 
-        $this->name  = isset($tag['name']) ? (string)$tag['name'] : '';
-        $this->score = isset($tag['score']) ? (string)$tag['score'] : '';
+        $this->name  = (string)($tag['name'] ?? '');
+        $this->score = (int)($tag['score'] ?? 0);
     }
 }

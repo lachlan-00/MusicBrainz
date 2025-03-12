@@ -12,7 +12,7 @@ use MusicBrainz\Tag;
  */
 class TagFilter extends AbstractFilter implements FilterInterface
 {
-    protected $validArgTypes = [
+    protected array $validArgTypes = [
         'tag'
     ];
 

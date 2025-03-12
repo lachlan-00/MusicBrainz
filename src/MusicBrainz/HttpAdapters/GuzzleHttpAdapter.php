@@ -10,14 +10,14 @@ use MusicBrainz\Exception;
  */
 class GuzzleHttpAdapter extends AbstractHttpAdapter
 {
-    /**
-     * Initializes the class.
-     */
     public function __construct(
         private readonly ClientInterface $client, // The Guzzle client used to make cURL requests
         ?string $endpoint = null
     ) {
-        if (filter_var($endpoint, FILTER_VALIDATE_URL)) {
+        if (
+            $endpoint !== null &&
+            filter_var($endpoint, FILTER_VALIDATE_URL)
+        ) {
             $this->endpoint = $endpoint;
         }
     }
@@ -25,13 +25,15 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
     /**
      * Perform an HTTP request on MusicBrainz
      *
-     * @param  string  $path
-     * @param  boolean $isAuthRequired
-     * @param  boolean $returnArray disregarded
-     * @throws Exception
+     * @param string $path
+     * @param array $params
+     * @param array $options
+     * @param boolean $isAuthRequired
+     * @param boolean $returnArray disregarded
      * @return array
+     * @throws Exception
      */
-    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false)
+    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false): array
     {
         if ($options['user-agent'] == '') {
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');
@@ -53,7 +55,7 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
 
         if ($isAuthRequired) {
             if ($options['user'] != null && $options['password'] != null) {
-                $request->setAuth($options['user'], $options['password'], CURLAUTH_DIGEST);
+                $request->setAuth($options['user'], $options['password'], 'Digest');
             } else {
                 throw new Exception('Authentication is required');
             }
@@ -64,6 +66,8 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
         // musicbrainz throttle
         sleep(1);
 
-        return $request->send()->json();
+        $result = $request->send()->json();
+
+        return (is_array($result)) ? $result : [];
     }
 }

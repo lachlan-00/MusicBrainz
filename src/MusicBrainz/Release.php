@@ -2,60 +2,40 @@
 
 namespace MusicBrainz;
 
+use DateTime;
+
 /**
  * Represents a MusicBrainz release object
  * @package MusicBrainz
  */
 class Release
 {
-    /**
-     * @var string
-     */
-    public $id;
-    /**
-     * @var string
-     */
-    public $title;
-    /**
-     * @var string
-     */
-    public $status;
-    /**
-     * @var string
-     */
-    public $quality;
-    /**
-     * @var string
-     */
-    public $language;
-    /**
-     * @var string
-     */
-    public $script;
-    /**
-     * @var string
-     */
-    public $date;
-    /**
-     * @var string
-     */
-    public $country;
-    /**
-     * @var string
-     */
-    public $barcode;
-    /**
-     * @var Artist[]
-     */
-    public $artists = [];
-    /**
-     * @var
-     */
-    protected $releaseDate;
-    /**
-     * @var array
-     */
-    private $data;
+    public string $id;
+
+    public string $title;
+
+    public string $status;
+
+    public string $quality;
+
+    public string $language;
+
+    public string $script;
+
+    public string $date;
+
+    public string $country;
+
+    public string $barcode;
+
+    /** @var Artist[] */
+    public array $artists = [];
+
+    private array $data;
+
+    protected MusicBrainz $brainz;
+
+    protected ?DateTime $releaseDate = null;
 
     /**
      * @param array       $release
@@ -77,21 +57,17 @@ class Release
         $this->barcode  = isset($release['barcode']) ? (string)$release['barcode'] : '';
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * Get's the earliest release date
-     * @return \DateTime
+     * Get the earliest release date
      */
-    public function getReleaseDate()
+    public function getReleaseDate(): DateTime
     {
-        if (null != $this->releaseDate) {
+        if ($this->releaseDate !== null) {
             return $this->releaseDate;
         }
 
@@ -99,25 +75,24 @@ class Release
         if (!isset($this->data['date']) && isset($this->data['release-events'])) {
             return $this->getReleaseEventDates($this->data['release-events']);
         } elseif (isset($this->data['date'])) {
-            return new \DateTime($this->data['date']);
+            return new DateTime($this->data['date']);
         }
 
-        return new \DateTime();
+        return new DateTime();
     }
 
     /**
      * @param array $releaseEvents
-     *
-     * @return array
+     * @return DateTime
      */
-    public function getReleaseEventDates(array $releaseEvents)
+    public function getReleaseEventDates(array $releaseEvents): DateTime
     {
 
-        $releaseDate = new \DateTime();
+        $releaseDate = new DateTime();
 
         foreach ($releaseEvents as $releaseEvent) {
             if (isset($releaseEvent['date'])) {
-                $releaseDateTmp = new \DateTime($releaseEvent['date']);
+                $releaseDateTmp = new DateTime($releaseEvent['date']);
 
                 if ($releaseDateTmp < $releaseDate) {
                     $releaseDate = $releaseDateTmp;

@@ -8,104 +8,101 @@ namespace MusicBrainz;
  */
 class Artist
 {
-    /**
-     * @var string
-     */
-    public $id;
-    /**
-     * @var string
-     */
-    public $name;
-    /**
-     * @var MusicBrainz
-     */
-    protected $brainz;
-    /**
-     * @var string
-     */
-    private $type;
-    /**
-     * @var string
-     */
-    private $sortName;
-    /**
-     * @var string
-     */
-    private $gender;
-    /**
-     * @var string
-     */
-    private $country;
-    /**
-     * @var string
-     */
-    private $beginDate;
-    /**
-     * @var string
-     */
-    private $endDate;
-    /**
-     * @var array
-     */
-    private $data;
-    /**
-     * @var array
-     */
-    private $releases;
+    public string $id;
+
+    public string $name;
+
+    private string $type;
+
+    private string $sortName;
+
+    private string $gender;
+
+    private string $country;
+
+    private ?string $beginDate = null;
+
+    private ?string $endDate = null;
+
+    private ?array $releases = null;
+
+    private array $data;
+
+    protected MusicBrainz $brainz;
 
     /**
-     * @param array       $artist
+     * @param array $artist
      * @param MusicBrainz $brainz
      *
      * @throws Exception
      */
     public function __construct(array $artist, MusicBrainz $brainz)
     {
-        if (!isset($artist['id']) || isset($artist['id']) && !$brainz->isValidMBID($artist['id'])) {
+        if (
+            !isset($artist['id']) ||
+            !$brainz->isValidMBID($artist['id'])
+        ) {
             throw new Exception('Can not create artist object. Missing valid MBID');
         }
 
         $this->data   = $artist;
         $this->brainz = $brainz;
 
-        $this->id        = isset($artist['id']) ? (string)$artist['id'] : '';
-        $this->type      = isset($artist['type']) ? (string)$artist['type'] : '';
-        $this->name      = isset($artist['name']) ? (string)$artist['name'] : '';
-        $this->sortName  = isset($artist['sort-name']) ? (string)$artist['sort-name'] : '';
-        $this->gender    = isset($artist['gender']) ? (string)$artist['gender'] : '';
-        $this->country   = isset($artist['country']) ? (string)$artist['country'] : '';
-        $this->beginDate = isset($artist['life-span']['begin']) ? $artist['life-span']['begin'] : null;
-        $this->endDate   = isset($artist['life-span']['ended']) ? $artist['life-span']['ended'] : null;
+        $this->id        = (string)$artist['id'];
+        $this->name      = (string)($artist['name'] ?? '');
+        $this->type      = (string)($artist['type'] ?? '');
+        $this->sortName  = (string)($artist['sort-name'] ?? '');
+        $this->gender    = (string)($artist['gender'] ?? '');
+        $this->country   = (string)($artist['country'] ?? '');
+        $this->beginDate = $artist['life-span']['begin'] ?? null;
+        $this->endDate   = $artist['life-span']['ended'] ?? null;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return int
-     */
-    public function getScore()
-    {
-        return isset($this->data['score']) ? (int)$this->data['score'] : 0;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
+    public function getSortName(): string
+    {
+        return $this->sortName;
+    }
+
+    public function getGender(): string
+    {
+        return $this->gender;
+    }
+
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    public function getBeginDate(): ?string
+    {
+        return $this->beginDate;
+    }
+
+    public function getEndDate(): ?string
+    {
+        return $this->endDate;
+    }
+
+    public function getScore(): int
+    {
+        return (int)($this->data['score'] ?? 0);
+    }
+
     /**
      * @return array
+     * @throws Exception
      */
-    public function getReleases()
+    public function getReleases(): array
     {
         if (null === $this->releases) {
             $this->releases = $this->brainz->browseRelease('artist', $this->getId());
@@ -114,10 +111,7 @@ class Artist
         return $this->releases;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }

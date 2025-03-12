@@ -8,18 +8,11 @@ namespace MusicBrainz;
  */
 class Collection
 {
-    /**
-     * @var string
-     */
-    public $id;
-    /**
-     * @var array
-     */
-    private $data;
-    /**
-     * @var MusicBrainz
-     */
-    private $brainz;
+    public string $id;
+
+    private array $data;
+
+    private MusicBrainz $brainz;
 
     /**
      * @param array       $collection

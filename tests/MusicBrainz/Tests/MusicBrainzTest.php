@@ -2,15 +2,19 @@
 
 namespace MusicBrainz\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Guzzle\Http\ClientInterface;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
+use PHPUnit\Framework\MockObject\Exception;
+use PHPUnit\Framework\TestCase;
 
 class MusicBrainzTest extends TestCase
 {
     protected MusicBrainz $brainz;
 
+    /**
+     * @throws Exception
+     */
     protected function setUp(): void
     {
         $this->brainz = new MusicBrainz(new GuzzleHttpAdapter($this->createMock(ClientInterface::class)));
