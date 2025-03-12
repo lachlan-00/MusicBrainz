@@ -18,10 +18,11 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.49",
-        "guzzle/guzzle": "~3.8.0",
+        "guzzle/guzzle": "^3.8",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^11",
-        "rector/rector": "^1"
+        "rector/rector": "^1",
+        "rmccue/requests": "^2.0"
     },
     "scripts": {
         "qa": "composer run-script cs:check && composer run-script tests",
