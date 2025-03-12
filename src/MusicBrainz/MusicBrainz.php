@@ -558,13 +558,11 @@ class MusicBrainz
     }
 
     /**
-     * @param $mbid
-     *
-     * @return int
+     * @param string $mbid
      */
-    public function isValidMBID($mbid)
+    public function isValidMBID($mbid): bool
     {
-        return preg_match("/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)\})$/i", $mbid);
+        return (bool)preg_match("/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)\})$/i", $mbid);
     }
 
     /**
@@ -589,7 +587,10 @@ class MusicBrainz
      */
     protected function isAuthRequired($entity, $includes)
     {
-        if (in_array('user-tags', $includes) || in_array('user-ratings', $includes)) {
+        if (
+            in_array('user-tags', $includes) ||
+            in_array('user-ratings', $includes)
+        ) {
             return true;
         }
 
