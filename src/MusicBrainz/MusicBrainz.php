@@ -9,11 +9,13 @@ use MusicBrainz\HttpAdapters\AbstractHttpAdapter;
  *
  * http://musicbrainz.org/doc/Development
  *
- * @link http://github.com/mikealmond/musicbrainz
+ * @link http://github.com/lachlan-00/musicbrainz
  * @package MusicBrainz
  */
 class MusicBrainz
 {
+    protected string $version = '0.2.0';
+
     private static array $validIncludes = [
         'artist' => [
             "recordings",
@@ -256,7 +258,7 @@ class MusicBrainz
         "pseudo-release"
     ];
 
-    private string $userAgent = 'MusicBrainz PHP Api/0.2.0';
+    private string $userAgent;
 
     private ?string $user = null; // The username a MusicBrainz user. Used for authentication.
 
@@ -274,13 +276,14 @@ class MusicBrainz
      */
     public function __construct(AbstractHttpAdapter $adapter, $user = null, $password = null)
     {
-        $this->adapter = $adapter;
+        $this->adapter   = $adapter;
+        $this->userAgent = 'MusicBrainz PHP Api/' . $this->version;
 
-        if ($user !== null) {
+        if (!empty($user)) {
             $this->setUser($user);
         }
 
-        if ($password !== null) {
+        if (!empty($password)) {
             $this->setPassword($password);
         }
     }
