@@ -20,7 +20,7 @@
         "friendsofphp/php-cs-fixer": "^3.49",
         "guzzle/guzzle": "~3.8.0",
         "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "3.7.*",
+        "phpunit/phpunit": "^11",
         "rector/rector": "^1"
     },
     "scripts": {
@@ -30,9 +30,6 @@
         "tests": "vendor/bin/phpunit -c phpunit.xml",
         "cs:fix": "vendor/bin/php-cs-fixer fix",
         "cs:check": "vendor/bin/php-cs-fixer fix --dry-run -vv",
-        "post-autoload-dump": [
-            "@php resources/scripts/composer/check_tag_tools.php"
-        ],
         "rector:dry": "rector process -n",
         "rector:fix": "rector process"
     },
