@@ -28,10 +28,10 @@ class RequestsHttpAdapter extends AbstractHttpAdapter
      * @param array $options
      * @param boolean $isAuthRequired
      * @param boolean $returnArray force json_decode to return an array instead of an object
-     * @return array
+     * @return array|object
      * @throws Exception
      */
-    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false): array
+    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false): array|object
     {
         if ($options['user-agent'] == '') {
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');
