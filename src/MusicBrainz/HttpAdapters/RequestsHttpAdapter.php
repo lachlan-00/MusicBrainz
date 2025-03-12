@@ -3,7 +3,7 @@
 namespace MusicBrainz\HttpAdapters;
 
 use MusicBrainz\Exception;
-use Requests;
+use WpOrg\Requests\Requests;
 
 /**
  * Requests HTTP Client Adapter
