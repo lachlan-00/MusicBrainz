@@ -298,9 +298,9 @@ class MusicBrainz
      * @param array  $includes
      *
      * @throws Exception
-     * @return object
+     * @return array
      */
-    public function lookup($entity, $mbid, array $includes = []): object
+    public function lookup($entity, $mbid, array $includes = []): array
     {
         if (!$this->_isValidEntity($entity)) {
             throw new Exception('Invalid entity');
@@ -328,7 +328,7 @@ class MusicBrainz
      * @param array                   $releaseType
      * @param array                   $releaseStatus
      *
-     * @return object
+     * @return array
      * @throws Exception
      */
     protected function browse(
@@ -340,7 +340,7 @@ class MusicBrainz
         $offset = null,
         $releaseType = [],
         $releaseStatus = []
-    ): object {
+    ) {
         if (!$this->isValidMBID($mbid)) {
             throw new Exception('Invalid Music Brainz ID');
         }
