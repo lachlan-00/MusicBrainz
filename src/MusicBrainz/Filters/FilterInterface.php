@@ -21,7 +21,7 @@ interface FilterInterface
     public function createParameters(array $params = []);
 
     /**
-     * @return mixed An array of the Filter's Music Brainz entity objects
+     * @return array An array of the Filter's Music Brainz entity objects
      */
     public function parseResponse(array $response, MusicBrainz $brainz);
 }
