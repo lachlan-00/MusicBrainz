@@ -1,4 +1,6 @@
 /.idea
+/build
 /tests/MusicBrainz/Coverage/
 /vendor/
 composer.lock
+.php-cs-fixer.cache
