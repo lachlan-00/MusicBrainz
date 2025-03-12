@@ -2,6 +2,8 @@
 
 namespace MusicBrainz;
 
+use OutOfBoundsException;
+
 /**
  * Class Country
  * @package MusicBrainz
@@ -10,6 +12,7 @@ class Country
 {
     /**
      * https://musicbrainz.org/doc/Release/Country
+     * @var array<string, string> $countries
      */
     private static array $countries = [
         'AF' => 'Afghanistan',
@@ -278,14 +281,13 @@ class Country
      * @static
      *
      * @param string $countryCode
-     *
-     * @throws \OutOfBoundsException
-     * @return bool
+     * @return string
+     * @throws OutOfBoundsException
      */
-    public static function getName($countryCode): bool
+    public static function getName(string $countryCode): string
     {
         if (!isset(self::$countries[$countryCode])) {
-            throw new \OutOfBoundsException(
+            throw new OutOfBoundsException(
                 sprintf(
                     "Could not find corresponding country name for the country code %s",
                     $countryCode

@@ -22,7 +22,7 @@ class ReleaseGroup
     private array $releases = [];
 
     /**
-     * @param array       $releaseGroup
+     * @param array $releaseGroup
      * @param MusicBrainz $brainz
      */
     public function __construct(array $releaseGroup, MusicBrainz $brainz)

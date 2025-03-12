@@ -26,7 +26,7 @@ class Label
     private MusicBrainz $brainz;
 
     /**
-     * @param array       $label
+     * @param array $label
      * @param MusicBrainz $brainz
      */
     public function __construct(array $label, MusicBrainz $brainz)

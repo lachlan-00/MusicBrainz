@@ -16,10 +16,7 @@ class TagFilter extends AbstractFilter implements FilterInterface
         'tag'
     ];
 
-    /**
-     * @return string
-     */
-    public function getEntity()
+    public function getEntity(): string
     {
         return 'tag';
     }
@@ -27,7 +24,7 @@ class TagFilter extends AbstractFilter implements FilterInterface
     /**
      * @return Tag[]
      */
-    public function parseResponse(array $response, MusicBrainz $brainz)
+    public function parseResponse(array $response, MusicBrainz $brainz): array
     {
         $tags = [];
         foreach ($response['tags'] as $tag) {

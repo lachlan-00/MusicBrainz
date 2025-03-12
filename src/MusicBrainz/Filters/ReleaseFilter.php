@@ -45,18 +45,17 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         'type'
     ];
 
-    /**
-     * @return string
-     */
-    public function getEntity()
+    public function getEntity(): string
     {
         return 'release';
     }
 
     /**
+     * @param array $response
+     * @param MusicBrainz $brainz
      * @return array
      */
-    public function parseResponse(array $response, MusicBrainz $brainz)
+    public function parseResponse(array $response, MusicBrainz $brainz): array
     {
         $releases = [];
         if (isset($response['release'])) {

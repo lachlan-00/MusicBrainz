@@ -38,7 +38,7 @@ class Release
     protected ?DateTime $releaseDate = null;
 
     /**
-     * @param array       $release
+     * @param array $release
      * @param MusicBrainz $brainz
      */
     public function __construct(array $release, MusicBrainz $brainz)

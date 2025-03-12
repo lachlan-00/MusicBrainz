@@ -10,18 +10,12 @@ use MusicBrainz\MusicBrainz;
  */
 interface FilterInterface
 {
-    /**
-     * @return string
-     */
-    public function getEntity();
+    public function getEntity(): string;
+
+    public function createParameters(array $params = []): array;
 
     /**
-     * @return array
+     * Return an array of the Filter's Music Brainz entity objects
      */
-    public function createParameters(array $params = []);
-
-    /**
-     * @return mixed An array of the Filter's Music Brainz entity objects
-     */
-    public function parseResponse(array $response, MusicBrainz $brainz);
+    public function parseResponse(array $response, MusicBrainz $brainz): array;
 }

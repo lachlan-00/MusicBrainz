@@ -29,10 +29,7 @@ class LabelFilter extends AbstractFilter implements FilterInterface
         'type'
     ];
 
-    /**
-     * @return string
-     */
-    public function getEntity()
+    public function getEntity(): string
     {
         return 'label';
     }
@@ -40,7 +37,7 @@ class LabelFilter extends AbstractFilter implements FilterInterface
     /**
      * @return Label[]
      */
-    public function parseResponse(array $response, MusicBrainz $brainz)
+    public function parseResponse(array $response, MusicBrainz $brainz): array
     {
         $labels = [];
 

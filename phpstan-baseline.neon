@@ -41,11 +41,6 @@ parameters:
 			path: src/MusicBrainz/Collection.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Country\\:\\:\\$countries type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Country.php
-
-		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:__construct\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/AbstractFilter.php
@@ -92,6 +87,11 @@ parameters:
 
 		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\FilterInterface\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/FilterInterface.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\FilterInterface\\:\\:parseResponse\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/FilterInterface.php
 
@@ -226,22 +226,7 @@ parameters:
 			path: src/MusicBrainz/Label.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:_isValidEntity\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browse\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browse\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browse\\(\\) has parameter \\$mbid with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -261,17 +246,7 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseArtist\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseArtist\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseArtist\\(\\) has parameter \\$mbid with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -281,17 +256,7 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseLabel\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseLabel\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseLabel\\(\\) has parameter \\$mbid with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -301,17 +266,7 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseRecording\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseRecording\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseRecording\\(\\) has parameter \\$mbid with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -321,17 +276,7 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseRelease\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseRelease\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseRelease\\(\\) has parameter \\$mbid with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -351,17 +296,7 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseReleaseGroup\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseReleaseGroup\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseReleaseGroup\\(\\) has parameter \\$mbid with no type specified\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -396,12 +331,7 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isAuthRequired\\(\\) has parameter \\$entity with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isAuthRequired\\(\\) has parameter \\$includes with no type specified\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isAuthRequired\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -421,27 +351,22 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:setPassword\\(\\) has parameter \\$password with no type specified\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateFilter\\(\\) has parameter \\$valid with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateFilter\\(\\) has parameter \\$valid with no type specified\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateFilter\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateFilter\\(\\) has parameter \\$values with no type specified\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateInclude\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateInclude\\(\\) has parameter \\$includes with no type specified\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateInclude\\(\\) has parameter \\$validIncludes with no type specified\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateInclude\\(\\) has parameter \\$validIncludes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 

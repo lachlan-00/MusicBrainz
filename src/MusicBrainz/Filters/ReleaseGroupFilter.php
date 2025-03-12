@@ -32,19 +32,16 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'type'
     ];
 
-    /**
-     * @return string
-     */
-    public function getEntity()
+    public function getEntity(): string
     {
         return 'release-group';
     }
 
     /**
-     * @throws Exception
      * @return ReleaseGroup[]
+     * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz)
+    public function parseResponse(array $response, MusicBrainz $brainz): array
     {
 
         if (!isset($response['release-groups'])) {

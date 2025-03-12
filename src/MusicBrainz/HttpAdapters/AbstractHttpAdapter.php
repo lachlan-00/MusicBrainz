@@ -10,14 +10,14 @@ abstract class AbstractHttpAdapter
     /**
      * @var string
      */
-    public $endpoint = 'http://musicbrainz.org/ws/2';
+    public $endpoint = 'https://musicbrainz.org/ws/2';
 
     /**
      * Perform an HTTP request on MusicBrainz
      *
-     * @param  string  $path
-     * @param  boolean $isAuthRequired
-     * @param  boolean $returnArray
+     * @param string $path
+     * @param boolean $isAuthRequired
+     * @param boolean $returnArray
      *
      * @return array
      */

@@ -44,19 +44,18 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
         'type'
     ];
 
-    /**
-     * @return string
-     */
-    public function getEntity()
+    public function getEntity(): string
     {
         return 'recording';
     }
 
     /**
-     * @throws Exception
+     * @param array $response
+     * @param MusicBrainz $brainz
      * @return array
+     * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz)
+    public function parseResponse(array $response, MusicBrainz $brainz): array
     {
         $recordings = [];
 

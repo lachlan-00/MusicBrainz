@@ -15,7 +15,7 @@ class Collection
     private MusicBrainz $brainz;
 
     /**
-     * @param array       $collection
+     * @param array $collection
      * @param MusicBrainz $brainz
      */
     public function __construct(array $collection, MusicBrainz $brainz)

@@ -17,7 +17,7 @@ class Tag
     private MusicBrainz $brainz;
 
     /**
-     * @param array       $tag
+     * @param array $tag
      * @param MusicBrainz $brainz
      */
     public function __construct(array $tag, MusicBrainz $brainz)

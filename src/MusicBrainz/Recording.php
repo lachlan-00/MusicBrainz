@@ -26,7 +26,7 @@ class Recording
     protected MusicBrainz $brainz;
 
     /**
-     * @param array       $recording
+     * @param array $recording
      * @param MusicBrainz $brainz
      */
     public function __construct(array $recording, MusicBrainz $brainz)
@@ -64,8 +64,8 @@ class Recording
     }
 
     /**
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     public function getReleaseDates(): array
     {

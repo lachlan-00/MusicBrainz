@@ -3,6 +3,7 @@
 namespace MusicBrainz\Filters;
 
 use MusicBrainz\Artist;
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
@@ -29,18 +30,16 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
         'type'
     ];
 
-    /**
-     * @return string
-     */
-    public function getEntity()
+    public function getEntity(): string
     {
         return 'artist';
     }
 
     /**
      * @return Artist[]
+     * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz)
+    public function parseResponse(array $response, MusicBrainz $brainz): array
     {
         $artists = [];
         if (isset($response['artist'])) {
