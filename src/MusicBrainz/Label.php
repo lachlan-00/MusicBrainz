@@ -52,6 +52,6 @@ class Label
         $this->sortName = isset($label['sort-name']) ? (string)$label['sort-name'] : '';
         $this->name     = isset($label['name']) ? (string)$label['name'] : '';
         $this->country  = isset($label['country']) ? (string)$label['country'] : '';
-        $this->aliases  = isset($label['aliases']) ? $label['aliases'] : array();
+        $this->aliases  = isset($label['aliases']) ? $label['aliases'] : [];
     }
 }

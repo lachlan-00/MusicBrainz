@@ -10,7 +10,6 @@ use Requests;
  */
 class RequestsHttpAdapter extends AbstractHttpAdapter
 {
-
     /**
      * Initializes the class.
      *
@@ -35,7 +34,7 @@ class RequestsHttpAdapter extends AbstractHttpAdapter
      * @throws \MusicBrainz\Exception
      * @return array
      */
-    public function call($path, array $params = array(), array $options = array(), $isAuthRequired = false, $returnArray = false)
+    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false)
     {
         if ($options['user-agent'] == '') {
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');
@@ -49,15 +48,15 @@ class RequestsHttpAdapter extends AbstractHttpAdapter
             $url .= $name . '=' . $value;
         }
 
-        $headers = array(
-            'Accept'     => 'application/json',
+        $headers = [
+            'Accept' => 'application/json',
             'User-Agent' => $options['user-agent']
-        );
+        ];
 
-        $requestOptions = array();
+        $requestOptions = [];
         if ($isAuthRequired) {
             if ($options['user'] != null && $options['password'] != null) {
-                $requestOptions['auth'] = array($options['user'], $options['password']);
+                $requestOptions['auth'] = [$options['user'], $options['password']];
             } else {
                 throw new Exception('Authentication is required');
             }

@@ -13,7 +13,7 @@ use MusicBrainz\ReleaseGroup;
  */
 class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 {
-    protected $validArgTypes = array(
+    protected $validArgTypes = [
         'arid',
         'artist',
         'artistname',
@@ -30,7 +30,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'status',
         'tag',
         'type'
-    );
+    ];
 
     /**
      * @return string
@@ -54,7 +54,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
             throw new Exception('No release groups found');
         }
 
-        $releaseGroups = array();
+        $releaseGroups = [];
         foreach ($response['release-groups'] as $releaseGroup) {
             $releaseGroups[] = new ReleaseGroup($releaseGroup, $brainz);
         }

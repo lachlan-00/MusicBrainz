@@ -23,7 +23,7 @@ class ReleaseGroup
     /**
      * @var Release[]
      */
-    private $releases = array();
+    private $releases = [];
 
     /**
      * @param array       $releaseGroup

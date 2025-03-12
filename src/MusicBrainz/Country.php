@@ -11,9 +11,9 @@ class Country
     /**
      * @todo Populate rest of the countries
      */
-    private static $countries = array(
+    private static $countries = [
         'GB' => 'Great Britain',
-    );
+    ];
 
     /**
      * Get the country name for a MusicBrainz country code

@@ -19,13 +19,13 @@ abstract class AbstractFilter
     /**
      * @var array
      */
-    protected $validArgs = array();
+    protected $validArgs = [];
     /**
      * @var array
      */
-    protected $protectedArgs = array(
+    protected $protectedArgs = [
         'arid','reid','rgid','tid'
-    );
+    ];
 
     /**
      * @param array $args
@@ -44,9 +44,9 @@ abstract class AbstractFilter
      *
      * @return array
      */
-    public function createParameters(array $params = array())
+    public function createParameters(array $params = [])
     {
-        $params = array('query' => '') + $params;
+        $params = ['query' => ''] + $params;
 
         if (empty($this->validArgs) || $params['query'] != '') {
             return $params;

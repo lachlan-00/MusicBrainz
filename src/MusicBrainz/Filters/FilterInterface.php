@@ -20,7 +20,7 @@ interface FilterInterface
      *
      * @return array
      */
-    public function createParameters(array $params = array());
+    public function createParameters(array $params = []);
 
     /**
      * @param array       $response

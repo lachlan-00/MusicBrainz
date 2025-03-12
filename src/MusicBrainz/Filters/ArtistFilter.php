@@ -15,7 +15,7 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
     /**
      * @var array
      */
-    protected $validArgTypes = array(
+    protected $validArgTypes = [
         'arid',
         'artist',
         'artistaccent',
@@ -30,7 +30,7 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
         'sortname',
         'tag',
         'type'
-    );
+    ];
 
     /**
      * @return string
@@ -48,7 +48,7 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
      */
     public function parseResponse(array $response, MusicBrainz $brainz)
     {
-        $artists = array();
+        $artists = [];
         if (isset($response['artist'])) {
             foreach ($response['artist'] as $artist) {
                 $artists[] = new Artist($artist, $brainz);

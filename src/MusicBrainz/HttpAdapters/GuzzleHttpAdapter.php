@@ -44,7 +44,7 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
      * @throws \MusicBrainz\Exception
      * @return array
      */
-    public function call($path, array $params = array(), array $options = array(), $isAuthRequired = false, $returnArray = false)
+    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false)
     {
         if ($options['user-agent'] == '') {
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');
@@ -54,9 +54,9 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
         $this->client->setConfig(
             array_merge(
                 $this->client->getConfig()->toArray(),
-                array(
+                [
                     'data' => $params
-                )
+                ]
             )
         );
 

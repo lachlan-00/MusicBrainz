@@ -122,4 +122,3 @@ class Artist
         return $this->id;
     }
 }
-

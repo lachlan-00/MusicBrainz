@@ -47,7 +47,7 @@ class Release
     /**
      * @var Artist[]
      */
-    public $artists = array();
+    public $artists = [];
     /**
      * @var
      */

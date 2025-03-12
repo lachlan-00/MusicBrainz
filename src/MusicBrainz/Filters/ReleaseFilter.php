@@ -15,7 +15,7 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
     /**
      * @var array
      */
-    protected $validArgTypes = array(
+    protected $validArgTypes = [
         'arid',
         'artist',
         'artistname',
@@ -46,7 +46,7 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         'tracks',
         'tracksmedium',
         'type'
-    );
+    ];
 
     /**
      * @return string
@@ -64,7 +64,7 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
      */
     public function parseResponse(array $response, MusicBrainz $brainz)
     {
-        $releases = array();
+        $releases = [];
         if (isset($response['release'])) {
             foreach ($response['release'] as $release) {
                 $releases[] = new Release($release, $brainz);

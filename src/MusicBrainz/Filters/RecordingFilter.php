@@ -13,7 +13,7 @@ use MusicBrainz\Recording;
  */
 class RecordingFilter extends AbstractFilter implements FilterInterface
 {
-    public $validArgTypes = array(
+    public $validArgTypes = [
         'arid',
         'artist',
         'artistname',
@@ -42,7 +42,7 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
         'tracksrelease',
         'tag',
         'type'
-    );
+    ];
 
     /**
      * @return string
@@ -61,7 +61,7 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
      */
     public function parseResponse(array $response, MusicBrainz $brainz)
     {
-        $recordings = array();
+        $recordings = [];
 
         if (isset($response['recording'])) {
             foreach ($response['recording'] as $recording) {

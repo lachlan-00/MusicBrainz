@@ -26,12 +26,12 @@ class MusicBrainzTest extends \PHPUnit_Framework_TestCase
      */
     public function MBIDProvider()
     {
-        return array(
-            array(true, '4dbf5678-7a31-406a-abbe-232f8ac2cd63'),
-            array(true, '4dbf5678-7a31-406a-abbe-232f8ac2cd63'),
-            array(false, '4dbf5678-7a314-06aabb-e232f-8ac2cd63'), // invalid spacing for UUID's
-            array(false, '4dbf5678-7a31-406a-abbe-232f8az2cd63') // z is an invalid character
-        );
+        return [
+            [true, '4dbf5678-7a31-406a-abbe-232f8ac2cd63'],
+            [true, '4dbf5678-7a31-406a-abbe-232f8ac2cd63'],
+            [false, '4dbf5678-7a314-06aabb-e232f-8ac2cd63'], // invalid spacing for UUID's
+            [false, '4dbf5678-7a31-406a-abbe-232f8az2cd63'] // z is an invalid character
+        ];
     }
 
     /**

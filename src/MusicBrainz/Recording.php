@@ -23,7 +23,7 @@ class Recording
     /**
      * @var Release[]
      */
-    public $releases = array();
+    public $releases = [];
     /**
      * @var array
      */
@@ -82,7 +82,7 @@ class Recording
             throw new Exception('Could not find any releases in the recording');
         }
 
-        $releaseDates = array();
+        $releaseDates = [];
 
         foreach ($this->releases as $release) {
             /** @var Release $release */
@@ -107,12 +107,12 @@ class Recording
      */
     public function getArtist()
     {
-        $includes = array(
+        $includes = [
             'releases',
             'recordings',
             'release-groups',
             'user-ratings'
-        );
+        ];
 
         $artist = $this->brainz->lookup('artist', $this->artistID, $includes);
 
