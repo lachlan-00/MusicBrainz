@@ -4,6 +4,8 @@ This PHP library that allows you to easily access the MusicBrainz Web Service V2
 
 This project is a fork of https://github.com/chrisdawson/MusicBrainz and takes some inspiration from the [Python bindings](https://github.com/alastair/python-musicbrainz-ngs)
 
+As of 2025-03-12 the project has been forked again from https://github.com/mikealmond/MusicBrainz
+
 ## Usage Example
 
 
@@ -18,7 +20,7 @@ This project is a fork of https://github.com/chrisdawson/MusicBrainz and takes s
     require __DIR__ . '/vendor/autoload.php';
 
     $brainz = new MusicBrainz(new GuzzleHttpAdapter(new Client()), 'username', 'password');
-    $brainz->setUserAgent('ApplicationName', '0.2', 'http://example.com');
+    $brainz->setUserAgent('ApplicationName', '0.2', 'https://example.com');
 
     $args = array(
         "recording"  => "Buddy Holly",
