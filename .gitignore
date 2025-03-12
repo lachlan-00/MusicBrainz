@@ -1,3 +1,4 @@
+/.idea
 /tests/MusicBrainz/Coverage/
 /vendor/
 composer.lock
