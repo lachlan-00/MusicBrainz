@@ -53,10 +53,7 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array       $response
-     * @param MusicBrainz $brainz
-     *
-     * @throws \MusicBrainz\Exception
+     * @throws Exception
      * @return array
      */
     public function parseResponse(array $response, MusicBrainz $brainz)
@@ -73,7 +70,7 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
             }
         }
 
-        if (empty($recordings)) {
+        if ($recordings === []) {
             throw new Exception('No search results found');
         }
 

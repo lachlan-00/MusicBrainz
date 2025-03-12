@@ -41,9 +41,6 @@ class LabelFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array       $response
-     * @param MusicBrainz $brainz
-     *
      * @return Label[]
      */
     public function parseResponse(array $response, MusicBrainz $brainz)

@@ -322,7 +322,7 @@ class MusicBrainz
      */
     public function lookup($entity, $mbid, array $includes = [])
     {
-        if (!$this->isValidEntity($entity)) {
+        if (!$this->_isValidEntity($entity)) {
             throw new Exception('Invalid entity');
         }
 
@@ -574,7 +574,7 @@ class MusicBrainz
      *
      * @return bool
      */
-    private function isValidEntity($entity)
+    private function _isValidEntity($entity)
     {
         return array_key_exists($entity, self::$validIncludes);
     }

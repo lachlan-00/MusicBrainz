@@ -25,9 +25,6 @@ class TagFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array       $response
-     * @param MusicBrainz $brainz
-     *
      * @return Tag[]
      */
     public function parseResponse(array $response, MusicBrainz $brainz)

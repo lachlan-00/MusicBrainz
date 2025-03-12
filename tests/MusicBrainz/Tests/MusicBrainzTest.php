@@ -2,23 +2,25 @@
 
 namespace MusicBrainz\Tests;
 
+use PHPUnit_Framework_TestCase;
+use Guzzle\Http\ClientInterface;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 /**
  * @covers MusicBrainz\MusicBrainz
  */
-class MusicBrainzTest extends \PHPUnit_Framework_TestCase
+class MusicBrainzTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \MusicBrainz\MusicBrainz
+     * @var MusicBrainz
      */
     protected $brainz;
 
-    public function setUp()
+    protected function setUp()
     {
         /** @noinspection PhpParamsInspection */
-        $this->brainz = new MusicBrainz(new GuzzleHttpAdapter($this->getMock('\Guzzle\Http\ClientInterface')));
+        $this->brainz = new MusicBrainz(new GuzzleHttpAdapter($this->getMock(ClientInterface::class)));
     }
 
     /**

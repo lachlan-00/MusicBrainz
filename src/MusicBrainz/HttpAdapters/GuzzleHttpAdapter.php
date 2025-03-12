@@ -11,22 +11,12 @@ use MusicBrainz\Exception;
 class GuzzleHttpAdapter extends AbstractHttpAdapter
 {
     /**
-     * The Guzzle client used to make cURL requests
-     *
-     * @var \Guzzle\Http\ClientInterface
-     */
-    private $client;
-
-    /**
      * Initializes the class.
-     *
-     * @param \Guzzle\Http\ClientInterface $client The Guzzle client used to make requests
-     * @param null                         $endpoint Override the default endpoint (useful for local development)
      */
-    public function __construct(ClientInterface $client, $endpoint = null)
-    {
-        $this->client = $client;
-
+    public function __construct(
+        private readonly ClientInterface $client, // The Guzzle client used to make cURL requests
+        ?string $endpoint = null
+    ) {
         if (filter_var($endpoint, FILTER_VALIDATE_URL)) {
             $this->endpoint = $endpoint;
         }
@@ -36,12 +26,9 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
      * Perform an HTTP request on MusicBrainz
      *
      * @param  string  $path
-     * @param  array   $params
-     * @param  array   $options
      * @param  boolean $isAuthRequired
      * @param  boolean $returnArray disregarded
-     *
-     * @throws \MusicBrainz\Exception
+     * @throws Exception
      * @return array
      */
     public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false)

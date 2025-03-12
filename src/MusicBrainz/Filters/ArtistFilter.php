@@ -41,9 +41,6 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array       $response
-     * @param MusicBrainz $brainz
-     *
      * @return Artist[]
      */
     public function parseResponse(array $response, MusicBrainz $brainz)

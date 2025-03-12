@@ -26,12 +26,9 @@ class RequestsHttpAdapter extends AbstractHttpAdapter
      * Perform an HTTP request on MusicBrainz
      *
      * @param  string  $path
-     * @param  array   $params
-     * @param  array   $options
      * @param  boolean $isAuthRequired
      * @param  boolean $returnArray force json_decode to return an array instead of an object
-     *
-     * @throws \MusicBrainz\Exception
+     * @throws Exception
      * @return array
      */
     public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false)
@@ -61,6 +58,7 @@ class RequestsHttpAdapter extends AbstractHttpAdapter
                 throw new Exception('Authentication is required');
             }
         }
+
         $request = Requests::get($url, $headers, $requestOptions);
 
         // musicbrainz throttle

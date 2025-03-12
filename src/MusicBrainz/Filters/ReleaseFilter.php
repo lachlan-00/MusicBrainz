@@ -57,9 +57,6 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array       $response
-     * @param MusicBrainz $brainz
-     *
      * @return array
      */
     public function parseResponse(array $response, MusicBrainz $brainz)

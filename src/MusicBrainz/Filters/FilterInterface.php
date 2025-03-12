@@ -16,16 +16,11 @@ interface FilterInterface
     public function getEntity();
 
     /**
-     * @param array $params
-     *
      * @return array
      */
     public function createParameters(array $params = []);
 
     /**
-     * @param array       $response
-     * @param MusicBrainz $brainz
-     *
      * @return mixed An array of the Filter's Music Brainz entity objects
      */
     public function parseResponse(array $response, MusicBrainz $brainz);

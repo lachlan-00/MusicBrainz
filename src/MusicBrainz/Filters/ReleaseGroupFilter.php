@@ -41,10 +41,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array       $response
-     * @param MusicBrainz $brainz
-     *
-     * @throws \MusicBrainz\Exception
+     * @throws Exception
      * @return ReleaseGroup[]
      */
     public function parseResponse(array $response, MusicBrainz $brainz)
