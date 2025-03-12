@@ -14,11 +14,39 @@
         }
     ],
     "require": {
-        "php": ">=5.3.8"
+        "php": ">=8.2"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.49",
         "guzzle/guzzle": "~3.8.0",
-        "phpunit/phpunit": "3.7.*"
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "3.7.*",
+        "rector/rector": "^1"
+    },
+    "scripts": {
+        "qa": "composer run-script cs:check && composer run-script tests",
+        "stan": "vendor/bin/phpstan analyse",
+        "stan-baseline": "vendor/bin/phpstan --generate-baseline",
+        "tests": "vendor/bin/phpunit -c phpunit.xml",
+        "cs:fix": "vendor/bin/php-cs-fixer fix",
+        "cs:check": "vendor/bin/php-cs-fixer fix --dry-run -vv",
+        "post-autoload-dump": [
+            "@php resources/scripts/composer/check_tag_tools.php"
+        ],
+        "rector:dry": "rector process -n",
+        "rector:fix": "rector process"
+    },
+    "scripts-descriptions": {
+        "coverage": "Generates the code-coverage report into the build/coverage directory",
+        "qa": "Runs several qa-related tests",
+        "stan": "Performs static analysis",
+        "stan-baseline": "Regenerate phpstan baseline",
+        "tests": "Executes the unit tests",
+        "syntax": "Performs php syntax checks",
+        "cs:fix": "Performs code-style corrections on the whole codebase",
+        "cs:check": "Performs a code-style dry-run on the whole codebase",
+        "rector:dry": "Performs rector code-migrations dry-run",
+        "rector:fix": "Applies pending rector code-migrations"
     },
     "suggest": {
         "guzzle/guzzle": "Allows you to use the GuzzleHttpAdapter. You must install one of the supported adapters.",
