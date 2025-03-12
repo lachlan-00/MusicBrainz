@@ -1,15 +1,15 @@
 {
-    "name": "mikealmond/musicbrainz",
+    "name": "lachlan-00/musicbrainz",
     "type": "library",
     "description": "A PHP library for accessing the MusicBrainz API",
     "keywords": ["musicbrainz", "library", "php", "api"],
-    "homepage": "https://github.com/mikealmond/musicbrainz",
+    "homepage": "https://github.com/lachlan-00/MusicBrainz",
     "license": "MIT",
     "authors": [
         {
-            "name": "Mike Almond",
-            "email": "mike.almond@gmail.com",
-            "homepage": "http://mikealmond.com",
+            "name": "Lachlan de Waard",
+            "email": "lachlan.00@gmail.com",
+            "homepage": "https://github.com/lachlan-00",
             "role": "Developer"
         }
     ],
@@ -54,11 +54,6 @@
     "autoload": {
         "psr-0": {
             "MusicBrainz": "src/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.2.x-dev"
         }
     }
 }
