@@ -28,7 +28,7 @@ class MusicBrainzTest extends TestCase
             '4dbf5678-7a314-06aabb-e232f-8ac2cd63' => false, // invalid spacing for UUID's
             '4dbf5678-7a31-406a-abbe-232f8az2cd63' => false, // z is an invalid character
             null => false,
-            '' => false,
+            (int)'44265678713140611225232681023463' => false,
         ];
     }
 
