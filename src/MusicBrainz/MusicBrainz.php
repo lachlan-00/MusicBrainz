@@ -17,7 +17,7 @@ use OutOfBoundsException;
  */
 class MusicBrainz
 {
-    protected string $version = '0.2.0';
+    public const VERSION = '0.3.0';
 
     /** @var array<string, array<string>> $validIncludes */
     private static array $validIncludes = [
@@ -280,7 +280,7 @@ class MusicBrainz
     public function __construct(AbstractHttpAdapter $adapter, ?string $user = null, ?string $password = null)
     {
         $this->adapter   = $adapter;
-        $this->userAgent = 'MusicBrainz PHP Api/' . $this->version;
+        $this->userAgent = 'MusicBrainz PHP Api/' . self::VERSION;
 
         if (!empty($user)) {
             $this->setUser($user);
