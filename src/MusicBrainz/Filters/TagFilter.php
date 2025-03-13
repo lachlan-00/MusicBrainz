@@ -16,7 +16,7 @@ class TagFilter extends AbstractFilter implements FilterInterface
 {
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
-        'tag'
+        'tag',
     ];
 
     public function getEntity(): string

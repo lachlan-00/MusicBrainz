@@ -45,7 +45,7 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         'tag',
         'tracks',
         'tracksmedium',
-        'type'
+        'type',
     ];
 
     public function getEntity(): string

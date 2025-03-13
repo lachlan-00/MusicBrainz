@@ -44,7 +44,7 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
         'tracks',
         'tracksrelease',
         'tag',
-        'type'
+        'type',
     ];
 
     public function getEntity(): string

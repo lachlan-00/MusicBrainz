@@ -68,7 +68,7 @@ class MusicBrainz
             "discids",
             "media",
             "artist-credits",
-            "isrcs", // add missing International Standard Recording Code
+            "isrcs",
             "tags",
             "user-tags",
             "ratings",
@@ -187,7 +187,7 @@ class MusicBrainz
         ],
         'collection' => [
             'releases'
-        ]
+        ],
     ];
 
     /** @var array<string, array<string>> $validBrowseIncludes */
@@ -208,10 +208,10 @@ class MusicBrainz
             "work-rels"
         ],
         'recording' => [
-            "artist", // add missing
-            "collection", // add missing
-            "release", // add missing
-            "work", // add missing
+            "artist",
+            "collection",
+            "release",
+            "work",
             "artist-credits",
             "tags",
             "ratings",
@@ -238,7 +238,7 @@ class MusicBrainz
             "ratings",
             "user-tags",
             "user-ratings"
-        ]
+        ],
     ];
 
     /** @var string[] $validReleaseTypes */
@@ -254,7 +254,7 @@ class MusicBrainz
         "audiobook",
         "live",
         "remix",
-        "other"
+        "other",
     ];
 
     /** @var string[] $validReleaseStatuses */
@@ -262,7 +262,7 @@ class MusicBrainz
         "official",
         "promotion",
         "bootleg",
-        "pseudo-release"
+        "pseudo-release",
     ];
 
     private string $userAgent;

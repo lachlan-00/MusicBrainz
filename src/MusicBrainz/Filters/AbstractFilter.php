@@ -21,7 +21,10 @@ abstract class AbstractFilter
 
     /** @var string[] */
     protected array $protectedArgs = [
-        'arid','reid','rgid','tid'
+        'arid',
+        'reid',
+        'rgid',
+        'tid',
     ];
 
     public function __construct(array $args)
@@ -60,9 +63,8 @@ abstract class AbstractFilter
                 );
             }
 
-            // If the search string contains a space, wrap it in brackets/quotes
-            // This isn't always wanted, but for the searches required in this
-            // library, I'm going to do it.
+            // If the search string contains a space, wrap it in quotes
+            // This isn't always wanted, but for the searches required in this library.
             if (preg_match('/[\+]/', (string)$val)) {
                 $val = '"' . $val . '"';
             }

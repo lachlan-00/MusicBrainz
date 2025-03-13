@@ -30,7 +30,7 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
         'ipi',
         'sortname',
         'tag',
-        'type'
+        'type',
     ];
 
     public function getEntity(): string
