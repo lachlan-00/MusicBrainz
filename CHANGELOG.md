@@ -1,5 +1,13 @@
 # MusicBrainz
 
+## 0.3.2
+
+### Added
+
+* Public function for validity checking `MusicBrainz::isMBID()`
+* Checks for array/object in a few more areas
+* Test more invalid MBID's
+
 ## 0.3.1
 
 ### Fixed
