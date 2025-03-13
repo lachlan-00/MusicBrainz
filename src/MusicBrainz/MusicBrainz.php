@@ -598,8 +598,7 @@ class MusicBrainz
     protected function isAuthRequired(
         string $entity,
         array $includes
-    ): bool
-    {
+    ): bool {
         if (
             in_array('user-tags', $includes) ||
             in_array('user-ratings', $includes)
