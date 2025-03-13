@@ -57,7 +57,10 @@ class RequestsHttpAdapter extends AbstractHttpAdapter
 
         $requestOptions = [];
         if ($isAuthRequired) {
-            if ($options['user'] != null && $options['password'] != null) {
+            if (
+                $options['user'] != null &&
+                $options['password'] != null
+            ) {
                 $requestOptions['auth'] = [$options['user'], $options['password']];
             } else {
                 throw new Exception('Authentication is required');

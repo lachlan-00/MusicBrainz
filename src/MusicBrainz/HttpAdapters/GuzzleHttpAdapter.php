@@ -59,7 +59,10 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
         $request->setHeader('User-Agent', $options['user-agent']);
 
         if ($isAuthRequired) {
-            if ($options['user'] != null && $options['password'] != null) {
+            if (
+                $options['user'] != null &&
+                $options['password'] != null
+            ) {
                 $request->setAuth($options['user'], $options['password'], 'Digest');
             } else {
                 throw new Exception('Authentication is required');

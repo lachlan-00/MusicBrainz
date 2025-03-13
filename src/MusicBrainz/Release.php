@@ -76,7 +76,10 @@ class Release
         }
 
         // If there is no release date set, look through the release events
-        if (!isset($this->data['date']) && isset($this->data['release-events'])) {
+        if (
+            !isset($this->data['date']) &&
+            isset($this->data['release-events'])
+        ) {
             return $this->getReleaseEventDates($this->data['release-events']);
         } elseif (isset($this->data['date'])) {
             return new DateTime($this->data['date']);
