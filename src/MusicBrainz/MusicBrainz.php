@@ -541,7 +541,15 @@ class MusicBrainz
      */
     public function isValidMBID($mbid): bool
     {
-        return (bool)preg_match("/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)\})$/i", $mbid);
+        return self::isMBID((string)$mbid);
+    }
+
+    /**
+     * Public function to check if a string is a valid MusicBrainz ID
+     */
+    public static function isMBID(string $mbid): bool
+    {
+        return (bool)preg_match("/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)})$/i", $mbid);
     }
 
     /**
