@@ -9,7 +9,7 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 
 //Create new MusicBrainz object
 $brainz = new MusicBrainz(new GuzzleHttpAdapter(new Client()));
-$brainz->setUserAgent('ApplicationName', '0.2', 'http://example.com');
+$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'http://example.com');
 
 // set defaults
 $releaseDate    = new DateTime();
