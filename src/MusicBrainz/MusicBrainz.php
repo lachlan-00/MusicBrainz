@@ -300,10 +300,10 @@ class MusicBrainz
      * @param string $mbid Music Brainz ID
      * @param array $includes
      *
-     * @return array
+     * @return array|object
      * @throws Exception
      */
-    public function lookup(string $entity, string $mbid, array $includes = []): array
+    public function lookup(string $entity, string $mbid, array $includes = []): array|object
     {
         if (!$this->_isValidEntity($entity)) {
             throw new Exception('Invalid entity');
