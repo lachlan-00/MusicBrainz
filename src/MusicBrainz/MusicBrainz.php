@@ -19,6 +19,8 @@ class MusicBrainz
 {
     public const VERSION = '0.3.1';
 
+    private const MBID_REGEX = '/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)})$/i';
+
     /** @var array<string, array<string>> $validIncludes */
     private static array $validIncludes = [
         'artist' => [
@@ -552,7 +554,7 @@ class MusicBrainz
      */
     public static function isMBID(string $mbid = ''): bool
     {
-        return (bool)preg_match("/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)})$/i", $mbid);
+        return (bool)preg_match(self::MBID_REGEX, $mbid);
     }
 
     /**
