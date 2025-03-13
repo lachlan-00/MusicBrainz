@@ -32,7 +32,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'secondarytype',
         'status',
         'tag',
-        'type'
+        'type',
     ];
 
     public function getEntity(): string

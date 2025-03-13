@@ -16,7 +16,7 @@ class LabelFilter extends AbstractFilter implements FilterInterface
 {
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
-        'alias', // fix typo
+        'alias',
         'begin',
         'code',
         'comment',
@@ -29,7 +29,7 @@ class LabelFilter extends AbstractFilter implements FilterInterface
         'laid',
         'sortname',
         'tag',
-        'type'
+        'type',
     ];
 
     public function getEntity(): string
