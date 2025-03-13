@@ -279,8 +279,11 @@ class MusicBrainz
      * Initializes the class. You can pass the user’s username and password
      * However, you can modify or add all values later.
      */
-    public function __construct(AbstractHttpAdapter $adapter, ?string $user = null, ?string $password = null)
-    {
+    public function __construct(
+        AbstractHttpAdapter $adapter,
+        ?string $user = null,
+        ?string $password = null
+    ) {
         $this->adapter   = $adapter;
         $this->userAgent = 'MusicBrainz PHP Api/' . self::VERSION;
 
@@ -299,14 +302,17 @@ class MusicBrainz
      * http://musicbrainz.org/doc/XML_Web_Service
      *
      * @param string $entity
-     * @param string $mbid Music Brainz ID
+     * @param string $mbid MusicBrainz ID
      * @param array $includes
      *
      * @return array|object
      * @throws Exception
      */
-    public function lookup(string $entity, string $mbid, array $includes = []): array|object
-    {
+    public function lookup(
+        string $entity,
+        string $mbid,
+        array $includes = []
+    ): array|object {
         if (!$this->_isValidEntity($entity)) {
             throw new Exception('Invalid entity');
         }
@@ -329,7 +335,7 @@ class MusicBrainz
      * @param string $mbid
      * @param array $includes
      * @param int $limit
-     * @param null $offset
+     * @param null|int $offset
      * @param array $releaseType
      * @param array $releaseStatus
      *
@@ -341,10 +347,10 @@ class MusicBrainz
         string $entity,
         string $mbid,
         array $includes,
-        $limit = 25,
-        $offset = null,
-        $releaseType = [],
-        $releaseStatus = []
+        int $limit = 25,
+        ?int $offset = null,
+        array $releaseType = [],
+        array $releaseStatus = []
     ): array {
         if (!$this->isValidMBID($mbid)) {
             throw new Exception('Invalid Music Brainz ID');
@@ -375,13 +381,18 @@ class MusicBrainz
      * @param string $mbid
      * @param array $includes
      * @param int $limit
-     * @param null $offset
+     * @param null|int $offset
      *
      * @return array
      * @throws Exception
      */
-    public function browseArtist($entity, $mbid, array $includes = [], $limit = 25, $offset = null): array
-    {
+    public function browseArtist(
+        string $entity,
+        string $mbid,
+        array $includes = [],
+        int $limit = 25,
+        ?int $offset = null
+    ): array {
         if (!in_array($entity, ['recording', 'release', 'release-group'])) {
             throw new Exception('Invalid browse entity for artist');
         }
@@ -394,13 +405,18 @@ class MusicBrainz
      * @param string $mbid
      * @param array $includes
      * @param int $limit
-     * @param null $offset
+     * @param null|int $offset
      *
      * @return array
      * @throws Exception
      */
-    public function browseLabel($entity, $mbid, array $includes, $limit = 25, $offset = null): array
-    {
+    public function browseLabel(
+        string $entity,
+        string $mbid,
+        array $includes,
+        int $limit = 25,
+        ?int $offset = null
+    ): array {
         if ($entity != 'release') {
             throw new Exception('Invalid browse entity for label');
         }
@@ -413,13 +429,18 @@ class MusicBrainz
      * @param string $mbid
      * @param array $includes
      * @param int $limit
-     * @param null $offset
+     * @param null|int $offset
      *
      * @return array
      * @throws Exception
      */
-    public function browseRecording($entity, $mbid, array $includes = [], $limit = 25, $offset = null): array
-    {
+    public function browseRecording(
+        string $entity,
+        string $mbid,
+        array $includes = [],
+        int $limit = 25,
+        ?int $offset = null
+    ): array {
         if (!in_array($entity, ['artist', 'release'])) {
             throw new Exception('Invalid browse entity for recording');
         }
@@ -432,7 +453,7 @@ class MusicBrainz
      * @param string $mbid
      * @param array $includes
      * @param int $limit
-     * @param null $offset
+     * @param null|int $offset
      * @param array $releaseType
      * @param array $releaseStatus
      *
@@ -468,7 +489,7 @@ class MusicBrainz
      * @param string $entity
      * @param string $mbid
      * @param int $limit
-     * @param null $offset
+     * @param null|int $offset
      * @param array $includes
      * @param array $releaseType
      *
@@ -517,8 +538,12 @@ class MusicBrainz
      * @return array|object
      * @throws Exception
      */
-    public function search(Filters\FilterInterface $filter, $limit = 25, $offset = null, $parseResponse = true): array|object
-    {
+    public function search(
+        Filters\FilterInterface $filter,
+        int $limit = 25,
+        ?int $offset = null,
+        bool $parseResponse = true
+    ): array|object {
         if (count($filter->createParameters()) < 1) {
             throw new Exception('The artist filter object needs at least 1 argument to create a query.');
         }
@@ -573,7 +598,10 @@ class MusicBrainz
      * @param string $entity
      * @param array $includes
      */
-    protected function isAuthRequired($entity, $includes): bool
+    protected function isAuthRequired(
+        $entity,
+        $includes
+    ): bool
     {
         if (
             in_array('user-tags', $includes) ||
@@ -582,7 +610,7 @@ class MusicBrainz
             return true;
         }
 
-        if (substr($entity, 0, strlen('collection')) === 'collection') {
+        if (str_starts_with($entity, 'collection')) {
             return true;
         }
 
@@ -596,8 +624,10 @@ class MusicBrainz
      * @return bool
      * @throws OutOfBoundsException
      */
-    public function validateInclude($includes, $validIncludes): bool
-    {
+    public function validateInclude(
+        array $includes,
+        array $validIncludes
+    ): bool {
         foreach ($includes as $include) {
             if (!in_array($include, $validIncludes)) {
                 throw new OutOfBoundsException(sprintf('%s is not a valid include', $include));
@@ -614,8 +644,10 @@ class MusicBrainz
      * @return bool
      * @throws Exception
      */
-    public function validateFilter($values, $valid): bool
-    {
+    public function validateFilter(
+        array $values,
+        array $valid
+    ): bool {
         foreach ($values as $value) {
             if (!in_array($value, $valid)) {
                 throw new Exception(sprintf('%s is not a valid filter', $value));
@@ -704,8 +736,11 @@ class MusicBrainz
      *
      * @throws Exception
      */
-    public function setUserAgent($application, $version, $contactInfo): void
-    {
+    public function setUserAgent(
+        string $application,
+        string $version,
+        string $contactInfo
+    ): void {
         if (str_contains($version, '-')) {
             throw new Exception('User agent: version should not contain a "-" character.');
         }

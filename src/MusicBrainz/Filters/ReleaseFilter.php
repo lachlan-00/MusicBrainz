@@ -58,8 +58,10 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
      * @param MusicBrainz $brainz
      * @return array
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
         $releases = [];
         if (isset($response['release'])) {
             foreach ($response['release'] as $release) {

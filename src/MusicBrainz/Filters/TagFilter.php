@@ -27,8 +27,10 @@ class TagFilter extends AbstractFilter implements FilterInterface
     /**
      * @return Tag[]
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
         $tags = [];
         foreach ($response['tags'] as $tag) {
             $tags[] = new Tag($tag, $brainz);

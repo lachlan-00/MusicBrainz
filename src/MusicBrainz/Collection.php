@@ -16,12 +16,10 @@ class Collection
 
     private MusicBrainz $brainz;
 
-    /**
-     * @param array $collection
-     * @param MusicBrainz $brainz
-     */
-    public function __construct(array $collection, MusicBrainz $brainz)
-    {
+    public function __construct(
+        array $collection,
+        MusicBrainz $brainz
+    ) {
         $this->data   = $collection;
         $this->brainz = $brainz;
 

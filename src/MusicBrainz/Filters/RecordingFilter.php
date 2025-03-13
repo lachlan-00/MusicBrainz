@@ -58,8 +58,10 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
      * @return array
      * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
         $recordings = [];
 
         if (isset($response['recording'])) {

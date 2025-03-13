@@ -44,8 +44,10 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
      * @return ReleaseGroup[]
      * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
 
         if (!isset($response['release-groups'])) {
             throw new Exception('No release groups found');

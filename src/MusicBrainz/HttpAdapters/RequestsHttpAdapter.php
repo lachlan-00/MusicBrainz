@@ -31,8 +31,13 @@ class RequestsHttpAdapter extends AbstractHttpAdapter
      * @return array|object
      * @throws Exception
      */
-    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false): array|object
-    {
+    public function call(
+        string $path,
+        array $params = [],
+        array $options = [],
+        bool $isAuthRequired = false,
+        bool $returnArray = false
+    ): array|object {
         if ($options['user-agent'] == '') {
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');
         }

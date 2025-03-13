@@ -22,8 +22,10 @@ class Tag
      * @param array $tag
      * @param MusicBrainz $brainz
      */
-    public function __construct(array $tag, MusicBrainz $brainz)
-    {
+    public function __construct(
+        array $tag,
+        MusicBrainz $brainz
+    ) {
         $this->data   = $tag;
         $this->brainz = $brainz;
 

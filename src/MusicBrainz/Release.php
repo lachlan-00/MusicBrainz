@@ -43,8 +43,10 @@ class Release
      * @param array $release
      * @param MusicBrainz $brainz
      */
-    public function __construct(array $release, MusicBrainz $brainz)
-    {
+    public function __construct(
+        array $release,
+        MusicBrainz $brainz
+    ) {
         $this->data   = $release;
         $this->brainz = $brainz;
 

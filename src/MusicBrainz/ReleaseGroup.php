@@ -27,8 +27,10 @@ class ReleaseGroup
      * @param array $releaseGroup
      * @param MusicBrainz $brainz
      */
-    public function __construct(array $releaseGroup, MusicBrainz $brainz)
-    {
+    public function __construct(
+        array $releaseGroup,
+        MusicBrainz $brainz
+    ) {
         $this->data   = $releaseGroup;
         $this->brainz = $brainz;
 

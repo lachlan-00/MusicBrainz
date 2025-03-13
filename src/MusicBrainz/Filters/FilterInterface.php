@@ -15,7 +15,10 @@ interface FilterInterface
     public function createParameters(array $params = []): array;
 
     /**
-     * Return an array of the Filter's Music Brainz entity objects
+     * Return an array of the Filter's MusicBrainz entity objects
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array;
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array;
 }

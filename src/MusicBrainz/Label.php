@@ -27,12 +27,10 @@ class Label
 
     private MusicBrainz $brainz;
 
-    /**
-     * @param array $label
-     * @param MusicBrainz $brainz
-     */
-    public function __construct(array $label, MusicBrainz $brainz)
-    {
+    public function __construct(
+        array $label,
+        MusicBrainz $brainz
+    ) {
         $this->data   = $label;
         $this->brainz = $brainz;
 

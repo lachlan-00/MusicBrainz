@@ -38,8 +38,10 @@ class Artist
      *
      * @throws Exception
      */
-    public function __construct(array $artist, MusicBrainz $brainz)
-    {
+    public function __construct(
+        array $artist,
+        MusicBrainz $brainz
+    ) {
         if (
             !isset($artist['id']) ||
             !$brainz->isValidMBID($artist['id'])
