@@ -19,6 +19,7 @@ class MusicBrainz
 {
     protected string $version = '0.2.0';
 
+    /** @var array<string, array<string>> $validIncludes */
     private static array $validIncludes = [
         'artist' => [
             "recordings",
@@ -189,6 +190,7 @@ class MusicBrainz
         ]
     ];
 
+    /** @var array<string, array<string>> $validBrowseIncludes */
     private static array $validBrowseIncludes = [
         'release' => [
             "artist-credits",
@@ -239,6 +241,7 @@ class MusicBrainz
         ]
     ];
 
+    /** @var string[] $validReleaseTypes */
     private static array $validReleaseTypes = [
         "nat",
         "album",
@@ -254,6 +257,7 @@ class MusicBrainz
         "other"
     ];
 
+    /** @var string[] $validReleaseStatuses */
     private static array $validReleaseStatuses = [
         "official",
         "promotion",

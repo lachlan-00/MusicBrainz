@@ -56,22 +56,12 @@ parameters:
 			path: src/MusicBrainz/Filters/AbstractFilter.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:\\$validArgTypes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/AbstractFilter.php
-
-		-
 			message: "#^Property MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:\\$validArgs type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/AbstractFilter.php
 
 		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\ArtistFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/ArtistFilter.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Filters\\\\ArtistFilter\\:\\:\\$validArgTypes type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/ArtistFilter.php
 
@@ -101,22 +91,12 @@ parameters:
 			path: src/MusicBrainz/Filters/LabelFilter.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Filters\\\\LabelFilter\\:\\:\\$validArgTypes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/LabelFilter.php
-
-		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\RecordingFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/RecordingFilter.php
 
 		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\RecordingFilter\\:\\:parseResponse\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/RecordingFilter.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Filters\\\\RecordingFilter\\:\\:\\$validArgTypes type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/RecordingFilter.php
 
@@ -131,27 +111,12 @@ parameters:
 			path: src/MusicBrainz/Filters/ReleaseFilter.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Filters\\\\ReleaseFilter\\:\\:\\$validArgTypes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/ReleaseFilter.php
-
-		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\ReleaseGroupFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/ReleaseGroupFilter.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Filters\\\\ReleaseGroupFilter\\:\\:\\$validArgTypes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/ReleaseGroupFilter.php
-
-		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\TagFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/TagFilter.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Filters\\\\TagFilter\\:\\:\\$validArgTypes type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/TagFilter.php
 
@@ -367,26 +332,6 @@ parameters:
 
 		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateInclude\\(\\) has parameter \\$validIncludes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Property MusicBrainz\\\\MusicBrainz\\:\\:\\$validBrowseIncludes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Property MusicBrainz\\\\MusicBrainz\\:\\:\\$validIncludes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Property MusicBrainz\\\\MusicBrainz\\:\\:\\$validReleaseStatuses type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Property MusicBrainz\\\\MusicBrainz\\:\\:\\$validReleaseTypes type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 

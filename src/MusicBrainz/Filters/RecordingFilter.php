@@ -15,6 +15,7 @@ use MusicBrainz\Recording;
  */
 class RecordingFilter extends AbstractFilter implements FilterInterface
 {
+    /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
         'artist',

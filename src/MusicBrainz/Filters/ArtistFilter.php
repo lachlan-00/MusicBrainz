@@ -15,6 +15,7 @@ use MusicBrainz\MusicBrainz;
  */
 class ArtistFilter extends AbstractFilter implements FilterInterface
 {
+    /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
         'artist',

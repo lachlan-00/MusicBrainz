@@ -14,6 +14,7 @@ use MusicBrainz\Release;
  */
 class ReleaseFilter extends AbstractFilter implements FilterInterface
 {
+    /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
         'artist',

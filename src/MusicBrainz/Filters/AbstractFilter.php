@@ -14,6 +14,7 @@ namespace MusicBrainz\Filters;
  */
 abstract class AbstractFilter
 {
+    /** @var string[] $validArgTypes */
     protected array $validArgTypes;
 
     protected array $validArgs = [];
@@ -37,6 +38,7 @@ abstract class AbstractFilter
      */
     public function createParameters(array $params = []): array
     {
+        // Replace the query key with an empty string if it exists
         $params = ['query' => ''] + $params;
 
         if (

@@ -14,6 +14,7 @@ use MusicBrainz\MusicBrainz;
  */
 class LabelFilter extends AbstractFilter implements FilterInterface
 {
+    /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'alias', // fix typo
         'begin',

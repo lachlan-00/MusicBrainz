@@ -14,6 +14,7 @@ use MusicBrainz\Tag;
  */
 class TagFilter extends AbstractFilter implements FilterInterface
 {
+    /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'tag'
     ];
