@@ -365,7 +365,7 @@ class MusicBrainz
             'fmt' => 'json'
         ];
 
-        return $this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), $authRequired);
+        return (array)$this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), $authRequired);
     }
 
     /**
@@ -512,10 +512,10 @@ class MusicBrainz
      * @param null|int $offset
      * @param boolean $parseResponse parse the results array or simply return the result
      *
-     * @return array
+     * @return array|object
      * @throws Exception
      */
-    public function search(Filters\FilterInterface $filter, $limit = 25, $offset = null, $parseResponse = true): array
+    public function search(Filters\FilterInterface $filter, $limit = 25, $offset = null, $parseResponse = true): array|object
     {
         if (count($filter->createParameters()) < 1) {
             throw new Exception('The artist filter object needs at least 1 argument to create a query.');
@@ -529,7 +529,10 @@ class MusicBrainz
 
         $response = $this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), false, true);
 
-        if ($parseResponse) {
+        if (
+            $parseResponse &&
+            is_array($response)
+        ) {
             return $filter->parseResponse($response, $this);
         }
 

@@ -105,7 +105,7 @@ class Recording
             'user-ratings'
         ];
 
-        $artist = $this->brainz->lookup('artist', $this->artistID, $includes);
+        $artist = (array)$this->brainz->lookup('artist', $this->artistID, $includes);
 
         return new Artist($artist, $this->brainz);
     }
