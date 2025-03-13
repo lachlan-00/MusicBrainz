@@ -1,5 +1,11 @@
 # MusicBrainz
 
+## 0.3.1
+
+### Fixed
+
+* Fixed typing for `array|object` returns
+
 ## 0.3.0
 
 First fork release updating the code to require PHP8.2 minimum.

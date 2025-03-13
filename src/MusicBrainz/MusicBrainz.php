@@ -17,7 +17,7 @@ use OutOfBoundsException;
  */
 class MusicBrainz
 {
-    public const VERSION = '0.3.0';
+    public const VERSION = '0.3.1';
 
     /** @var array<string, array<string>> $validIncludes */
     private static array $validIncludes = [
@@ -300,10 +300,10 @@ class MusicBrainz
      * @param string $mbid Music Brainz ID
      * @param array $includes
      *
-     * @return array
+     * @return array|object
      * @throws Exception
      */
-    public function lookup(string $entity, string $mbid, array $includes = []): array
+    public function lookup(string $entity, string $mbid, array $includes = []): array|object
     {
         if (!$this->_isValidEntity($entity)) {
             throw new Exception('Invalid entity');
