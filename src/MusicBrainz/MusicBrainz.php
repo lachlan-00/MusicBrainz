@@ -464,10 +464,10 @@ class MusicBrainz
         string $entity,
         string $mbid,
         array $includes = [],
-        $limit = 25,
-        $offset = null,
-        $releaseType = [],
-        $releaseStatus = []
+        int $limit = 25,
+        ?int $offset = null,
+        array $releaseType = [],
+        array $releaseStatus = []
     ): array {
         if (!in_array($entity, ['artist', 'label', 'recording', 'release-group'])) {
             throw new Exception('Invalid browse entity for release');
@@ -499,10 +499,10 @@ class MusicBrainz
     public function browseReleaseGroup(
         string $entity,
         string $mbid,
-        $limit = 25,
-        $offset = null,
+        int $limit = 25,
+        ?int $offset = null,
         array $includes = [],
-        $releaseType = []
+        array $releaseType = []
     ): array {
         if (!in_array($entity, ['artist', 'release'])) {
             throw new Exception('Invalid browse entity for release group');
@@ -594,13 +594,10 @@ class MusicBrainz
 
     /**
      * Some calls require authentication
-     *
-     * @param string $entity
-     * @param array $includes
      */
     protected function isAuthRequired(
-        $entity,
-        $includes
+        string $entity,
+        array $includes
     ): bool
     {
         if (
@@ -670,8 +667,8 @@ class MusicBrainz
      * @throws Exception
      */
     public function getBrowseFilterParams(
-        $entity,
-        $includes,
+        string $entity,
+        array $includes,
         array $releaseType = [],
         array $releaseStatus = []
     ): array {
