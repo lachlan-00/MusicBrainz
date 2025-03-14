@@ -53,9 +53,45 @@ class MusicBrainz
             'user-collections',
             'releases',
         ],
+        'discid' => [
+            "artist-credits",
+            "artist-rels",
+            "artists",
+            "discids",
+            "echoprints",
+            "isrcs",
+            "label-rels",
+            "labels",
+            "media",
+            "puids",
+            "recording-level-rels",
+            "recording-rels",
+            "recordings",
+            "release-group-rels",
+            "release-groups",
+            "release-rels",
+            "url-rels",
+            "work-level-rels",
+            "work-rels",
+        ], // TODO discid MusicBrainz\Entities\Discid
+        'echoprint' => [
+            "artists",
+            "releases",
+        ], // TODO echoprint MusicBrainz\Entities\Echoprint
         'event' => [], // TODO event MusicBrainz\Entities\Event
         'genre' => [],
         'instrument' => [], // TODO instrument MusicBrainz\Entities\Instrument
+        'isrc' => [
+            "artists",
+            "echoprints",
+            "isrcs",
+            "puids",
+            "releases",
+        ], // TODO isrc MusicBrainz\Entities\Isrc
+        'iswc' => [
+            "artists",
+            "collection", // add missing entity collection
+        ], // TODO iswc MusicBrainz\Entities\Iswc
         'label' => [
             "aliases",
             "annotation",
@@ -75,6 +111,13 @@ class MusicBrainz
             "work-rels",
         ],
         'place' => [], // TODO place MusicBrainz\Entities\Place
+        'puid' => [
+            "artists",
+            "echoprints",
+            "isrcs",
+            "puids",
+            "releases",
+        ], // TODO puid MusicBrainz\Entities\Puid
         'recording' => [
             "aliases",
             "annotation",
@@ -146,6 +189,7 @@ class MusicBrainz
             "work-rels",
         ],
         'series' => [], // TODO series MusicBrainz\Entities\Series
+        'url' => [], // TODO url MusicBrainz\Entities\Url
         'work' => [
             "aliases",
             "annotation",
@@ -162,50 +206,6 @@ class MusicBrainz
             "user-tags",
             "work-rels",
         ], // TODO work MusicBrainz\Entities\Work
-        'url' => [], // TODO url MusicBrainz\Entities\Url
-        'discid' => [
-            "artist-credits",
-            "artist-rels",
-            "artists",
-            "discids",
-            "echoprints",
-            "isrcs",
-            "label-rels",
-            "labels",
-            "media",
-            "puids",
-            "recording-level-rels",
-            "recording-rels",
-            "recordings",
-            "release-group-rels",
-            "release-groups",
-            "release-rels",
-            "url-rels",
-            "work-level-rels",
-            "work-rels",
-        ], // TODO discid MusicBrainz\Entities\Discid
-        'echoprint' => [
-            "artists",
-            "releases",
-        ], // TODO echoprint MusicBrainz\Entities\Echoprint
-        'puid' => [
-            "artists",
-            "echoprints",
-            "isrcs",
-            "puids",
-            "releases",
-        ], // TODO puid MusicBrainz\Entities\Puid
-        'isrc' => [
-            "artists",
-            "echoprints",
-            "isrcs",
-            "puids",
-            "releases",
-        ], // TODO isrc MusicBrainz\Entities\Isrc
-        'iswc' => [
-            "artists",
-            "collection", // add missing entity collection
-        ], // TODO iswc MusicBrainz\Entities\Iswc
     ];
 
     /**
@@ -285,11 +285,11 @@ class MusicBrainz
             "user-ratings",
         ],
         'series' => ["collection"],
+        'url' => ["resource"],
         'work' => [
             "artist",
             "collection",
         ],
-        'url' => ["resource"],
     ];
 
     /** @var string[] $validReleaseTypes */
