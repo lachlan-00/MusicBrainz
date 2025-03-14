@@ -192,8 +192,41 @@ class MusicBrainz
         ],
     ];
 
-    /** @var array<string, array<string>> $validBrowseIncludes */
+    /**
+     * https://musicbrainz.org/doc/MusicBrainz_API#Linked_entities
+     * @var array<string, array<string>> $validBrowseIncludes
+     */
     private static array $validBrowseIncludes = [
+        // TODO area
+        'artist' => [
+            "aliases",
+            "tags",
+            "ratings",
+            "user-tags",
+            "user-ratings"
+        ],
+        // TODO collection
+        // TODO event
+        // TODO instrument
+        'label' => [
+            "aliases",
+            "tags",
+            "ratings",
+            "user-tags",
+            "user-ratings"
+        ],
+        // TODO place
+        'recording' => [
+            "artist",
+            "collection",
+            "release",
+            "work",
+            "artist-credits",
+            "tags",
+            "ratings",
+            "user-tags",
+            "user-ratings"
+        ],
         'release' => [
             "artist-credits",
             "labels",
@@ -209,31 +242,6 @@ class MusicBrainz
             "url-rels",
             "work-rels"
         ],
-        'recording' => [
-            "artist",
-            "collection",
-            "release",
-            "work",
-            "artist-credits",
-            "tags",
-            "ratings",
-            "user-tags",
-            "user-ratings"
-        ],
-        'label' => [
-            "aliases",
-            "tags",
-            "ratings",
-            "user-tags",
-            "user-ratings"
-        ],
-        'artist' => [
-            "aliases",
-            "tags",
-            "ratings",
-            "user-tags",
-            "user-ratings"
-        ],
         'release-group' => [
             "artist-credits",
             "tags",
@@ -241,6 +249,9 @@ class MusicBrainz
             "user-tags",
             "user-ratings"
         ],
+        // TODO series
+        // TODO work
+        // TODO url
     ];
 
     /** @var string[] $validReleaseTypes */
@@ -566,12 +577,9 @@ class MusicBrainz
         return $response;
     }
 
-    /**
-     * @param string $mbid
-     */
-    public function isValidMBID($mbid): bool
+    public function isValidMBID(?string $mbid): bool
     {
-        return self::isMBID((string)$mbid);
+        return self::isMBID($mbid);
     }
 
     /**
@@ -584,10 +592,8 @@ class MusicBrainz
 
     /**
      * Check the list of allowed entities
-     *
-     * @param string $entity
      */
-    private function _isValidEntity($entity): bool
+    private function _isValidEntity(string $entity): bool
     {
         return array_key_exists($entity, self::$validIncludes);
     }
