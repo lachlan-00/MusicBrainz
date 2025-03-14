@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
 
 use DateTime;
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz release object
  * @package MusicBrainz
  */
-class Release
+class Release implements EntityInterface
 {
     public string $id;
 

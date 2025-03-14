@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Entities\ReleaseGroup;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\ReleaseGroup;
 
 /**
  * This is the release group filter and it contains

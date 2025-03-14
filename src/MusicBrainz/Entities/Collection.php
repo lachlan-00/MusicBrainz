@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
+
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz collection object
  * @package MusicBrainz
  */
-class Collection
+class Collection implements EntityInterface
 {
     public string $id;
 
@@ -24,5 +26,10 @@ class Collection
         $this->brainz = $brainz;
 
         $this->id = isset($collection['id']) ? (string)$collection['id'] : '';
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 }

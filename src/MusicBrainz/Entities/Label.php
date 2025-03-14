@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
+
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz label object
  */
-class Label
+class Label implements EntityInterface
 {
     public string $id;
 
@@ -41,5 +43,10 @@ class Label
         $this->name     = (string)($label['name'] ?? '');
         $this->country  = (string)($label['country'] ?? '');
         $this->aliases  = $label['aliases'] ?? [];
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 }

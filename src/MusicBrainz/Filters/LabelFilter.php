@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
-use MusicBrainz\Label;
+use MusicBrainz\Entities\Label;
 use MusicBrainz\MusicBrainz;
 
 /**

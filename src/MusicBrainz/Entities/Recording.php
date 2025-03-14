@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
+
+use MusicBrainz\Exception;
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz Recording object
  * @package MusicBrainz
  */
-class Recording
+class Recording implements EntityInterface
 {
     public string $id;
 

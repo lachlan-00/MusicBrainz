@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
-use MusicBrainz\Artist;
+use MusicBrainz\Entities\Artist;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 

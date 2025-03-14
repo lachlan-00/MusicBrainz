@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
+
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz release group
  *
  */
-class ReleaseGroup
+class ReleaseGroup implements EntityInterface
 {
     public string $id;
 

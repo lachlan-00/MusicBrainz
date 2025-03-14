@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Entities\Recording;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Recording;
 
 /**
  * This is the recording filter and it contains

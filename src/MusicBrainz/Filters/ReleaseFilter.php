@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Entities\Release;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Release;
 
 /**
  * This is the release filter and it contains
