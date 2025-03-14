@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MusicBrainz\Filters;
 
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Tag;
+use MusicBrainz\Objects\Tag;
 
 /**
  * This is the tag filter and it contains
@@ -33,7 +33,7 @@ class TagFilter extends AbstractFilter implements FilterInterface
     ): array {
         $tags = [];
         foreach ($response['tags'] as $tag) {
-            $tags[] = new Tag($tag, $brainz);
+            $tags[] = new Tag($tag);
         }
 
         return $tags;

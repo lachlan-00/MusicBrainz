@@ -6,7 +6,6 @@ namespace MusicBrainz\Filters;
 
 use MusicBrainz\Entities\Genre;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Tag;
 
 /**
  * This is the tag filter and it contains

@@ -430,23 +430,3 @@ parameters:
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
-		-
-			message: "#^Method MusicBrainz\\\\Tag\\:\\:__construct\\(\\) has parameter \\$tag with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Tag.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Tag\\:\\:\\$brainz is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Tag.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Tag\\:\\:\\$data is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Tag.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Tag\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Tag.php
-
