@@ -65,9 +65,19 @@ class Artist implements EntityInterface
         $this->endDate   = $artist['life-span']['ended'] ?? null;
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
     }
 
     public function getType(): string
@@ -116,10 +126,5 @@ class Artist implements EntityInterface
         }
 
         return $this->releases;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 }

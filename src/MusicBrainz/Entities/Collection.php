@@ -47,4 +47,14 @@ class Collection implements EntityInterface
     {
         return $this->id;
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
+    }
 }

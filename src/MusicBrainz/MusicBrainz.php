@@ -587,7 +587,7 @@ class MusicBrainz
 
     public function isValidMBID(?string $mbid): bool
     {
-        return self::isMBID($mbid);
+        return self::isMBID((string)$mbid);
     }
 
     /**

@@ -97,6 +97,21 @@ class Recording implements EntityInterface
         return $this->id;
     }
 
+    public function getName(): string
+    {
+        return $this->title;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    public function getTitle(): string
+    {
+        return self::getName();
+    }
+
     /**
      * @return Artist
      * @throws Exception
