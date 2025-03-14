@@ -26,10 +26,9 @@ class Tag
         array $tag,
         MusicBrainz $brainz
     ) {
-        $this->data   = $tag;
         $this->brainz = $brainz;
-
-        $this->name  = (string)($tag['name'] ?? '');
-        $this->score = (int)($tag['score'] ?? 0);
+        $this->data   = $tag;
+        $this->name   = (string)($tag['name'] ?? '');
+        $this->score  = (int)($tag['score'] ?? 0);
     }
 }

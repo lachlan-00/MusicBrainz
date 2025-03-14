@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Entities;
 
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz release group
  *
  */
-class ReleaseGroup implements EntityInterface
+class ReleaseGroup extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -28,15 +29,22 @@ class ReleaseGroup implements EntityInterface
     /**
      * @param array $releaseGroup
      * @param MusicBrainz $brainz
+     * @throws Exception
      */
     public function __construct(
         array $releaseGroup,
         MusicBrainz $brainz
     ) {
-        $this->data   = $releaseGroup;
         $this->brainz = $brainz;
+        if (
+            !isset($releaseGroup['id']) ||
+            !$this->hasValidId($releaseGroup['id'])
+        ) {
+            throw new Exception('Can not create release-group object. Missing valid MBID');
+        }
 
-        $this->id    = (string)($releaseGroup['id'] ?? '');
+        $this->data  = $releaseGroup;
+        $this->id    = $releaseGroup['id'];
         $this->title = (string)($releaseGroup['title'] ?? '');
         $this->score = (int)($releaseGroup['score'] ?? 0);
     }

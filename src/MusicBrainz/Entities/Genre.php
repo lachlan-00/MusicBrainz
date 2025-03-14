@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Entities;
 
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz tag object
  * @package MusicBrainz
  */
-class Genre implements EntityInterface
+class Genre extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -23,19 +24,26 @@ class Genre implements EntityInterface
     private MusicBrainz $brainz;
 
     /**
-     * @param array $tag
+     * @param array $genre
      * @param MusicBrainz $brainz
+     * @throws Exception
      */
     public function __construct(
-        array $tag,
+        array $genre,
         MusicBrainz $brainz
     ) {
-        $this->data   = $tag;
         $this->brainz = $brainz;
+        if (
+            !isset($genre['id']) ||
+            !$this->hasValidId($genre['id'])
+        ) {
+            throw new Exception('Can not create genre object. Missing valid MBID');
+        }
 
-        $this->id             = (string)($tag['id'] ?? '');
-        $this->name           = (string)($tag['name'] ?? '');
-        $this->disambiguation = (string)($tag['disambiguation'] ?? '');
+        $this->data           = $genre;
+        $this->id             = $genre['id'];
+        $this->name           = (string)($genre['name'] ?? '');
+        $this->disambiguation = (string)($genre['disambiguation'] ?? '');
 
     }
 

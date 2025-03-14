@@ -51,7 +51,7 @@ parameters:
 			path: src/MusicBrainz/Entities/EntityInterface.php
 
 		-
-			message: "#^Method MusicBrainz\\\\Entities\\\\Genre\\:\\:__construct\\(\\) has parameter \\$tag with no value type specified in iterable type array\\.$#"
+			message: "#^Method MusicBrainz\\\\Entities\\\\Genre\\:\\:__construct\\(\\) has parameter \\$genre with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Entities/Genre.php
 

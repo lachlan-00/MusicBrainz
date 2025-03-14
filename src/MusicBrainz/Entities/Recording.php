@@ -11,7 +11,7 @@ use MusicBrainz\MusicBrainz;
  * Represents a MusicBrainz Recording object
  * @package MusicBrainz
  */
-class Recording implements EntityInterface
+class Recording extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -33,14 +33,21 @@ class Recording implements EntityInterface
     /**
      * @param array $recording
      * @param MusicBrainz $brainz
+     * @throws Exception
      */
     public function __construct(
         array $recording,
         MusicBrainz $brainz
     ) {
-        $this->data   = $recording;
         $this->brainz = $brainz;
+        if (
+            !isset($recording['id']) ||
+            !$this->hasValidId($recording['id'])
+        ) {
+            throw new Exception('Can not create recording object. Missing valid MBID');
+        }
 
+        $this->data     = $recording;
         $this->id       = (string)$recording['id'];
         $this->title    = (string)$recording['title'];
         $this->length   = (int)($recording['length'] ?? 0);

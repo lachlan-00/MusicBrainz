@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Entities;
 
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz label object
  */
-class Label implements EntityInterface
+class Label extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -29,14 +30,25 @@ class Label implements EntityInterface
 
     private MusicBrainz $brainz;
 
+    /**
+     * @param array $label
+     * @param MusicBrainz $brainz
+     * @throws Exception
+     */
     public function __construct(
         array $label,
         MusicBrainz $brainz
     ) {
-        $this->data   = $label;
         $this->brainz = $brainz;
+        if (
+            !isset($label['id']) ||
+            !$this->hasValidId($label['id'])
+        ) {
+            throw new Exception('Can not create label object. Missing valid MBID');
+        }
 
-        $this->id       = (string)($label['id'] ?? '');
+        $this->data     = $label;
+        $this->id       = $label['id'];
         $this->type     = (string)($label['type'] ?? '');
         $this->score    = (int)($label['score'] ?? 0);
         $this->sortName = (string)($label['sort-name'] ?? '');

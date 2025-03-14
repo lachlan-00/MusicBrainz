@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Entities;
 
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz collection object
  * @package MusicBrainz
  */
-class Collection implements EntityInterface
+class Collection extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -28,14 +29,25 @@ class Collection implements EntityInterface
 
     private MusicBrainz $brainz;
 
+    /**
+     * @param array $collection
+     * @param MusicBrainz $brainz
+     * @throws Exception
+     */
     public function __construct(
         array $collection,
         MusicBrainz $brainz
     ) {
-        $this->data   = $collection;
         $this->brainz = $brainz;
+        if (
+            !isset($collection['id']) ||
+            !$this->hasValidId($collection['id'])
+        ) {
+            throw new Exception('Can not create collection object. Missing valid MBID');
+        }
 
-        $this->id          = (string)($collection['id'] ?? '');
+        $this->data        = $collection;
+        $this->id          = $collection['id'];
         $this->name        = (string)($collection['name'] ?? '');
         $this->type        = (string)($collection['type'] ?? '');
         $this->type_id     = (string)($collection['type-id'] ?? '');
