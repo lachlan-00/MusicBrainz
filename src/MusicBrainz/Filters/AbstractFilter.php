@@ -59,13 +59,13 @@ abstract class AbstractFilter
             if (!in_array($key, $this->protectedArgs)) {
                 // Lucene escape characters
                 $val = urlencode(
-                    (string) preg_replace('/(\\(|\\)|\\{|\\}|\\[|\\]|\\^|"|~|\:|\\\\|\/)/', '\\\$1', (string)$val)
+                    (string) preg_replace('/([(){}\[\]^"~:\\/])/', '\\\$1', (string)$val)
                 );
             }
 
             // If the search string contains a space, wrap it in quotes
             // This isn't always wanted, but for the searches required in this library.
-            if (preg_match('/[\+]/', (string)$val)) {
+            if (preg_match('/[+]/', (string)$val)) {
                 $val = '"' . $val . '"';
             }
 

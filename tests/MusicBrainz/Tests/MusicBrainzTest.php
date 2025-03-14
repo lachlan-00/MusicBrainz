@@ -35,7 +35,10 @@ class MusicBrainzTest extends TestCase
     public function testIsValidMBID(): void
     {
         foreach (self::MBIDProvider() as $mbid => $validation) {
-            static::assertEquals($validation, $this->brainz->isValidMBID($mbid));
+            static::assertEquals(
+                $this->brainz->isValidMBID($mbid),
+                $validation
+            );
         }
     }
 }

@@ -7,10 +7,7 @@ namespace MusicBrainz\HttpAdapters;
  */
 abstract class AbstractHttpAdapter
 {
-    /**
-     * @var string
-     */
-    public $endpoint = 'https://musicbrainz.org/ws/2';
+    public string $endpoint = 'https://musicbrainz.org/ws/2';
 
     /**
      * Perform an HTTP request on MusicBrainz
@@ -20,8 +17,6 @@ abstract class AbstractHttpAdapter
      * @param array $options
      * @param boolean $isAuthRequired
      * @param boolean $returnArray
-     *
-     * @return array|object
      */
     abstract public function call(
         string $path,
@@ -29,5 +24,5 @@ abstract class AbstractHttpAdapter
         array $options = [],
         bool $isAuthRequired = false,
         bool $returnArray = false
-    );
+    ): array|object;
 }
