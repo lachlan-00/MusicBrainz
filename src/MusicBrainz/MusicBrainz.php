@@ -205,25 +205,44 @@ class MusicBrainz
      * @var array<string, array<string>> $validBrowseIncludes
      */
     private static array $validBrowseIncludes = [
-        // TODO area
+        'area' => ["collection"],
         'artist' => [
             "aliases",
             "tags",
             "ratings",
             "user-tags",
-            "user-ratings"
+            "user-ratings",
         ],
-        // TODO collection
-        // TODO event
-        // TODO instrument
+        'collection' => [
+            "area",
+            "artist",
+            "editor",
+            "event",
+            "label",
+            "place",
+            "recording",
+            "release",
+            "release-group",
+            "work",
+        ],
+        'event' => [
+            "area",
+            "artist",
+            "collection",
+            "place",
+        ],
+        'instrument' => ["collection"],
         'label' => [
             "aliases",
             "tags",
             "ratings",
             "user-tags",
-            "user-ratings"
+            "user-ratings",
         ],
-        // TODO place
+        'place' => [
+            "area",
+            "collection",
+        ],
         'recording' => [
             "artist",
             "collection",
@@ -233,7 +252,7 @@ class MusicBrainz
             "tags",
             "ratings",
             "user-tags",
-            "user-ratings"
+            "user-ratings",
         ],
         'release' => [
             "artist-credits",
@@ -248,18 +267,21 @@ class MusicBrainz
             "release-rels",
             "release-group-rels",
             "url-rels",
-            "work-rels"
+            "work-rels",
         ],
         'release-group' => [
             "artist-credits",
             "tags",
             "ratings",
             "user-tags",
-            "user-ratings"
+            "user-ratings",
         ],
-        // TODO series
-        // TODO work
-        // TODO url
+        'series' => ["collection"],
+        'work' => [
+            "artist",
+            "collection",
+        ],
+        'url' => ["resource"],
     ];
 
     /** @var string[] $validReleaseTypes */
