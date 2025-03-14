@@ -14,6 +14,16 @@ class Collection implements EntityInterface
 {
     public string $id;
 
+    public string $name;
+
+    public string $type;
+
+    public string $type_id;
+
+    public string $editor;
+
+    public int $event_count;
+
     private array $data;
 
     private MusicBrainz $brainz;
@@ -25,7 +35,12 @@ class Collection implements EntityInterface
         $this->data   = $collection;
         $this->brainz = $brainz;
 
-        $this->id = isset($collection['id']) ? (string)$collection['id'] : '';
+        $this->id          = (string)($collection['id'] ?? '');
+        $this->name        = (string)($collection['name'] ?? '');
+        $this->type        = (string)($collection['type'] ?? '');
+        $this->type_id     = (string)($collection['type-id'] ?? '');
+        $this->editor      = (string)($collection['editor'] ?? '');
+        $this->event_count = (int)($collection['event-count'] ?? 0);
     }
 
     public function getId(): string
