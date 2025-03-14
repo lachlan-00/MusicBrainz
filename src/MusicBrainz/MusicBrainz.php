@@ -23,6 +23,7 @@ class MusicBrainz
 
     /** @var array<string, array<string>> $validIncludes */
     private static array $validIncludes = [
+        'area' => [], // TODO area MusicBrainz\Entities\Area
         'artist' => [
             "aliases",
             "annotation",
@@ -47,7 +48,14 @@ class MusicBrainz
             "work-rels",
             "works",
         ],
-        'annotation' => [],
+        'annotation' => [], // TODO annotation MusicBrainz\Entities\Annotation
+        'collection' => [
+            'user-collections',
+            'releases',
+        ],
+        'event' => [], // TODO event MusicBrainz\Entities\Event
+        'genre' => [],
+        'instrument' => [], // TODO instrument MusicBrainz\Entities\Instrument
         'label' => [
             "aliases",
             "annotation",
@@ -66,6 +74,7 @@ class MusicBrainz
             "user-tags",
             "work-rels",
         ],
+        'place' => [], // TODO place MusicBrainz\Entities\Place
         'recording' => [
             "aliases",
             "annotation",
@@ -136,6 +145,7 @@ class MusicBrainz
             "user-tags",
             "work-rels",
         ],
+        'series' => [], // TODO series MusicBrainz\Entities\Series
         'work' => [
             "aliases",
             "annotation",
@@ -151,7 +161,8 @@ class MusicBrainz
             "user-ratings", // misc
             "user-tags",
             "work-rels",
-        ],
+        ], // TODO work MusicBrainz\Entities\Work
+        'url' => [], // TODO url MusicBrainz\Entities\Url
         'discid' => [
             "artist-credits",
             "artist-rels",
@@ -172,32 +183,29 @@ class MusicBrainz
             "url-rels",
             "work-level-rels",
             "work-rels",
-        ],
+        ], // TODO discid MusicBrainz\Entities\Discid
         'echoprint' => [
             "artists",
             "releases",
-        ],
+        ], // TODO echoprint MusicBrainz\Entities\Echoprint
         'puid' => [
             "artists",
             "echoprints",
             "isrcs",
             "puids",
             "releases",
-        ],
+        ], // TODO puid MusicBrainz\Entities\Puid
         'isrc' => [
             "artists",
             "echoprints",
             "isrcs",
             "puids",
             "releases",
-        ],
+        ], // TODO isrc MusicBrainz\Entities\Isrc
         'iswc' => [
             "artists",
             "collection", // add missing entity collection
-        ],
-        'collection' => [
-            'releases',
-        ],
+        ], // TODO iswc MusicBrainz\Entities\Iswc
     ];
 
     /**
