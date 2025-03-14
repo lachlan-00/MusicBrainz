@@ -53,9 +53,6 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array $response
-     * @param MusicBrainz $brainz
-     * @return array
      * @throws Exception
      */
     public function parseResponse(

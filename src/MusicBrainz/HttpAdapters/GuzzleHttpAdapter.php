@@ -25,12 +25,7 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
     /**
      * Perform an HTTP request on MusicBrainz
      *
-     * @param string $path
-     * @param array $params
-     * @param array $options
-     * @param boolean $isAuthRequired
      * @param boolean $returnArray disregarded
-     * @return array|object
      * @throws Exception
      */
     public function call(

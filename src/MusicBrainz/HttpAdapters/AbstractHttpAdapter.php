@@ -11,12 +11,6 @@ abstract class AbstractHttpAdapter
 
     /**
      * Perform an HTTP request on MusicBrainz
-     *
-     * @param string $path
-     * @param array $params
-     * @param array $options
-     * @param boolean $isAuthRequired
-     * @param boolean $returnArray
      */
     abstract public function call(
         string $path,
