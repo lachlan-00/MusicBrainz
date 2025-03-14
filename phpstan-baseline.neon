@@ -1,44 +1,159 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method MusicBrainz\\\\Artist\\:\\:__construct\\(\\) has parameter \\$artist with no value type specified in iterable type array\\.$#"
+			message: "#^Method MusicBrainz\\\\Entities\\\\Artist\\:\\:__construct\\(\\) has parameter \\$artist with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/MusicBrainz/Artist.php
+			path: src/MusicBrainz/Entities/Artist.php
 
 		-
-			message: "#^Method MusicBrainz\\\\Artist\\:\\:getReleases\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method MusicBrainz\\\\Entities\\\\Artist\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/MusicBrainz/Artist.php
+			path: src/MusicBrainz/Entities/Artist.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			message: "#^Method MusicBrainz\\\\Entities\\\\Artist\\:\\:getReleases\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/MusicBrainz/Artist.php
+			path: src/MusicBrainz/Entities/Artist.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Artist\\:\\:\\$releases type has no value type specified in iterable type array\\.$#"
+			message: "#^Property MusicBrainz\\\\Entities\\\\Artist\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/MusicBrainz/Artist.php
+			path: src/MusicBrainz/Entities/Artist.php
 
 		-
-			message: "#^Method MusicBrainz\\\\Collection\\:\\:__construct\\(\\) has parameter \\$collection with no value type specified in iterable type array\\.$#"
+			message: "#^Property MusicBrainz\\\\Entities\\\\Artist\\:\\:\\$releases type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/MusicBrainz/Collection.php
+			path: src/MusicBrainz/Entities/Artist.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Collection\\:\\:\\$brainz is never read, only written\\.$#"
+			message: "#^Method MusicBrainz\\\\Entities\\\\Collection\\:\\:__construct\\(\\) has parameter \\$collection with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/MusicBrainz/Collection.php
+			path: src/MusicBrainz/Entities/Collection.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Collection\\:\\:\\$data is never read, only written\\.$#"
+			message: "#^Method MusicBrainz\\\\Entities\\\\Collection\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/MusicBrainz/Collection.php
+			path: src/MusicBrainz/Entities/Collection.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Collection\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			message: "#^Property MusicBrainz\\\\Entities\\\\Collection\\:\\:\\$brainz is never read, only written\\.$#"
 			count: 1
-			path: src/MusicBrainz/Collection.php
+			path: src/MusicBrainz/Entities/Collection.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\Collection\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Collection.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\EntityInterface\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/EntityInterface.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Genre\\:\\:__construct\\(\\) has parameter \\$tag with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Genre.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Genre\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Genre.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\Genre\\:\\:\\$brainz is never read, only written\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Genre.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\Genre\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Genre.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Label\\:\\:__construct\\(\\) has parameter \\$label with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Label.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Label\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Label.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\Label\\:\\:\\$aliases type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Label.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\Label\\:\\:\\$brainz is never read, only written\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Label.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\Label\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Label.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Recording\\:\\:__construct\\(\\) has parameter \\$recording with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Recording.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Recording\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Recording.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Recording\\:\\:getReleaseDates\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Recording.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Recording\\:\\:setReleases\\(\\) has parameter \\$releases with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Recording.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\Recording\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Recording.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Release\\:\\:__construct\\(\\) has parameter \\$release with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Release.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Release\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Release.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\Release\\:\\:getReleaseEventDates\\(\\) has parameter \\$releaseEvents with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Release.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\Release\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/Release.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\ReleaseGroup\\:\\:__construct\\(\\) has parameter \\$releaseGroup with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/ReleaseGroup.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\ReleaseGroup\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/ReleaseGroup.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\ReleaseGroup\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/ReleaseGroup.php
 
 		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:__construct\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
@@ -84,6 +199,11 @@ parameters:
 			message: "#^Method MusicBrainz\\\\Filters\\\\FilterInterface\\:\\:parseResponse\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/FilterInterface.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\GenreFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/GenreFilter.php
 
 		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\LabelFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
@@ -164,31 +284,6 @@ parameters:
 			message: "#^Method MusicBrainz\\\\HttpAdapters\\\\RequestsHttpAdapter\\:\\:call\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/HttpAdapters/RequestsHttpAdapter.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Label\\:\\:__construct\\(\\) has parameter \\$label with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Label.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Label\\:\\:\\$aliases type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Label.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Label\\:\\:\\$brainz is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Label.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Label\\:\\:\\$data is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Label.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Label\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Label.php
 
 		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browse\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
@@ -334,56 +429,6 @@ parameters:
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateInclude\\(\\) has parameter \\$validIncludes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Recording\\:\\:__construct\\(\\) has parameter \\$recording with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Recording.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Recording\\:\\:getReleaseDates\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Recording.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Recording\\:\\:setReleases\\(\\) has parameter \\$releases with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Recording.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Recording\\:\\:\\$data is never read, only written\\.$#"
-			count: 1
-			path: src/MusicBrainz/Recording.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Recording\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Recording.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Release\\:\\:__construct\\(\\) has parameter \\$release with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Release\\:\\:getReleaseEventDates\\(\\) has parameter \\$releaseEvents with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
-			message: "#^Property MusicBrainz\\\\Release\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Release.php
-
-		-
-			message: "#^Method MusicBrainz\\\\ReleaseGroup\\:\\:__construct\\(\\) has parameter \\$releaseGroup with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/ReleaseGroup.php
-
-		-
-			message: "#^Property MusicBrainz\\\\ReleaseGroup\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/ReleaseGroup.php
 
 		-
 			message: "#^Method MusicBrainz\\\\Tag\\:\\:__construct\\(\\) has parameter \\$tag with no value type specified in iterable type array\\.$#"
