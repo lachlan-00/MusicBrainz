@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
-use MusicBrainz\Label;
+use MusicBrainz\Entities\Label;
 use MusicBrainz\MusicBrainz;
 
 /**
@@ -40,8 +40,10 @@ class LabelFilter extends AbstractFilter implements FilterInterface
     /**
      * @return Label[]
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
         $labels = [];
 
         foreach ($response['labels'] as $label) {

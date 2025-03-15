@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Entities\ReleaseGroup;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\ReleaseGroup;
 
 /**
  * This is the release group filter and it contains
@@ -44,8 +44,10 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
      * @return ReleaseGroup[]
      * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
 
         if (!isset($response['release-groups'])) {
             throw new Exception('No release groups found');

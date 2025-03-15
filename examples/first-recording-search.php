@@ -38,7 +38,7 @@ try {
     // Find all the recordings that match the search and loop through them
     $recordings = $brainz->search(new RecordingFilter($args));
 
-    /** @var $recording \MusicBrainz\Recording */
+    /** @var $recording \MusicBrainz\Entities\Recording */
     foreach ($recordings as $recording) {
 
         // if the recording has a lower score than the previous recording, stop the loop.

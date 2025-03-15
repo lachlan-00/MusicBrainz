@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Entities\Release;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Release;
 
 /**
  * This is the release filter and it contains
@@ -53,13 +53,10 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         return 'release';
     }
 
-    /**
-     * @param array $response
-     * @param MusicBrainz $brainz
-     * @return array
-     */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
         $releases = [];
         if (isset($response['release'])) {
             foreach ($response['release'] as $release) {

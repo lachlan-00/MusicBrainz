@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Entities\Recording;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Recording;
 
 /**
  * This is the recording filter and it contains
@@ -53,13 +53,12 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array $response
-     * @param MusicBrainz $brainz
-     * @return array
      * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
         $recordings = [];
 
         if (isset($response['recording'])) {

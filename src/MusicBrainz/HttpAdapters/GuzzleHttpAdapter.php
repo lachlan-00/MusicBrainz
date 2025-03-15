@@ -25,16 +25,16 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
     /**
      * Perform an HTTP request on MusicBrainz
      *
-     * @param string $path
-     * @param array $params
-     * @param array $options
-     * @param boolean $isAuthRequired
      * @param boolean $returnArray disregarded
-     * @return array|object
      * @throws Exception
      */
-    public function call($path, array $params = [], array $options = [], $isAuthRequired = false, $returnArray = false): array|object
-    {
+    public function call(
+        string $path,
+        array $params = [],
+        array $options = [],
+        bool $isAuthRequired = false,
+        bool $returnArray = false
+    ): array|object {
         if ($options['user-agent'] == '') {
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');
         }
@@ -54,7 +54,10 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
         $request->setHeader('User-Agent', $options['user-agent']);
 
         if ($isAuthRequired) {
-            if ($options['user'] != null && $options['password'] != null) {
+            if (
+                $options['user'] != null &&
+                $options['password'] != null
+            ) {
                 $request->setAuth($options['user'], $options['password'], 'Digest');
             } else {
                 throw new Exception('Authentication is required');

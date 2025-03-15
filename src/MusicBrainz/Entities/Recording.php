@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
+
+use MusicBrainz\Exception;
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz Recording object
  * @package MusicBrainz
  */
-class Recording
+class Recording extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -30,12 +33,21 @@ class Recording
     /**
      * @param array $recording
      * @param MusicBrainz $brainz
+     * @throws Exception
      */
-    public function __construct(array $recording, MusicBrainz $brainz)
-    {
-        $this->data   = $recording;
+    public function __construct(
+        array $recording,
+        MusicBrainz $brainz
+    ) {
         $this->brainz = $brainz;
+        if (
+            !isset($recording['id']) ||
+            !$this->hasValidId($recording['id'])
+        ) {
+            throw new Exception('Can not create recording object. Missing valid MBID');
+        }
 
+        $this->data     = $recording;
         $this->id       = (string)$recording['id'];
         $this->title    = (string)$recording['title'];
         $this->length   = (int)($recording['length'] ?? 0);
@@ -90,6 +102,21 @@ class Recording
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->title;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    public function getTitle(): string
+    {
+        return self::getName();
     }
 
     /**
