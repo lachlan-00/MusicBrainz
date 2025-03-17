@@ -66,7 +66,7 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
 
     public function getTitle(): string
     {
-        return self::getName();
+        return $this->getName();
     }
 
     public function getScore(): int

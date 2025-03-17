@@ -82,4 +82,9 @@ class Work extends AbstractEntity implements EntityInterface
     {
         return $this->data;
     }
+
+    public function getTitle(): string
+    {
+        return $this->getName();
+    }
 }

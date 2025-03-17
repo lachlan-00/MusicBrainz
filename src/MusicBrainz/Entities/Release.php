@@ -87,7 +87,7 @@ class Release extends AbstractEntity implements EntityInterface
 
     public function getTitle(): string
     {
-        return self::getName();
+        return $this->getName();
     }
 
     /**
