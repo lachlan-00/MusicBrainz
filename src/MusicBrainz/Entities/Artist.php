@@ -44,7 +44,6 @@ class Artist extends AbstractEntity implements EntityInterface
         array $artist,
         MusicBrainz $brainz
     ) {
-        $this->brainz = $brainz;
         if (
             !isset($artist['id']) ||
             !$this->hasValidId($artist['id'])
@@ -52,6 +51,7 @@ class Artist extends AbstractEntity implements EntityInterface
             throw new Exception('Can not create artist object. Missing valid MBID');
         }
 
+        $this->brainz    = $brainz;
         $this->data      = $artist;
         $this->id        = (string)$artist['id'];
         $this->name      = (string)($artist['name'] ?? '');

@@ -20,12 +20,12 @@ $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.
  * Note: You must be logged in to retrieve user-ratings
  * @see http://musicbrainz.org/doc/Artist
  */
-$includes = array(
+$includes = [
     'releases',
     'recordings',
     'release-groups',
     'user-ratings'
-);
+];
 try {
     $artist = $brainz->lookup('artist', '4dbf5678-7a31-406a-abbe-232f8ac2cd63', $includes);
     print_r($artist);

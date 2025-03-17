@@ -8,14 +8,18 @@ use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
- * Represents a MusicBrainz genre object
+ * Represents a MusicBrainz series object
  * @package MusicBrainz
  */
-class Genre extends AbstractEntity implements EntityInterface
+class Series extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
     public string $name;
+
+    public string $type_id;
+
+    public string $type;
 
     public string $disambiguation;
 
@@ -24,26 +28,28 @@ class Genre extends AbstractEntity implements EntityInterface
     private MusicBrainz $brainz;
 
     /**
-     * @param array $genre
+     * @param array $series
      * @param MusicBrainz $brainz
      * @throws Exception
      */
     public function __construct(
-        array $genre,
+        array $series,
         MusicBrainz $brainz
     ) {
         if (
-            !isset($genre['id']) ||
-            !$this->hasValidId($genre['id'])
+            !isset($series['id']) ||
+            !$this->hasValidId($series['id'])
         ) {
-            throw new Exception('Can not create genre object. Missing valid MBID');
+            throw new Exception('Can not create series object. Missing valid MBID');
         }
 
         $this->brainz         = $brainz;
-        $this->data           = $genre;
-        $this->id             = $genre['id'];
-        $this->name           = (string)($genre['name'] ?? '');
-        $this->disambiguation = (string)($genre['disambiguation'] ?? '');
+        $this->data           = $series;
+        $this->id             = $series['id'];
+        $this->name           = (string)($series['name'] ?? '');
+        $this->type_id        = (string)($series['type-id'] ?? '');
+        $this->type           = (string)($series['type'] ?? '');
+        $this->disambiguation = (string)($series['disambiguation'] ?? '');
     }
 
     public function getId(): string

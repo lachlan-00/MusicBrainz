@@ -50,7 +50,6 @@ class Release extends AbstractEntity implements EntityInterface
         array $release,
         MusicBrainz $brainz
     ) {
-        $this->brainz = $brainz;
         if (
             !isset($release['id']) ||
             !$this->hasValidId($release['id'])
@@ -58,6 +57,7 @@ class Release extends AbstractEntity implements EntityInterface
             throw new Exception('Can not create release object. Missing valid MBID');
         }
 
+        $this->brainz   = $brainz;
         $this->data     = $release;
         $this->id       = $release['id'];
         $this->title    = (string)($release['title'] ?? '');

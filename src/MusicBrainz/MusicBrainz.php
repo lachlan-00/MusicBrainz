@@ -23,26 +23,26 @@ class MusicBrainz
 
     /** @var string[]> ENTITIES */
     private const ENTITIES = [
-        'area', // TODO area MusicBrainz\Entities\Area
+        'area',
         'artist',
         'annotation', // TODO annotation MusicBrainz\Entities\Annotation
         'collection',
         'discid', // TODO discid MusicBrainz\Entities\Discid
         'echoprint', // TODO echoprint MusicBrainz\Entities\Echoprint
-        'event', // TODO event MusicBrainz\Entities\Event
+        'event',
         'genre',
-        'instrument', // TODO instrument MusicBrainz\Entities\Instrument
+        'instrument',
         'isrc', // TODO isrc MusicBrainz\Entities\Isrc
         'iswc', // TODO iswc MusicBrainz\Entities\Iswc
         'label',
-        'place', // TODO place MusicBrainz\Entities\Place
+        'place',
         'puid', // TODO puid MusicBrainz\Entities\Puid
         'recording',
         'release',
         'release-group',
-        'series', // TODO series MusicBrainz\Entities\Series
-        'url', // TODO url MusicBrainz\Entities\Url
-        'work', // TODO work MusicBrainz\Entities\Work
+        'series',
+        'url',
+        'work',
     ];
 
     /** @var string[] $validReleaseTypes */

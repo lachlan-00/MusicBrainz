@@ -39,7 +39,6 @@ class Recording extends AbstractEntity implements EntityInterface
         array $recording,
         MusicBrainz $brainz
     ) {
-        $this->brainz = $brainz;
         if (
             !isset($recording['id']) ||
             !$this->hasValidId($recording['id'])
@@ -47,6 +46,7 @@ class Recording extends AbstractEntity implements EntityInterface
             throw new Exception('Can not create recording object. Missing valid MBID');
         }
 
+        $this->brainz   = $brainz;
         $this->data     = $recording;
         $this->id       = (string)$recording['id'];
         $this->title    = (string)$recording['title'];

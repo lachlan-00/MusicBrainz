@@ -20,7 +20,7 @@ $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.
  * Browse Releases based on an Artist MBID (Weezer in this case)
  * Include the Labels for the Release and the Recordings in it
  */
-$includes = array('labels', 'recordings');
+$includes = ['labels', 'recordings'];
 try {
     $details = $brainz->browseRelease(
         'artist',
@@ -38,7 +38,7 @@ print "\n\n";
 /**
  * Browse an artist based on a Recording MBID and include their aliases and ratings
  */
-$includes = array('aliases', 'ratings', 'genres');
+$includes = ['aliases', 'ratings', 'genres'];
 try {
     $details = $brainz->browseArtist(
         'recording',
@@ -56,7 +56,7 @@ print "\n\n";
 /**
  * Browse information for a Label based on a Release's MBID
  */
-$includes = array('aliases');
+$includes = ['aliases'];
 try {
     $details = $brainz->browseLabel(
         'release',

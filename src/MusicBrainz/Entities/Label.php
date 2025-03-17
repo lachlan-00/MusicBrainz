@@ -39,7 +39,6 @@ class Label extends AbstractEntity implements EntityInterface
         array $label,
         MusicBrainz $brainz
     ) {
-        $this->brainz = $brainz;
         if (
             !isset($label['id']) ||
             !$this->hasValidId($label['id'])
@@ -47,6 +46,7 @@ class Label extends AbstractEntity implements EntityInterface
             throw new Exception('Can not create label object. Missing valid MBID');
         }
 
+        $this->brainz   = $brainz;
         $this->data     = $label;
         $this->id       = $label['id'];
         $this->type     = (string)($label['type'] ?? '');

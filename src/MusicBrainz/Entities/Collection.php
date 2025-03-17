@@ -38,7 +38,6 @@ class Collection extends AbstractEntity implements EntityInterface
         array $collection,
         MusicBrainz $brainz
     ) {
-        $this->brainz = $brainz;
         if (
             !isset($collection['id']) ||
             !$this->hasValidId($collection['id'])
@@ -46,6 +45,7 @@ class Collection extends AbstractEntity implements EntityInterface
             throw new Exception('Can not create collection object. Missing valid MBID');
         }
 
+        $this->brainz      = $brainz;
         $this->data        = $collection;
         $this->id          = $collection['id'];
         $this->name        = (string)($collection['name'] ?? '');

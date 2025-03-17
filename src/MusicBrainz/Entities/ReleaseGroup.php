@@ -35,7 +35,6 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
         array $releaseGroup,
         MusicBrainz $brainz
     ) {
-        $this->brainz = $brainz;
         if (
             !isset($releaseGroup['id']) ||
             !$this->hasValidId($releaseGroup['id'])
@@ -43,10 +42,11 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
             throw new Exception('Can not create release-group object. Missing valid MBID');
         }
 
-        $this->data  = $releaseGroup;
-        $this->id    = $releaseGroup['id'];
-        $this->title = (string)($releaseGroup['title'] ?? '');
-        $this->score = (int)($releaseGroup['score'] ?? 0);
+        $this->brainz = $brainz;
+        $this->data   = $releaseGroup;
+        $this->id     = $releaseGroup['id'];
+        $this->title  = (string)($releaseGroup['title'] ?? '');
+        $this->score  = (int)($releaseGroup['score'] ?? 0);
     }
 
     public function getId(): string
