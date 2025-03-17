@@ -271,6 +271,26 @@ parameters:
 			path: src/MusicBrainz/HttpAdapters/GuzzleHttpAdapter.php
 
 		-
+			message: "#^Call to function is_object\\(\\) with bool\\|float\\|int\\|string will always evaluate to false\\.$#"
+			count: 1
+			path: src/MusicBrainz/HttpAdapters/GuzzleHttpOldAdapter.php
+
+		-
+			message: "#^Method MusicBrainz\\\\HttpAdapters\\\\GuzzleHttpOldAdapter\\:\\:call\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/HttpAdapters/GuzzleHttpOldAdapter.php
+
+		-
+			message: "#^Method MusicBrainz\\\\HttpAdapters\\\\GuzzleHttpOldAdapter\\:\\:call\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/HttpAdapters/GuzzleHttpOldAdapter.php
+
+		-
+			message: "#^Method MusicBrainz\\\\HttpAdapters\\\\GuzzleHttpOldAdapter\\:\\:call\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/HttpAdapters/GuzzleHttpOldAdapter.php
+
+		-
 			message: "#^Method MusicBrainz\\\\HttpAdapters\\\\RequestsHttpAdapter\\:\\:call\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/HttpAdapters/RequestsHttpAdapter.php
