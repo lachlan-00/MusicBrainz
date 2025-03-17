@@ -8,7 +8,7 @@ use MusicBrainz\Exception;
 /**
  * Guzzle Http Adapter
  */
-class GuzzleHttpAdapter extends AbstractHttpAdapter
+class GuzzleHttpOldAdapter extends AbstractHttpAdapter
 {
     public function __construct(
         private readonly ClientInterface $client, // The Guzzle client used to make cURL requests
