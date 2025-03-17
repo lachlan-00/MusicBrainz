@@ -15,8 +15,10 @@ $config = [
     'allow_redirects' => true,
     'verify' => false,
 ];
-$client = new Client($config);
-$brainz = new MusicBrainz(new GuzzleHttpAdapter($client));
+$client   = new Client($config);
+$username = null;
+$password = null;
+$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**

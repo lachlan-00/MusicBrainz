@@ -18,7 +18,16 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
 
     require __DIR__ . '/vendor/autoload.php';
 
-    $brainz = new MusicBrainz(new GuzzleHttpAdapter(new Client()), 'username', 'password');
+    // Create new Guzzle HTTP client
+    $config = [
+        'allow_redirects' => true
+    ];
+    $client   = new Client($config);
+    // Some areas require authentication
+    $username = 'username';
+    $password = 'password';
+    // Create new MusicBrainz object
+    $brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
     $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
     $args = array(
@@ -43,6 +52,17 @@ Look in the [/examples](https://github.com/mikealmond/MusicBrainz/tree/master/ex
 ## Requirements
 
 PHP8.2+ and [cURL extension](http://php.net/manual/en/book.curl.php).
+
+You must also choose a HTTP client to use.
+
+They are not included in the composer requirements to allow you to choose your own based on your project requirements.
+
+Add it to your composer requirements with composer require.
+
+* The library is built to use
+  * rmccue/requests
+  * guzzlehttp/guzzle
+  * guzzle/guzzle (deprecated)
 
 ## License
 
