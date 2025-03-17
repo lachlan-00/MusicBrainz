@@ -21,6 +21,78 @@ class MusicBrainz
 
     private const MBID_REGEX = '/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)})$/i';
 
+    /**
+     * These are entities you can filter for each browse type
+     * https://musicbrainz.org/doc/MusicBrainz_API#Browse
+     *
+     * @var array<string, array<string>> $BROWSE_LINKS
+     */
+    private const BROWSE_LINKS = [
+        'area' => ['collection'],
+        'artist' => [
+            'area',
+            'collection',
+            'recording',
+            'release',
+            'release-group',
+            'work'
+        ],
+        'collection' => [
+            'area',
+            'artist',
+            'editor',
+            'event',
+            'label',
+            'place',
+            'recording',
+            'release',
+            'release-group',
+            'work'
+        ],
+        'event' => [
+            'area',
+            'artist',
+            'collection',
+            'place'
+        ],
+        'instrument' => ['collection'],
+        'label' => [
+            'area',
+            'collection',
+            'release'
+        ],
+        'place' => [
+            'area',
+            'collection'
+        ],
+        'recording' => [
+            'artist',
+            'collection',
+            'release',
+            'work'],
+        'release' => [
+            'area',
+            'artist',
+            'collection',
+            'label',
+            'track',
+            'track_artist',
+            'recording',
+            'release-group'
+        ],
+        'release-group' => [
+            'artist',
+            'collection',
+            'release'
+        ],
+        'series' => ['collection'],
+        'url' => [
+            'artist',
+            'collection'
+        ],
+        'work' => ['resource'],
+    ];
+
     /** @var array<string, array<string>> $validIncludes */
     private static array $validIncludes = [
         'area' => [], // TODO area MusicBrainz\Entities\Area
@@ -216,6 +288,7 @@ class MusicBrainz
         'area' => ["collection"],
         'artist' => [
             "aliases",
+            "genres",
             "tags",
             "ratings",
             "user-tags",
@@ -242,6 +315,7 @@ class MusicBrainz
         'instrument' => ["collection"],
         'label' => [
             "aliases",
+            "genres",
             "tags",
             "ratings",
             "user-tags",
@@ -257,6 +331,7 @@ class MusicBrainz
             "release",
             "work",
             "artist-credits",
+            "genres",
             "tags",
             "ratings",
             "user-tags",
@@ -279,6 +354,7 @@ class MusicBrainz
         ],
         'release-group' => [
             "artist-credits",
+            "genres",
             "tags",
             "ratings",
             "user-tags",
@@ -366,7 +442,7 @@ class MusicBrainz
             throw new Exception('Invalid entity');
         }
 
-        $this->validateInclude($includes, self::$validIncludes[$entity]);
+        $this->validateInclude($includes, self::$validIncludes[$entity], $entity);
 
         $authRequired = $this->isAuthRequired($entity, $includes);
 
@@ -409,7 +485,7 @@ class MusicBrainz
             throw new Exception('Limit can only be between 1 and 100');
         }
 
-        $this->validateInclude($includes, self::$validBrowseIncludes[$filter->getEntity()]);
+        $this->validateInclude($includes, self::$validBrowseIncludes[$filter->getEntity()], $filter->getEntity());
 
         $authRequired = $this->isAuthRequired($filter->getEntity(), $includes);
 
@@ -442,8 +518,8 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        if (!in_array($entity, ['recording', 'release', 'release-group'])) {
-            throw new Exception('Invalid browse entity for artist');
+        if (!in_array($entity, self::BROWSE_LINKS['artist'])) {
+            throw new Exception('Invalid browse entity for artist: ' . $entity);
         }
 
         return $this->browse(new Filters\ArtistFilter([]), $entity, $mbid, $includes, $limit, $offset);
@@ -466,8 +542,8 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        if ($entity != 'release') {
-            throw new Exception('Invalid browse entity for label');
+        if (!in_array($entity, self::BROWSE_LINKS['label'])) {
+            throw new Exception('Invalid browse entity for label: ' . $entity);
         }
 
         return $this->browse(new Filters\LabelFilter([]), $entity, $mbid, $includes, $limit, $offset);
@@ -490,8 +566,8 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        if (!in_array($entity, ['artist', 'release'])) {
-            throw new Exception('Invalid browse entity for recording');
+        if (!in_array($entity, self::BROWSE_LINKS['recording'])) {
+            throw new Exception('Invalid browse entity for recording: ' . $entity);
         }
 
         return $this->browse(new Filters\RecordingFilter([]), $entity, $mbid, $includes, $limit, $offset);
@@ -518,8 +594,8 @@ class MusicBrainz
         array $releaseType = [],
         array $releaseStatus = []
     ): array {
-        if (!in_array($entity, ['artist', 'label', 'recording', 'release-group'])) {
-            throw new Exception('Invalid browse entity for release');
+        if (!in_array($entity, self::BROWSE_LINKS['release'])) {
+            throw new Exception('Invalid browse entity for release: ' . $entity);
         }
 
         return $this->browse(
@@ -553,8 +629,8 @@ class MusicBrainz
         array $includes = [],
         array $releaseType = []
     ): array {
-        if (!in_array($entity, ['artist', 'release'])) {
-            throw new Exception('Invalid browse entity for release group');
+        if (!in_array($entity, self::BROWSE_LINKS['release-group'])) {
+            throw new Exception('Invalid browse entity for release-group: ' . $entity);
         }
 
         return $this->browse(
@@ -666,11 +742,12 @@ class MusicBrainz
      */
     public function validateInclude(
         array $includes,
-        array $validIncludes
+        array $validIncludes,
+        string $entity
     ): bool {
         foreach ($includes as $include) {
             if (!in_array($include, $validIncludes)) {
-                throw new OutOfBoundsException(sprintf('%s is not a valid include', $include));
+                throw new OutOfBoundsException(sprintf('%s is not a valid include for %s', $include, $entity));
             }
         }
 
