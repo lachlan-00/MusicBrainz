@@ -21,351 +21,28 @@ class MusicBrainz
 
     private const MBID_REGEX = '/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)})$/i';
 
-    /**
-     * These are entities you can filter for each browse type
-     * https://musicbrainz.org/doc/MusicBrainz_API#Browse
-     *
-     * @var array<string, array<string>> $BROWSE_LINKS
-     */
-    private const BROWSE_LINKS = [
-        'area' => ['collection'],
-        'artist' => [
-            'area',
-            'collection',
-            'recording',
-            'release',
-            'release-group',
-            'work'
-        ],
-        'collection' => [
-            'area',
-            'artist',
-            'editor',
-            'event',
-            'label',
-            'place',
-            'recording',
-            'release',
-            'release-group',
-            'work'
-        ],
-        'event' => [
-            'area',
-            'artist',
-            'collection',
-            'place'
-        ],
-        'instrument' => ['collection'],
-        'label' => [
-            'area',
-            'collection',
-            'release'
-        ],
-        'place' => [
-            'area',
-            'collection'
-        ],
-        'recording' => [
-            'artist',
-            'collection',
-            'release',
-            'work'],
-        'release' => [
-            'area',
-            'artist',
-            'collection',
-            'label',
-            'track',
-            'track_artist',
-            'recording',
-            'release-group'
-        ],
-        'release-group' => [
-            'artist',
-            'collection',
-            'release'
-        ],
-        'series' => ['collection'],
-        'url' => [
-            'artist',
-            'collection'
-        ],
-        'work' => ['resource'],
-    ];
-
-    /** @var array<string, array<string>> $validIncludes */
-    private static array $validIncludes = [
-        'area' => [], // TODO area MusicBrainz\Entities\Area
-        'artist' => [
-            "aliases",
-            "annotation",
-            "artist-rels",
-            "discids",
-            "genres",
-            "label-rels",
-            "media",
-            "ratings",
-            "recording-rels",
-            "recordings",
-            "release-group-rels",
-            "release-groups",
-            "release-rels",
-            "releases",
-            "tags",
-            "url-rels",
-            "user-genres",
-            "user-ratings", // misc
-            "user-tags",
-            "various-artists",
-            "work-rels",
-            "works",
-        ],
-        'annotation' => [], // TODO annotation MusicBrainz\Entities\Annotation
-        'collection' => [
-            'user-collections',
-            'releases',
-        ],
-        'discid' => [
-            "artist-credits",
-            "artist-rels",
-            "artists",
-            "discids",
-            "echoprints",
-            "isrcs",
-            "label-rels",
-            "labels",
-            "media",
-            "puids",
-            "recording-level-rels",
-            "recording-rels",
-            "recordings",
-            "release-group-rels",
-            "release-groups",
-            "release-rels",
-            "url-rels",
-            "work-level-rels",
-            "work-rels",
-        ], // TODO discid MusicBrainz\Entities\Discid
-        'echoprint' => [
-            "artists",
-            "releases",
-        ], // TODO echoprint MusicBrainz\Entities\Echoprint
-        'event' => [], // TODO event MusicBrainz\Entities\Event
-        'genre' => [],
-        'instrument' => [], // TODO instrument MusicBrainz\Entities\Instrument
-        'isrc' => [
-            "artists",
-            "echoprints",
-            "isrcs",
-            "puids",
-            "releases",
-        ], // TODO isrc MusicBrainz\Entities\Isrc
-        'iswc' => [
-            "artists",
-            "collection", // add missing entity collection
-        ], // TODO iswc MusicBrainz\Entities\Iswc
-        'label' => [
-            "aliases",
-            "annotation",
-            "artist-rels",
-            "discids",
-            "label-rels",
-            "media",
-            "ratings",
-            "recording-rels",
-            "release-group-rels",
-            "release-rels",
-            "releases",
-            "tags",
-            "url-rels",
-            "user-ratings", // misc
-            "user-tags",
-            "work-rels",
-        ],
-        'place' => [], // TODO place MusicBrainz\Entities\Place
-        'puid' => [
-            "artists",
-            "echoprints",
-            "isrcs",
-            "puids",
-            "releases",
-        ], // TODO puid MusicBrainz\Entities\Puid
-        'recording' => [
-            "aliases",
-            "annotation",
-            "artist-credits",
-            "artist-rels",
-            "artists",
-            "discids",
-            "genres",
-            "isrcs",
-            "label-rels",
-            "media",
-            "ratings",
-            "recording-rels",
-            "release-group-rels",
-            "release-rels",
-            "releases", // sub queries
-            "tags",
-            "url-rels",
-            "user-genres",
-            "user-ratings", // misc
-            "user-tags",
-            "work-rels",
-        ],
-        'release' => [
-            "aliases",
-            "annotation",
-            "artist-credits",
-            "artist-rels",
-            "artists",
-            "discids",
-            "echoprints",
-            "genres",
-            "isrcs",
-            "label-rels",
-            "labels",
-            "media",
-            "puids",
-            "recording-level-rels",
-            "recording-rels",
-            "recordings",
-            "release-group-rels",
-            "release-groups",
-            "release-rels",
-            "url-rels",
-            "user-genres",
-            "work-level-rels",
-            "work-rels",
-        ],
-        'release-group' => [
-            "aliases",
-            "annotation",
-            "artist-credits",
-            "artist-rels",
-            "artists",
-            "discids",
-            "genres",
-            "label-rels",
-            "media",
-            "ratings",
-            "recording-rels",
-            "release-group-rels",
-            "release-rels",
-            "releases",
-            "tags",
-            "url-rels",
-            "user-genres",
-            "user-ratings", // misc
-            "user-tags",
-            "work-rels",
-        ],
-        'series' => [], // TODO series MusicBrainz\Entities\Series
-        'url' => [], // TODO url MusicBrainz\Entities\Url
-        'work' => [
-            "aliases",
-            "annotation",
-            "artist-rels",
-            "artists", // sub queries
-            "label-rels",
-            "ratings",
-            "recording-rels",
-            "release-group-rels",
-            "release-rels",
-            "tags",
-            "url-rels",
-            "user-ratings", // misc
-            "user-tags",
-            "work-rels",
-        ], // TODO work MusicBrainz\Entities\Work
-    ];
-
-    /**
-     * https://musicbrainz.org/doc/MusicBrainz_API#Linked_entities
-     * @var array<string, array<string>> $validBrowseIncludes
-     */
-    private static array $validBrowseIncludes = [
-        'area' => ["collection"],
-        'artist' => [
-            "aliases",
-            "genres",
-            "tags",
-            "ratings",
-            "user-tags",
-            "user-ratings",
-        ],
-        'collection' => [
-            "area",
-            "artist",
-            "editor",
-            "event",
-            "label",
-            "place",
-            "recording",
-            "release",
-            "release-group",
-            "work",
-        ],
-        'event' => [
-            "area",
-            "artist",
-            "collection",
-            "place",
-        ],
-        'instrument' => ["collection"],
-        'label' => [
-            "aliases",
-            "genres",
-            "tags",
-            "ratings",
-            "user-tags",
-            "user-ratings",
-        ],
-        'place' => [
-            "area",
-            "collection",
-        ],
-        'recording' => [
-            "artist",
-            "collection",
-            "release",
-            "work",
-            "artist-credits",
-            "genres",
-            "tags",
-            "ratings",
-            "user-tags",
-            "user-ratings",
-        ],
-        'release' => [
-            "artist-credits",
-            "labels",
-            "recordings",
-            "release-groups",
-            "media",
-            "discids",
-            "artist-rels",
-            "label-rels",
-            "recording-rels",
-            "release-rels",
-            "release-group-rels",
-            "url-rels",
-            "work-rels",
-        ],
-        'release-group' => [
-            "artist-credits",
-            "genres",
-            "tags",
-            "ratings",
-            "user-tags",
-            "user-ratings",
-        ],
-        'series' => ["collection"],
-        'url' => ["resource"],
-        'work' => [
-            "artist",
-            "collection",
-        ],
+    /** @var string[]> ENTITIES */
+    private const ENTITIES = [
+        'area', // TODO area MusicBrainz\Entities\Area
+        'artist',
+        'annotation', // TODO annotation MusicBrainz\Entities\Annotation
+        'collection',
+        'discid', // TODO discid MusicBrainz\Entities\Discid
+        'echoprint', // TODO echoprint MusicBrainz\Entities\Echoprint
+        'event', // TODO event MusicBrainz\Entities\Event
+        'genre',
+        'instrument', // TODO instrument MusicBrainz\Entities\Instrument
+        'isrc', // TODO isrc MusicBrainz\Entities\Isrc
+        'iswc', // TODO iswc MusicBrainz\Entities\Iswc
+        'label',
+        'place', // TODO place MusicBrainz\Entities\Place
+        'puid', // TODO puid MusicBrainz\Entities\Puid
+        'recording',
+        'release',
+        'release-group',
+        'series', // TODO series MusicBrainz\Entities\Series
+        'url', // TODO url MusicBrainz\Entities\Url
+        'work', // TODO work MusicBrainz\Entities\Work
     ];
 
     /** @var string[] $validReleaseTypes */
@@ -442,7 +119,71 @@ class MusicBrainz
             throw new Exception('Invalid entity');
         }
 
-        $this->validateInclude($includes, self::$validIncludes[$entity], $entity);
+        match ($entity) {
+            'area', 'annotation', 'event', 'genre', 'instrument', 'place', 'series', 'url' => $this->validateInclude($includes, [], $entity),
+            'artist' => $this->validateInclude($includes, Filters\ArtistFilter::INCLUDES, $entity),
+            'collection' => $this->validateInclude($includes, [
+                    'user-collections',
+                    'releases',
+                ], $entity),
+            'discid' => $this->validateInclude($includes, [
+                    "artist-credits",
+                    "artist-rels",
+                    "artists",
+                    "discids",
+                    "echoprints",
+                    "isrcs",
+                    "label-rels",
+                    "labels",
+                    "media",
+                    "puids",
+                    "recording-level-rels",
+                    "recording-rels",
+                    "recordings",
+                    "release-group-rels",
+                    "release-groups",
+                    "release-rels",
+                    "url-rels",
+                    "work-level-rels",
+                    "work-rels",
+                ], $entity),
+            'echoprint' => $this->validateInclude($includes, [
+                    "artists",
+                    "releases",
+                ], $entity),
+            'isrc', 'puid' => $this->validateInclude($includes, [
+                    "artists",
+                    "echoprints",
+                    "isrcs",
+                    "puids",
+                    "releases",
+                ], $entity),
+            'iswc' => $this->validateInclude($includes, [
+                    "artists",
+                    "collection",
+                ], $entity),
+            'label' => $this->validateInclude($includes, Filters\LabelFilter::INCLUDES, $entity),
+            'recording' => $this->validateInclude($includes, Filters\RecordingFilter::INCLUDES, $entity),
+            'release' => $this->validateInclude($includes, Filters\ReleaseFilter::INCLUDES, $entity),
+            'release-group' => $this->validateInclude($includes, Filters\ReleaseGroupFilter::INCLUDES, $entity),
+            'work' => $this->validateInclude($includes, [
+                    "aliases",
+                    "annotation",
+                    "artist-rels",
+                    "artists", // sub queries
+                    "label-rels",
+                    "ratings",
+                    "recording-rels",
+                    "release-group-rels",
+                    "release-rels",
+                    "tags",
+                    "url-rels",
+                    "user-ratings", // misc
+                    "user-tags",
+                    "work-rels",
+                ], $entity),
+            default => throw new Exception('Invalid entity')
+        };
 
         $authRequired = $this->isAuthRequired($entity, $includes);
 
@@ -485,7 +226,7 @@ class MusicBrainz
             throw new Exception('Limit can only be between 1 and 100');
         }
 
-        $this->validateInclude($includes, self::$validBrowseIncludes[$filter->getEntity()], $filter->getEntity());
+        $this->validateInclude($includes, $filter->getIncludes(), $filter->getEntity());
 
         $authRequired = $this->isAuthRequired($filter->getEntity(), $includes);
 
@@ -675,7 +416,7 @@ class MusicBrainz
         bool $parseResponse = true
     ): array|object {
         if (count($filter->createParameters()) < 1) {
-            throw new Exception('The artist filter object needs at least 1 argument to create a query.');
+            throw new Exception('The search filter object needs at least 1 argument to create a query.');
         }
 
         if ($limit > 100) {
@@ -714,7 +455,7 @@ class MusicBrainz
      */
     private function _isValidEntity(string $entity): bool
     {
-        return array_key_exists($entity, self::$validIncludes);
+        return array_key_exists($entity, self::ENTITIES);
     }
 
     /**
@@ -797,7 +538,7 @@ class MusicBrainz
         array $releaseType = [],
         array $releaseStatus = []
     ): array {
-        //$this->validateFilter(array($entity), self::$validIncludes);
+        //$this->validateFilter(array($entity), self::ENTITY_INCLUDES);
         $this->validateFilter($releaseStatus, self::$validReleaseStatuses);
         $this->validateFilter($releaseType, self::$validReleaseTypes);
 

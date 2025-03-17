@@ -17,7 +17,7 @@ abstract class AbstractFilter
     /** @var string[] $validArgTypes */
     protected array $validArgTypes;
 
-    protected array $validArgs = []; // The valid arguments/puery parameters used when querying MusicBrainz
+    protected array $validArgs = []; // The valid arguments/query parameters used when querying MusicBrainz
 
     /** @var string[] */
     protected array $protectedArgs = [

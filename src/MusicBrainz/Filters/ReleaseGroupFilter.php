@@ -23,6 +23,16 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'release'
     ];
 
+    /** @var string[] $INCLUDES */
+    public const INCLUDES = [
+        "artist-credits",
+        "genres",
+        "tags",
+        "ratings",
+        "user-tags",
+        "user-ratings",
+    ];
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
@@ -51,6 +61,12 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
     public function hasLink(string $entity): bool
     {
         return in_array($entity, self::LINKS);
+    }
+
+    /** @return string[] */
+    public function getIncludes(): array
+    {
+        return self::INCLUDES;
     }
 
     /**

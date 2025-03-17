@@ -14,6 +14,12 @@ interface FilterInterface
 
     public function hasLink(string $entity): bool;
 
+    /**
+     * https://musicbrainz.org/doc/MusicBrainz_API#Linked_entities
+     * @return string[]
+     */
+    public function getIncludes(): array;
+
     public function createParameters(array $params = []): array;
 
     /**

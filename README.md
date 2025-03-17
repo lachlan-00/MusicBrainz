@@ -28,7 +28,9 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
         "status"     => 'Official'
     );
     try {
-        $recordings = $brainz->search(new RecordingFilter($args));
+        $recordings = $brainz->search(
+            new RecordingFilter($args)
+        );
         print_r($recordings);
     } catch (Exception $e) {
         print $e->getMessage();
