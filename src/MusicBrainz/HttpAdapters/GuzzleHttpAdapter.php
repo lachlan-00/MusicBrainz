@@ -40,7 +40,7 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
         }
 
         $guzzleOptions = [
-            'base_uri' => "{$this->endpoint}/",
+            'base_uri' => '{$this->endpoint}/',
             'headers' => [
                 'Accept' => 'application/json',
                 'User-Agent' => $options['user-agent'],

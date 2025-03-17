@@ -1,5 +1,39 @@
 # MusicBrainz
 
+## 0.4.0
+
+### Added
+
+* Updated Guzzle to v7. (Based on [mikealmond/MusicBrainz/pull/29](https://github.com/mikealmond/MusicBrainz/pull/29))
+* GitHub QA checks
+* Missing Entities
+  * Area
+  * Event
+  * Genre
+  * Instrument
+  * Place
+  * Series
+  * Url
+  * Work
+* Missing data Objects
+  * Attributes
+  * Coordinates
+  * LifeSpan
+* Missing typed parameters and properties
+* Use class constants for common data strings where possible
+
+### Changed
+
+* Moved GuzzleHttp 3.8 to GuzzleHttpOld class
+* Moved MusicBrainz Entity objects to the Entities folder
+* Moved MusicBrainz Data objects to the Objects folder
+* Move some of the larger data arrays to their Entity classes
+
+### Fixed
+
+* Updated examples to use new GuzzleHttp version
+* Missing Entity links for filtering by object
+
 ## 0.3.2
 
 ### Added

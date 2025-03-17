@@ -25,12 +25,12 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
-        "artist-credits",
-        "genres",
-        "tags",
-        "ratings",
-        "user-tags",
-        "user-ratings",
+        'artist-credits',
+        'genres',
+        'ratings',
+        'tags',
+        'user-ratings',
+        'user-tags',
     ];
 
     /** @var string[] $validArgTypes */
@@ -41,12 +41,12 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'comment',
         'creditname',
         'primarytype',
-        'rgid',
+        'reid',
+        'release',
         'releasegroup',
         'releasegroupaccent',
         'releases',
-        'release',
-        'reid',
+        'rgid',
         'secondarytype',
         'status',
         'tag',

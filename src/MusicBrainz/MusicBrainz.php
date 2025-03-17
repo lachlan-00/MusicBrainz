@@ -23,9 +23,9 @@ class MusicBrainz
 
     /** @var string[]> ENTITIES */
     private const ENTITIES = [
+        'annotation', // TODO annotation MusicBrainz\Entities\Annotation
         'area',
         'artist',
-        'annotation', // TODO annotation MusicBrainz\Entities\Annotation
         'collection',
         'discid', // TODO discid MusicBrainz\Entities\Discid
         'echoprint', // TODO echoprint MusicBrainz\Entities\Echoprint
@@ -38,8 +38,8 @@ class MusicBrainz
         'place',
         'puid', // TODO puid MusicBrainz\Entities\Puid
         'recording',
-        'release',
         'release-group',
+        'release',
         'series',
         'url',
         'work',
@@ -47,26 +47,26 @@ class MusicBrainz
 
     /** @var string[] $validReleaseTypes */
     private static array $validReleaseTypes = [
-        "nat",
-        "album",
-        "single",
-        "ep",
-        "compilation",
-        "soundtrack",
-        "spokenword",
-        "interview",
-        "audiobook",
-        "live",
-        "remix",
-        "other",
+        'album',
+        'audiobook',
+        'compilation',
+        'ep',
+        'interview',
+        'live',
+        'nat',
+        'other',
+        'remix',
+        'single',
+        'soundtrack',
+        'spokenword',
     ];
 
     /** @var string[] $validReleaseStatuses */
     private static array $validReleaseStatuses = [
-        "official",
-        "promotion",
-        "bootleg",
-        "pseudo-release",
+        'bootleg',
+        'official',
+        'promotion',
+        'pseudo-release',
     ];
 
     private string $userAgent;
@@ -127,60 +127,60 @@ class MusicBrainz
                     'releases',
                 ], $entity),
             'discid' => $this->validateInclude($includes, [
-                    "artist-credits",
-                    "artist-rels",
-                    "artists",
-                    "discids",
-                    "echoprints",
-                    "isrcs",
-                    "label-rels",
-                    "labels",
-                    "media",
-                    "puids",
-                    "recording-level-rels",
-                    "recording-rels",
-                    "recordings",
-                    "release-group-rels",
-                    "release-groups",
-                    "release-rels",
-                    "url-rels",
-                    "work-level-rels",
-                    "work-rels",
+                    'artist-credits',
+                    'artist-rels',
+                    'artists',
+                    'discids',
+                    'echoprints',
+                    'isrcs',
+                    'label-rels',
+                    'labels',
+                    'media',
+                    'puids',
+                    'recording-level-rels',
+                    'recording-rels',
+                    'recordings',
+                    'release-group-rels',
+                    'release-groups',
+                    'release-rels',
+                    'url-rels',
+                    'work-level-rels',
+                    'work-rels',
                 ], $entity),
             'echoprint' => $this->validateInclude($includes, [
-                    "artists",
-                    "releases",
+                    'artists',
+                    'releases',
                 ], $entity),
             'isrc', 'puid' => $this->validateInclude($includes, [
-                    "artists",
-                    "echoprints",
-                    "isrcs",
-                    "puids",
-                    "releases",
+                    'artists',
+                    'echoprints',
+                    'isrcs',
+                    'puids',
+                    'releases',
                 ], $entity),
             'iswc' => $this->validateInclude($includes, [
-                    "artists",
-                    "collection",
+                    'artists',
+                    'collection',
                 ], $entity),
             'label' => $this->validateInclude($includes, Filters\LabelFilter::INCLUDES, $entity),
             'recording' => $this->validateInclude($includes, Filters\RecordingFilter::INCLUDES, $entity),
             'release' => $this->validateInclude($includes, Filters\ReleaseFilter::INCLUDES, $entity),
             'release-group' => $this->validateInclude($includes, Filters\ReleaseGroupFilter::INCLUDES, $entity),
             'work' => $this->validateInclude($includes, [
-                    "aliases",
-                    "annotation",
-                    "artist-rels",
-                    "artists", // sub queries
-                    "label-rels",
-                    "ratings",
-                    "recording-rels",
-                    "release-group-rels",
-                    "release-rels",
-                    "tags",
-                    "url-rels",
-                    "user-ratings", // misc
-                    "user-tags",
-                    "work-rels",
+                    'aliases',
+                    'annotation',
+                    'artist-rels',
+                    'artists', // sub queries
+                    'label-rels',
+                    'ratings',
+                    'recording-rels',
+                    'release-group-rels',
+                    'release-rels',
+                    'tags',
+                    'url-rels',
+                    'user-ratings', // misc
+                    'user-tags',
+                    'work-rels',
                 ], $entity),
             default => throw new Exception('Invalid entity')
         };
@@ -545,7 +545,7 @@ class MusicBrainz
         if (!empty($releaseStatus)
             && !in_array('releases', $includes)
         ) {
-            throw new Exception("Can't have a status with no release include");
+            throw new Exception('Can\'t have a status with no release include');
         }
 
         if (!empty($releaseType)
@@ -553,7 +553,7 @@ class MusicBrainz
             && !in_array('releases', $includes)
             && $entity != 'release-group'
         ) {
-            throw new Exception("Can't have a release type with no release-group include");
+            throw new Exception('Can\'t have a release type with no release-group include');
         }
 
         $params = [];
@@ -605,7 +605,7 @@ class MusicBrainz
         string $contactInfo
     ): void {
         if (str_contains($version, '-')) {
-            throw new Exception('User agent: version should not contain a "-" character.');
+            throw new Exception('User agent: version should not contain a \'-\' character.');
         }
 
         $this->userAgent = $application . '/' . $version . ' (' . $contactInfo . ')';

@@ -24,12 +24,12 @@ class LabelFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
-        "aliases",
-        "genres",
-        "tags",
-        "ratings",
-        "user-tags",
-        "user-ratings",
+        'aliases',
+        'genres',
+        'ratings',
+        'tags',
+        'user-ratings',
+        'user-tags',
     ];
 
     /** @var string[] $validArgTypes */

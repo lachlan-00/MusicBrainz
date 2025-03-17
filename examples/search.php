@@ -24,7 +24,7 @@ $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.
  * @see http://musicbrainz.org/doc/Release_Group
  */
 $args = [
-    "artist" => 'Weezer'
+    'artist' => 'Weezer'
 ];
 try {
     $releaseGroups = $brainz->search(
@@ -44,7 +44,7 @@ print "\n\n";
  * @see http://musicbrainz.org/doc/Artist
  */
 $args = [
-    "artist" => 'Weezer'
+    'artist' => 'Weezer'
 ];
 try {
     $artists = $brainz->search(
@@ -62,10 +62,10 @@ print "\n\n";
  * @see http://musicbrainz.org/doc/Recording
  */
 $args = [
-    "recording" => "Buddy Holly",
-    "artist" => 'Weezer',
-    "creditname" => 'Weezer',
-    "status" => 'Official'
+    'recording' => 'Buddy Holly',
+    'artist' => 'Weezer',
+    'creditname' => 'Weezer',
+    'status' => 'Official'
 ];
 try {
     $recordings = $brainz->search(
@@ -84,7 +84,7 @@ print "\n\n";
  * @see http://musicbrainz.org/doc/Label
  */
 $args = [
-    "label" => "Devils"
+    'label' => 'Devils'
 ];
 try {
     $labels = $brainz->search(

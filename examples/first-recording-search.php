@@ -35,8 +35,8 @@ $firstRecording = [
 
 // Set the search arguments to pass into the RecordingFilter
 $args = [
-    "recording" => 'we will rock you',
-    "artist" => 'Queen',
+    'recording' => 'we will rock you',
+    'artist' => 'Queen',
     'status' => 'official',
     'country' => 'GB'
 ];

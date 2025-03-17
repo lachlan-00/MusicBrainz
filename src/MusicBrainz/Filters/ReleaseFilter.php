@@ -21,27 +21,27 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         'artist',
         'collection',
         'label',
-        'track',
-        'track_artist',
         'recording',
-        'release-group'
+        'release-group',
+        'track_artist',
+        'track',
     ];
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
-        "artist-credits",
-        "labels",
-        "recordings",
-        "release-groups",
-        "media",
-        "discids",
-        "artist-rels",
-        "label-rels",
-        "recording-rels",
-        "release-rels",
-        "release-group-rels",
-        "url-rels",
-        "work-rels",
+        'artist-credits',
+        'artist-rels',
+        'discids',
+        'label-rels',
+        'labels',
+        'media',
+        'recording-rels',
+        'recordings',
+        'release-group-rels',
+        'release-groups',
+        'release-rels',
+        'url-rels',
+        'work-rels',
     ];
 
     /** @var string[] $validArgTypes */
@@ -59,8 +59,8 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         'discids',
         'discidsmedium',
         'format',
-        'laid',
         'label',
+        'laid',
         'lang',
         'mediums',
         'primarytype',
@@ -100,12 +100,12 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
     ): array {
         $releases = [];
         if (isset($response['release'])) {
-            echo "isset release";
+            echo 'isset release';
             foreach ($response['release'] as $release) {
                 $releases[] = new Release($release, $brainz);
             }
         } elseif (isset($response['releases'])) {
-            echo "isset release";
+            echo 'isset release';
             foreach ($response['releases'] as $release) {
                 $releases[] = new Release($release, $brainz);
             }

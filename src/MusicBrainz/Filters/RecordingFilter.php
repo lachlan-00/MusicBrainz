@@ -26,16 +26,16 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
-        "artist",
-        "collection",
-        "release",
-        "work",
-        "artist-credits",
-        "genres",
-        "tags",
-        "ratings",
-        "user-tags",
-        "user-ratings",
+        'artist-credits',
+        'artist',
+        'collection',
+        'genres',
+        'ratings',
+        'release',
+        'tags',
+        'user-ratings',
+        'user-tags',
+        'work',
     ];
 
     /** @var string[] $validArgTypes */
@@ -43,9 +43,9 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
         'arid',
         'artist',
         'artistname',
-        'creditname',
         'comment',
         'country',
+        'creditname',
         'date',
         'dur',
         'format',
@@ -63,10 +63,10 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
         'rid',
         'secondarytype',
         'status',
+        'tag',
         'tnum',
         'tracks',
         'tracksrelease',
-        'tag',
         'type',
     ];
 

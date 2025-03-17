@@ -21,27 +21,27 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
         'area',
         'collection',
         'recording',
-        'release',
         'release-group',
+        'release',
         'work'
     ];
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
-        "aliases",
-        "genres",
-        "tags",
-        "ratings",
-        "user-tags",
-        "user-ratings",
+        'aliases',
+        'genres',
+        'ratings',
+        'tags',
+        'user-ratings',
+        'user-tags',
     ];
 
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
+        'alias',
         'arid',
         'artist',
         'artistaccent',
-        'alias',
         'begin',
         'comment',
         'country',
