@@ -71,6 +71,6 @@ class GuzzleHttpOldAdapter extends AbstractHttpAdapter
 
         $result = $request->send()->json();
 
-        return (is_array($result)) ? $result : [];
+        return $request->send()->json();
     }
 }

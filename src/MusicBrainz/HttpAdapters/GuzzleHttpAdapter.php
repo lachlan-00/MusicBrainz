@@ -69,6 +69,6 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
         sleep(1);
         $result = json_decode((string) $request->getBody(), $returnArray);
 
-        return (is_array($result)) ? $result : [];
+        return $result;
     }
 }
