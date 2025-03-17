@@ -22,7 +22,12 @@ $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.
  */
 $includes = array('labels', 'recordings');
 try {
-    $details = $brainz->browseRelease('artist', '6fe07aa5-fec0-4eca-a456-f29bff451b04', $includes, 2);
+    $details = $brainz->browseRelease(
+        'artist',
+        '6fe07aa5-fec0-4eca-a456-f29bff451b04',
+        $includes,
+        1
+    );
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
@@ -35,7 +40,12 @@ print "\n\n";
  */
 $includes = array('aliases', 'ratings', 'genres');
 try {
-    $details = $brainz->browseArtist('recording', 'd615590b-1546-441d-9703-b3cf88487cbd', $includes);
+    $details = $brainz->browseArtist(
+        'recording',
+        'd615590b-1546-441d-9703-b3cf88487cbd',
+        $includes,
+        1
+    );
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
@@ -48,7 +58,12 @@ print "\n\n";
  */
 $includes = array('aliases');
 try {
-    $details = $brainz->browseLabel('release', '5a90bd38-62b6-46f5-9c39-cfceba169019', $includes);
+    $details = $brainz->browseLabel(
+        'release',
+        '5a90bd38-62b6-46f5-9c39-cfceba169019',
+        $includes,
+        1
+    );
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
