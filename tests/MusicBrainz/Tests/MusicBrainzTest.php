@@ -2,7 +2,7 @@
 
 namespace MusicBrainz\Tests;
 
-use Guzzle\Http\ClientInterface;
+use GuzzleHttp\ClientInterface;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 use PHPUnit\Framework\MockObject\Exception;

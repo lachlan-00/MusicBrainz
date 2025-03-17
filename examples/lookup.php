@@ -1,14 +1,19 @@
 <pre><?php
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 // Create new MusicBrainz object
-$brainz = new MusicBrainz(new GuzzleHttpAdapter(new Client()));
-$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'http://example.com');
+$config = [
+    'allow_redirects' => true,
+    'verify' => false,
+];
+$client = new Client($config);
+$brainz = new MusicBrainz(new GuzzleHttpAdapter($client));
+$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**
  * Lookup an Artist and include a list of Releases, Recordings, Release Groups and User Ratings

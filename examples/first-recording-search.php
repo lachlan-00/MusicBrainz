@@ -1,6 +1,7 @@
 <pre><?php
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
+use MusicBrainz\Entities\Recording;
 use MusicBrainz\Filters\RecordingFilter;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
@@ -8,8 +9,13 @@ use MusicBrainz\MusicBrainz;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 //Create new MusicBrainz object
-$brainz = new MusicBrainz(new GuzzleHttpAdapter(new Client()));
-$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'http://example.com');
+$config = [
+    'allow_redirects' => true,
+    'verify' => false,
+];
+$client = new Client($config);
+$brainz = new MusicBrainz(new GuzzleHttpAdapter($client));
+$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 // set defaults
 $releaseDate    = new DateTime();
@@ -18,27 +24,30 @@ $songId         = null;
 $trackLen       = -1;
 $albumName      = '';
 $lastScore      = null;
-$firstRecording = array(
-    'release'     => null,
+$firstRecording = [
+    'release' => null,
     'releaseDate' => new DateTime(),
-    'recording'   => null,
-    'artistId'    => null,
+    'recording' => null,
+    'artistId' => null,
     'recordingId' => null,
     'trackLength' => null
-);
+];
 
 // Set the search arguments to pass into the RecordingFilter
-$args = array(
+$args = [
     "recording" => 'we will rock you',
-    "artist"    => 'Queen',
-    'status'    => 'official',
-    'country'   => 'GB'
-);
+    "artist" => 'Queen',
+    'status' => 'official',
+    'country' => 'GB'
+];
 try {
     // Find all the recordings that match the search and loop through them
-    $recordings = $brainz->search(new RecordingFilter($args));
+    $recordings = $brainz->search(
+        new RecordingFilter($args),
+        1
+    );
 
-    /** @var $recording \MusicBrainz\Entities\Recording */
+    /** @var $recording Recording */
     foreach ($recordings as $recording) {
 
         // if the recording has a lower score than the previous recording, stop the loop.
@@ -58,18 +67,18 @@ try {
             && $releaseDates[$oldestReleaseKey] < $firstRecording['releaseDate']
         ) {
 
-            $firstRecording = array(
-                'release'     => $recording->releases[$oldestReleaseKey],
+            $firstRecording = [
+                'release' => $recording->releases[$oldestReleaseKey],
                 'releaseDate' => $recording->releases[$oldestReleaseKey]->getReleaseDate(),
-                'recording'   => $recording,
-                'artistId'    => $recording->getArtist()->getId(),
+                'recording' => $recording,
+                'artistId' => $recording->getArtist()->getId(),
                 'recordingId' => $recording->getId(),
                 'trackLength' => $recording->getLength('long')
-            );
+            ];
         }
     }
 
-    var_dump(array($firstRecording));
+    var_dump([$firstRecording]);
 } catch (Exception $e) {
-    print ($e->getMessage());
+    print($e->getMessage());
 }

@@ -7,8 +7,13 @@ use MusicBrainz\MusicBrainz;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 // Create new MusicBrainz object
-$brainz = new MusicBrainz(new GuzzleHttpAdapter(new Client()));
-$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'http://example.com');
+$config = [
+    'allow_redirects' => true,
+    'verify' => false,
+];
+$client = new Client($config);
+$brainz = new MusicBrainz(new GuzzleHttpAdapter($client));
+$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 
 /**
@@ -31,19 +36,6 @@ print "\n\n";
 $includes = array('aliases', 'ratings', 'genres');
 try {
     $details = $brainz->browseArtist('recording', 'd615590b-1546-441d-9703-b3cf88487cbd', $includes);
-    print_r($details);
-} catch (Exception $e) {
-    print $e->getMessage();
-}
-print "\n\n";
-
-
-/**
- * Browse information for a Label based on an Artist's MBID
- */
-$includes = array('aliases');
-try {
-    $details = $brainz->browseLabel('release', '5a90bd38-62b6-46f5-9c39-cfceba169019', $includes);
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
