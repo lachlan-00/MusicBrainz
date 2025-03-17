@@ -21,7 +21,7 @@ class MusicBrainz
 
     private const MBID_REGEX = '/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)})$/i';
 
-    /** @var string[]> ENTITIES */
+    /** @var string[] $ENTITIES */
     private const ENTITIES = [
         'annotation', // TODO annotation MusicBrainz\Entities\Annotation
         'area',
@@ -45,14 +45,23 @@ class MusicBrainz
         'work',
     ];
 
-    /** @var string[] $validReleaseTypes */
-    private static array $validReleaseTypes = [
+    /**
+     * https://musicbrainz.org/doc/Release_Group/Type
+     * @var string[] $RELEASE_TYPE
+     */
+    private const RELEASE_TYPE = [
         'album',
         'audiobook',
+        'audio drama',
+        'broadcast',
         'compilation',
+        'demo',
+        'dj-mix',
         'ep',
+        'field recording',
         'interview',
         'live',
+        'mixtape/street',
         'nat',
         'other',
         'remix',
@@ -61,12 +70,18 @@ class MusicBrainz
         'spokenword',
     ];
 
-    /** @var string[] $validReleaseStatuses */
-    private static array $validReleaseStatuses = [
+    /**
+     * https://wiki.musicbrainz.org/Style/Release#Status
+     * @var string[] RELEASE_STATUS
+     */
+    private const RELEASE_STATUS = [
         'bootleg',
+        'cancelled',
+        'expunged',
         'official',
         'promotion',
         'pseudo-release',
+        'withdrawn',
     ];
 
     private string $userAgent;
@@ -539,8 +554,8 @@ class MusicBrainz
         array $releaseStatus = []
     ): array {
         //$this->validateFilter(array($entity), self::ENTITY_INCLUDES);
-        $this->validateFilter($releaseStatus, self::$validReleaseStatuses);
-        $this->validateFilter($releaseType, self::$validReleaseTypes);
+        $this->validateFilter($releaseStatus, self::RELEASE_STATUS);
+        $this->validateFilter($releaseType, self::RELEASE_TYPE);
 
         if (!empty($releaseStatus)
             && !in_array('releases', $includes)
