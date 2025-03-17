@@ -1,6 +1,6 @@
 <pre><?php
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
@@ -28,7 +28,7 @@ print "\n\n";
 /**
  * Browse an artist based on a Recording MBID and include their aliases and ratings
  */
-$includes = array('aliases', 'ratings');
+$includes = array('aliases', 'ratings', 'genres');
 try {
     $details = $brainz->browseArtist('recording', 'd615590b-1546-441d-9703-b3cf88487cbd', $includes);
     print_r($details);
@@ -43,7 +43,7 @@ print "\n\n";
  */
 $includes = array('aliases');
 try {
-    $details = $brainz->browseLabel('artist', '6fe07aa5-fec0-4eca-a456-f29bff451b04', $includes);
+    $details = $brainz->browseLabel('release', '5a90bd38-62b6-46f5-9c39-cfceba169019', $includes);
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
@@ -56,7 +56,7 @@ print "\n\n";
  */
 $includes = array('aliases');
 try {
-    $details = $brainz->browseLabel('release', 'b072b162-a733-3137-a4a0-4375172d98c9', $includes);
+    $details = $brainz->browseLabel('release', '5a90bd38-62b6-46f5-9c39-cfceba169019', $includes);
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
