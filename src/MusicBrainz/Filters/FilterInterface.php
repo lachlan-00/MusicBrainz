@@ -12,6 +12,8 @@ interface FilterInterface
 {
     public function getEntity(): string;
 
+    public function hasLink(string $entity): bool;
+
     public function createParameters(array $params = []): array;
 
     /**

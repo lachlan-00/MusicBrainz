@@ -16,6 +16,12 @@ class LabelFilter extends AbstractFilter implements FilterInterface
 {
     private const ENTITY = 'label';
 
+    private const LINKS = [
+        'area',
+        'collection',
+        'release'
+    ];
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'alias',
@@ -37,6 +43,11 @@ class LabelFilter extends AbstractFilter implements FilterInterface
     public function getEntity(): string
     {
         return self::ENTITY;
+    }
+
+    public function hasLink(string $entity): bool
+    {
+        return in_array($entity, self::LINKS);
     }
 
     /**

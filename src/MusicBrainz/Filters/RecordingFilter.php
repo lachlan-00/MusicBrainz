@@ -17,6 +17,13 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
 {
     private const ENTITY = 'recording';
 
+    private const LINKS = [
+        'artist',
+        'collection',
+        'release',
+        'work'
+    ];
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
@@ -52,6 +59,11 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
     public function getEntity(): string
     {
         return self::ENTITY;
+    }
+
+    public function hasLink(string $entity): bool
+    {
+        return in_array($entity, self::LINKS);
     }
 
     /**

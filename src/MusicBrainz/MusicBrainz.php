@@ -518,11 +518,12 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        if (!in_array($entity, self::BROWSE_LINKS['artist'])) {
+        $filter = new Filters\ArtistFilter([]);
+        if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for artist: ' . $entity);
         }
 
-        return $this->browse(new Filters\ArtistFilter([]), $entity, $mbid, $includes, $limit, $offset);
+        return $this->browse($filter, $entity, $mbid, $includes, $limit, $offset);
     }
 
     /**
@@ -542,11 +543,12 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        if (!in_array($entity, self::BROWSE_LINKS['label'])) {
+        $filter = new Filters\LabelFilter([]);
+        if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for label: ' . $entity);
         }
 
-        return $this->browse(new Filters\LabelFilter([]), $entity, $mbid, $includes, $limit, $offset);
+        return $this->browse($filter, $entity, $mbid, $includes, $limit, $offset);
     }
 
     /**
@@ -566,11 +568,12 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        if (!in_array($entity, self::BROWSE_LINKS['recording'])) {
+        $filter = new Filters\RecordingFilter([]);
+        if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for recording: ' . $entity);
         }
 
-        return $this->browse(new Filters\RecordingFilter([]), $entity, $mbid, $includes, $limit, $offset);
+        return $this->browse($filter, $entity, $mbid, $includes, $limit, $offset);
     }
 
     /**
@@ -594,12 +597,13 @@ class MusicBrainz
         array $releaseType = [],
         array $releaseStatus = []
     ): array {
-        if (!in_array($entity, self::BROWSE_LINKS['release'])) {
+        $filter = new Filters\ReleaseFilter([]);
+        if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for release: ' . $entity);
         }
 
         return $this->browse(
-            new Filters\ReleaseFilter([]),
+            $filter,
             $entity,
             $mbid,
             $includes,
@@ -629,12 +633,13 @@ class MusicBrainz
         array $includes = [],
         array $releaseType = []
     ): array {
-        if (!in_array($entity, self::BROWSE_LINKS['release-group'])) {
+        $filter = new Filters\ReleaseGroupFilter([]);
+        if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for release-group: ' . $entity);
         }
 
         return $this->browse(
-            new Filters\ReleaseGroupFilter([]),
+            $filter,
             $entity,
             $mbid,
             $includes,

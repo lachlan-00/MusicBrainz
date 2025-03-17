@@ -16,6 +16,8 @@ class TagFilter extends AbstractFilter implements FilterInterface
 {
     private const ENTITY = 'tag';
 
+    private const LINKS = [];
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'tag',
@@ -24,6 +26,11 @@ class TagFilter extends AbstractFilter implements FilterInterface
     public function getEntity(): string
     {
         return self::ENTITY;
+    }
+
+    public function hasLink(string $entity): bool
+    {
+        return in_array($entity, self::LINKS);
     }
 
     /**

@@ -16,6 +16,8 @@ class GenreFilter extends AbstractFilter implements FilterInterface
 {
     private const ENTITY = 'genre';
 
+    private const LINKS = [];
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'genre',
@@ -24,6 +26,11 @@ class GenreFilter extends AbstractFilter implements FilterInterface
     public function getEntity(): string
     {
         return self::ENTITY;
+    }
+
+    public function hasLink(string $entity): bool
+    {
+        return in_array($entity, self::LINKS);
     }
 
     /**

@@ -16,6 +16,17 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
 {
     private const ENTITY = 'release';
 
+    private const LINKS = [
+        'area',
+        'artist',
+        'collection',
+        'label',
+        'track',
+        'track_artist',
+        'recording',
+        'release-group'
+    ];
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
@@ -53,6 +64,11 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
     public function getEntity(): string
     {
         return self::ENTITY;
+    }
+
+    public function hasLink(string $entity): bool
+    {
+        return in_array($entity, self::LINKS);
     }
 
     public function parseResponse(
