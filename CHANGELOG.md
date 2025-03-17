@@ -6,6 +6,8 @@
 
 * Updated Guzzle to v7. (Based on [mikealmond/MusicBrainz/pull/29](https://github.com/mikealmond/MusicBrainz/pull/29))
 * GitHub QA checks
+* Add `AbstractEntity` and `EntityInterface` classes. (Data objects are Entities that do not have an MBID)
+* Add common functions to abstract classes
 * Missing Entities
   * Area
   * Event
@@ -28,6 +30,7 @@
 * Moved MusicBrainz Entity objects to the Entities folder
 * Moved MusicBrainz Data objects to the Objects folder
 * Move some of the larger data arrays to their Entity classes
+* Require `Entity::getName()` for Entity objects. (`getTitle()` is still available where the object has a title property)
 
 ### Fixed
 
