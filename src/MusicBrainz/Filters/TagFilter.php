@@ -14,6 +14,8 @@ use MusicBrainz\Objects\Tag;
  */
 class TagFilter extends AbstractFilter implements FilterInterface
 {
+    private const ENTITY = 'tag';
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'tag',
@@ -21,7 +23,7 @@ class TagFilter extends AbstractFilter implements FilterInterface
 
     public function getEntity(): string
     {
-        return 'tag';
+        return self::ENTITY;
     }
 
     /**

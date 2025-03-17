@@ -14,6 +14,8 @@ use MusicBrainz\MusicBrainz;
  */
 class GenreFilter extends AbstractFilter implements FilterInterface
 {
+    private const ENTITY = 'genre';
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'genre',
@@ -21,7 +23,7 @@ class GenreFilter extends AbstractFilter implements FilterInterface
 
     public function getEntity(): string
     {
-        return 'genre';
+        return self::ENTITY;
     }
 
     /**

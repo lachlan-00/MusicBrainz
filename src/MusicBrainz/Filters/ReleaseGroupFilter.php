@@ -15,6 +15,8 @@ use MusicBrainz\MusicBrainz;
  */
 class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 {
+    private const ENTITY = 'release-group';
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
@@ -37,7 +39,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 
     public function getEntity(): string
     {
-        return 'release-group';
+        return self::ENTITY;
     }
 
     /**

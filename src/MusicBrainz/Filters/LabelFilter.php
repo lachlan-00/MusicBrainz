@@ -14,6 +14,8 @@ use MusicBrainz\MusicBrainz;
  */
 class LabelFilter extends AbstractFilter implements FilterInterface
 {
+    private const ENTITY = 'label';
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'alias',
@@ -34,7 +36,7 @@ class LabelFilter extends AbstractFilter implements FilterInterface
 
     public function getEntity(): string
     {
-        return 'label';
+        return self::ENTITY;
     }
 
     /**
