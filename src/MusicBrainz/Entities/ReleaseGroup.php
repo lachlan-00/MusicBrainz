@@ -76,6 +76,7 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
 
     /**
      * @return Release[]
+     * @throws Exception
      */
     public function getReleases(): array
     {
