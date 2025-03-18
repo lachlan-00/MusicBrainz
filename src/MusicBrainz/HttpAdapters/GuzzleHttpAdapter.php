@@ -67,8 +67,7 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
 
         // musicbrainz throttle
         sleep(1);
-        $result = json_decode((string) $request->getBody(), $returnArray);
 
-        return $result;
+        return json_decode((string) $request->getBody(), $returnArray);
     }
 }
