@@ -129,8 +129,15 @@ class Recording extends AbstractEntity implements EntityInterface
             'releases',
             'recordings',
             'release-groups',
-            'user-ratings',
         ];
+
+        // don't get user data if we don't have user/pass
+        if (
+            $this->brainz->getPassword() !== null &&
+            $this->brainz->getUser() !== null
+        ) {
+            $includes[] = 'user-ratings';
+        }
 
         $artist = (array)$this->brainz->lookup('artist', $this->artistID, $includes);
 
