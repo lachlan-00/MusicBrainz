@@ -113,28 +113,26 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
+     * @return Recording[]
      * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $recordings = [];
-
+        $results = [];
         if (isset($response['recording'])) {
             foreach ($response['recording'] as $recording) {
-                $recordings[] = new Recording((array)$recording, $brainz);
+                $results[] = new Recording((array)$recording, $brainz);
             }
         } elseif (isset($response['recordings'])) {
             foreach ($response['recordings'] as $recording) {
-                $recordings[] = new Recording((array)$recording, $brainz);
+                $results[] = new Recording((array)$recording, $brainz);
             }
+        } else {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        if ($recordings === []) {
-            throw new Exception('No search results found');
-        }
-
-        return $recordings;
+        return $results;
     }
 }

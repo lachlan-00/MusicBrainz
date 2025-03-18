@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 use MusicBrainz\Objects\Tag;
 
@@ -66,16 +67,22 @@ class TagFilter extends AbstractFilter implements FilterInterface
 
     /**
      * @return Tag[]
+     * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $tags = [];
-        foreach ($response['tags'] as $tag) {
-            $tags[] = new Tag($tag);
+        if (!isset($response['tags'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $tags;
+        $results = [];
+        foreach ($response['tags'] as $tag) {
+            /** @var array{name: string|null, count: string|null} $tag */
+            $results[] = new Tag((array)$tag);
+        }
+
+        return $results;
     }
 }

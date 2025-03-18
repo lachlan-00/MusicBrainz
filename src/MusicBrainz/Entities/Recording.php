@@ -60,15 +60,16 @@ class Recording extends AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param Release|array $releases
+     * @param array|object $releases
      * @return Recording
+     * @throws Exception
      */
-    public function setReleases(array $releases): Recording
+    public function setReleases(array|object $releases): Recording
     {
-        foreach ($releases as $release) {
+        foreach ((array)$releases as $release) {
             $this->releases[] = ($release instanceof Release)
                 ? $release
-                : new Release($release, $this->brainz);
+                : new Release((array)$release, $this->brainz);
         }
 
         return $this;
@@ -140,6 +141,9 @@ class Recording extends AbstractEntity implements EntityInterface
         ) {
             $includes[] = 'user-ratings';
         }
+        if ($this->artistID === null) {
+            throw new Exception('No artistID set for recording');
+        }
 
         $artist = (array)$this->brainz->lookup('artist', $this->artistID, $includes);
 
@@ -151,7 +155,7 @@ class Recording extends AbstractEntity implements EntityInterface
      *
      * @return int|string
      */
-    public function getLength($format = 'int')
+    public function getLength($format = 'int'): int|string
     {
         switch ($format) {
             case 'short':

@@ -100,12 +100,15 @@ class LabelFilter extends AbstractFilter implements FilterInterface
         array $response,
         MusicBrainz $brainz
     ): array {
-        $labels = [];
-
-        foreach ($response['labels'] as $label) {
-            $labels[] = new Label((array)$label, $brainz);
+        if (!isset($response['labels'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $labels;
+        $results = [];
+        foreach ($response['labels'] as $label) {
+            $results[] = new Label((array)$label, $brainz);
+        }
+
+        return $results;
     }
 }

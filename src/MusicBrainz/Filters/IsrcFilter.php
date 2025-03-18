@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MusicBrainz\Filters;
 
 use MusicBrainz\Entities\Isrc;
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
@@ -83,17 +84,21 @@ class IsrcFilter extends AbstractFilter implements FilterInterface
 
     /**
      * @return string[]
+     * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $isrcs = [];
-
-        foreach ($response['isrcs'] as $isrc) {
-            $isrcs[] = $isrc;
+        if (!isset($response['isrcs'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $isrcs;
+        $results = [];
+        foreach ($response['isrcs'] as $isrc) {
+            $results[] = $isrc;
+        }
+
+        return $results;
     }
 }

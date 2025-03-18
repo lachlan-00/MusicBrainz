@@ -3,6 +3,7 @@
 use GuzzleHttp\Client;
 use MusicBrainz\Entities\Artist;
 use MusicBrainz\Filters\ArtistFilter;
+use MusicBrainz\Filters\GenreFilter;
 use MusicBrainz\Filters\LabelFilter;
 use MusicBrainz\Filters\RecordingFilter;
 use MusicBrainz\Filters\ReleaseFilter;
@@ -88,8 +89,8 @@ try {
 
     $releaseGroupFilter = new ReleaseGroupFilter([]);
     $releaseGroupFilter->parseResponse($browse, $brainz);
-    foreach ($releaseGroupFilter->parseResponse($browse, $brainz) as $releaseGroups) {
-        print_r($releaseGroups->getData());
+    foreach ($releaseGroupFilter->parseResponse($browse, $brainz) as $releaseGroup) {
+        print_r($releaseGroup->getData());
     }
 } catch (Exception $e) {
     print $e->getMessage();
@@ -112,8 +113,14 @@ try {
 
     $artistFilter = new ArtistFilter([]);
     $artistFilter->parseResponse($browse, $brainz);
-    foreach ($artistFilter->parseResponse($browse, $brainz) as $artists) {
-        print_r($artists->getData());
+    $genreFilter = new GenreFilter([]);
+    foreach ($artistFilter->parseResponse($browse, $brainz) as $artist) {
+        // print Artist data property
+        print_r($artist->getData());
+        foreach ($genreFilter->parseResponse($artist->getData(), $brainz) as $genre) {
+            // print each genre for the artist
+            print_r($genre->getData());
+        }
     }
 } catch (Exception $e) {
     print $e->getMessage();

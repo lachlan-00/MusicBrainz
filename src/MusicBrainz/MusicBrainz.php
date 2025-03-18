@@ -566,7 +566,6 @@ class MusicBrainz
         }
 
         $params = [];
-
         if (!empty($releaseType)) {
             $params['type'] = implode('|', $releaseType);
         }

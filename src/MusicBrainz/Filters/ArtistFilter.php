@@ -107,17 +107,19 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
         array $response,
         MusicBrainz $brainz
     ): array {
-        $artists = [];
+        $results = [];
         if (isset($response['artist'])) {
             foreach ($response['artist'] as $artist) {
-                $artists[] = new Artist($artist, $brainz);
+                $results[] = new Artist((array)$artist, $brainz);
             }
         } elseif (isset($response['artists'])) {
             foreach ($response['artists'] as $artist) {
-                $artists[] = new Artist($artist, $brainz);
+                $results[] = new Artist((array)$artist, $brainz);
             }
+        } else {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $artists;
+        return $results;
     }
 }

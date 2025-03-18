@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
@@ -80,17 +81,21 @@ class EchoPrintFilter extends AbstractFilter implements FilterInterface
 
     /**
      * @return string[]
+     * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $echoprints = [];
-
-        foreach ($response['echoprints'] as $echoprint) {
-            $echoprints[] = $echoprint;
+        if (!isset($response['echoprints'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $echoprints;
+        $results = [];
+        foreach ($response['echoprints'] as $echoprint) {
+            $results[] = $echoprint;
+        }
+
+        return $results;
     }
 }

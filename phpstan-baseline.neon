@@ -336,6 +336,11 @@ parameters:
 			path: src/MusicBrainz/Filters/AbstractFilter.php
 
 		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\AreaFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/AreaFilter.php
+
+		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\ArtistFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/ArtistFilter.php
@@ -396,22 +401,17 @@ parameters:
 			path: src/MusicBrainz/Filters/LabelFilter.php
 
 		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\PlaceFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/PlaceFilter.php
+
+		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\RecordingFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/RecordingFilter.php
 
 		-
-			message: "#^Method MusicBrainz\\\\Filters\\\\RecordingFilter\\:\\:parseResponse\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/RecordingFilter.php
-
-		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\ReleaseFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/ReleaseFilter.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Filters\\\\ReleaseFilter\\:\\:parseResponse\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/ReleaseFilter.php
 
@@ -522,6 +522,16 @@ parameters:
 
 		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseArtist\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/MusicBrainz.php
+
+		-
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseCollection\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/MusicBrainz.php
+
+		-
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:browseCollection\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 

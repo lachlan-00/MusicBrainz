@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MusicBrainz\Filters;
 
 use MusicBrainz\Entities\DiscId;
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
@@ -90,17 +91,21 @@ class DiscIdFilter extends AbstractFilter implements FilterInterface
 
     /**
      * @return DiscId[]
+     * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $discids = [];
-
-        foreach ($response['discids'] as $discid) {
-            $discids[] = new DiscId($discid, $brainz);
+        if (!isset($response['discids'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $discids;
+        $results = [];
+        foreach ($response['discids'] as $discid) {
+            $results[] = new DiscId((array)$discid, $brainz);
+        }
+
+        return $results;
     }
 }

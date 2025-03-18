@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MusicBrainz\Filters;
 
 use MusicBrainz\Entities\Release;
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
@@ -114,21 +115,27 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         return self::INCLUDES;
     }
 
+    /**
+     * @return Release[]
+     * @throws Exception
+     */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $releases = [];
+        $results = [];
         if (isset($response['release'])) {
             foreach ($response['release'] as $release) {
-                $releases[] = new Release((array)$release, $brainz);
+                $results[] = new Release((array)$release, $brainz);
             }
         } elseif (isset($response['releases'])) {
             foreach ($response['releases'] as $release) {
-                $releases[] = new Release((array)$release, $brainz);
+                $results[] = new Release((array)$release, $brainz);
             }
+        } else {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $releases;
+        return $results;
     }
 }

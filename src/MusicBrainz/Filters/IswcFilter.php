@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 use MusicBrainz\Objects\Iswc;
 
@@ -81,17 +82,21 @@ class IswcFilter extends AbstractFilter implements FilterInterface
 
     /**
      * @return string[]
+     * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $iswcs = [];
-
-        foreach ($response['iswcs'] as $iswc) {
-            $iswcs[] = $iswc;
+        if (!isset($response['iswcs'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $iswcs;
+        $results = [];
+        foreach ($response['iswcs'] as $iswc) {
+            $results[] = $iswc;
+        }
+
+        return $results;
     }
 }

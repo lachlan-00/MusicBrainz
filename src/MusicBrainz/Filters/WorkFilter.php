@@ -97,12 +97,15 @@ class WorkFilter extends AbstractFilter implements FilterInterface
         array $response,
         MusicBrainz $brainz
     ): array {
-        $works = [];
-
-        foreach ($response['works'] as $work) {
-            $works[] = new Work($work, $brainz);
+        if (!isset($response['works'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $works;
+        $results = [];
+        foreach ($response['works'] as $work) {
+            $results[] = new Work((array)$work, $brainz);
+        }
+
+        return $results;
     }
 }

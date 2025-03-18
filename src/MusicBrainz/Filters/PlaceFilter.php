@@ -97,12 +97,15 @@ class PlaceFilter extends AbstractFilter implements FilterInterface
         array $response,
         MusicBrainz $brainz
     ): array {
-        $places = [];
-
-        foreach ($response['places'] as $place) {
-            $places[] = new Place((array)$place, $brainz);
+        if (!isset($response['places'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $places;
+        $results = [];
+        foreach ($response['places'] as $place) {
+            $results[] = new Place((array)$place, $brainz);
+        }
+
+        return $results;
     }
 }

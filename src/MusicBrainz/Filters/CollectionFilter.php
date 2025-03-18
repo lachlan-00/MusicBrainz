@@ -99,12 +99,15 @@ class CollectionFilter extends AbstractFilter implements FilterInterface
         array $response,
         MusicBrainz $brainz
     ): array {
-        $collections = [];
-
-        foreach ($response['collections'] as $collection) {
-            $collections[] = new Collection((array)$collection, $brainz);
+        if (!isset($response['collections'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $collections;
+        $results = [];
+        foreach ($response['collections'] as $collection) {
+            $results[] = new Collection((array)$collection, $brainz);
+        }
+
+        return $results;
     }
 }

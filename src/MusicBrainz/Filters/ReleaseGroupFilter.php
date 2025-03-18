@@ -104,16 +104,15 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         array $response,
         MusicBrainz $brainz
     ): array {
-
         if (!isset($response['release-groups'])) {
-            throw new Exception('No release groups found');
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        $releaseGroups = [];
+        $results = [];
         foreach ($response['release-groups'] as $releaseGroup) {
-            $releaseGroups[] = new ReleaseGroup((array)$releaseGroup, $brainz);
+            $results[] = new ReleaseGroup((array)$releaseGroup, $brainz);
         }
 
-        return $releaseGroups;
+        return $results;
     }
 }

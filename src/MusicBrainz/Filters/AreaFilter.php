@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MusicBrainz\Filters;
 
 use MusicBrainz\Entities\Area;
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
@@ -82,17 +83,21 @@ class AreaFilter extends AbstractFilter implements FilterInterface
 
     /**
      * @return Area[]
+     * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $areas = [];
-
-        foreach ($response['areas'] as $area) {
-            $areas[] = new Area((array)$area, $brainz);
+        if (!isset($response['areas'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $areas;
+        $results = [];
+        foreach ($response['areas'] as $area) {
+            $results[] = new Area((array)$area, $brainz);
+        }
+
+        return $results;
     }
 }

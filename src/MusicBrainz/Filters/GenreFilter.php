@@ -73,11 +73,15 @@ class GenreFilter extends AbstractFilter implements FilterInterface
         array $response,
         MusicBrainz $brainz
     ): array {
-        $genres = [];
-        foreach ($response['genres'] as $genre) {
-            $genres[] = new Genre((array)$genre, $brainz);
+        if (!isset($response['genres'])) {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $genres;
+        $results = [];
+        foreach ($response['genres'] as $genre) {
+            $results[] = new Genre((array)$genre, $brainz);
+        }
+
+        return $results;
     }
 }
