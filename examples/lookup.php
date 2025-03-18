@@ -146,14 +146,17 @@ try {
     die();
 }
 print "\n\n";
+
+
 /**
  * Lookup an Artist and include a list of Releases, Recordings, Release Groups
  * @see http://musicbrainz.org/doc/Artist
  */
 $includes = [
-    'releases',
     'recordings',
-    'release-groups'
+    'releases',
+    'release-groups',
+    'works',
 ];
 try {
     $artist = $brainz->lookup('artist', '4dbf5678-7a31-406a-abbe-232f8ac2cd63', $includes);
@@ -166,14 +169,45 @@ print "\n\n";
 
 
 /**
+ * Lookup a Label and include a list of Releases
+ * @see http://musicbrainz.org/doc/Label
+ */
+$includes = [
+    'releases',
+];
+try {
+    $artist = $brainz->lookup('label', 'b66d15cc-b372-4dc1-8cbd-efdeb02e23e7', $includes);
+    print_r($artist);
+} catch (Exception $e) {
+    print $e->getMessage();
+    die();
+}
+print "\n\n";
+
+
+/**
  * Lookup a Release Group based on an MBID
  * @see http://musicbrainz.org/doc/Release_Group
  */
-$includes = [];
+$includes = ['artists', 'releases'];
 try {
     //born this way: the remix
     $releaseGroup = $brainz->lookup('release-group', 'e4307c5f-1959-4163-b4b1-ded4f9d786b0', $includes);
     print_r($releaseGroup);
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+print "\n\n";
+
+
+/**
+ * Lookup a Release based on an MBID
+ * @see http://musicbrainz.org/doc/Release
+ */
+$includes = ['artists', 'release-groups'];
+try {
+    $release = $brainz->lookup('release', 'd8de198d-2162-4264-9cfe-926d92c4c7ad', $includes);
+    print_r($release);
 } catch (Exception $e) {
     echo $e->getMessage();
 }
