@@ -23,20 +23,19 @@ class MusicBrainz
 
     /** @var string[] $ENTITIES */
     private const ENTITIES = [
-        'annotation', // TODO annotation MusicBrainz\Entities\Annotation
+        'annotation',
         'area',
         'artist',
         'collection',
-        'discid', // TODO discid MusicBrainz\Entities\Discid
-        'echoprint', // TODO echoprint MusicBrainz\Entities\Echoprint
+        'discid',
+        'echoprint', // TODO echoprint MusicBrainz\Objects\Echoprint
         'event',
         'genre',
         'instrument',
-        'isrc', // TODO isrc MusicBrainz\Entities\Isrc
-        'iswc', // TODO iswc MusicBrainz\Entities\Iswc
+        'isrc', // String objects
+        'iswc', // String objects
         'label',
         'place',
-        'puid', // TODO puid MusicBrainz\Entities\Puid
         'recording',
         'release-group',
         'release',
@@ -137,66 +136,16 @@ class MusicBrainz
         match ($entity) {
             'area', 'annotation', 'event', 'genre', 'instrument', 'place', 'series', 'url' => $this->validateInclude($includes, [], $entity),
             'artist' => $this->validateInclude($includes, Filters\ArtistFilter::INCLUDES, $entity),
-            'collection' => $this->validateInclude($includes, [
-                    'user-collections',
-                    'releases',
-                ], $entity),
-            'discid' => $this->validateInclude($includes, [
-                    'artist-credits',
-                    'artist-rels',
-                    'artists',
-                    'discids',
-                    'echoprints',
-                    'isrcs',
-                    'label-rels',
-                    'labels',
-                    'media',
-                    'puids',
-                    'recording-level-rels',
-                    'recording-rels',
-                    'recordings',
-                    'release-group-rels',
-                    'release-groups',
-                    'release-rels',
-                    'url-rels',
-                    'work-level-rels',
-                    'work-rels',
-                ], $entity),
-            'echoprint' => $this->validateInclude($includes, [
-                    'artists',
-                    'releases',
-                ], $entity),
-            'isrc', 'puid' => $this->validateInclude($includes, [
-                    'artists',
-                    'echoprints',
-                    'isrcs',
-                    'puids',
-                    'releases',
-                ], $entity),
-            'iswc' => $this->validateInclude($includes, [
-                    'artists',
-                    'collection',
-                ], $entity),
+            'collection' => $this->validateInclude($includes, Filters\CollectionFilter::INCLUDES, $entity),
+            'discid' => $this->validateInclude($includes, Filters\DiscIdFilter::INCLUDES, $entity),
+            'echoprint' => $this->validateInclude($includes, Filters\EchoPrintFilter::INCLUDES, $entity),
+            'isrc' => $this->validateInclude($includes, Filters\IsrcFilter::INCLUDES, $entity),
+            'iswc' => $this->validateInclude($includes, Filters\IswcFilter::INCLUDES, $entity),
             'label' => $this->validateInclude($includes, Filters\LabelFilter::INCLUDES, $entity),
             'recording' => $this->validateInclude($includes, Filters\RecordingFilter::INCLUDES, $entity),
             'release' => $this->validateInclude($includes, Filters\ReleaseFilter::INCLUDES, $entity),
             'release-group' => $this->validateInclude($includes, Filters\ReleaseGroupFilter::INCLUDES, $entity),
-            'work' => $this->validateInclude($includes, [
-                    'aliases',
-                    'annotation',
-                    'artist-rels',
-                    'artists', // sub queries
-                    'label-rels',
-                    'ratings',
-                    'recording-rels',
-                    'release-group-rels',
-                    'release-rels',
-                    'tags',
-                    'url-rels',
-                    'user-ratings', // misc
-                    'user-tags',
-                    'work-rels',
-                ], $entity),
+            'work' => $this->validateInclude($includes, Filters\WorkFilter::INCLUDES, $entity),
             default => throw new Exception('Invalid entity')
         };
 
@@ -204,7 +153,7 @@ class MusicBrainz
 
         $params = [
             'inc' => implode('+', $includes),
-            'fmt' => 'json'
+            'fmt' => 'json',
         ];
 
         return $this->adapter->call($entity . '/' . $mbid, $params, $this->getHttpOptions(), $authRequired);
@@ -251,7 +200,7 @@ class MusicBrainz
             'inc' => implode('+', $includes),
             'limit' => $limit,
             'offset' => $offset,
-            'fmt' => 'json'
+            'fmt' => 'json',
         ];
 
         return (array)$this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), $authRequired);
@@ -432,6 +381,9 @@ class MusicBrainz
     ): array|object {
         if (count($filter->createParameters()) < 1) {
             throw new Exception('The search filter object needs at least 1 argument to create a query.');
+        }
+        if (!$filter->canSearch()) {
+            throw new Exception(sprintf('The filter object %s does not support search queries.', $filter->getEntity()));
         }
 
         if ($limit > 100) {

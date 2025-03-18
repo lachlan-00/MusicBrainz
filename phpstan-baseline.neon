@@ -66,6 +66,26 @@ parameters:
 			path: src/MusicBrainz/Entities/Collection.php
 
 		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\DiscId\\:\\:__construct\\(\\) has parameter \\$discid with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/DiscId.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Entities\\\\DiscId\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/DiscId.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\DiscId\\:\\:\\$brainz is never read, only written\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/DiscId.php
+
+		-
+			message: "#^Property MusicBrainz\\\\Entities\\\\DiscId\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Entities/DiscId.php
+
+		-
 			message: "#^Method MusicBrainz\\\\Entities\\\\EntityInterface\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Entities/EntityInterface.php
@@ -321,6 +341,21 @@ parameters:
 			path: src/MusicBrainz/Filters/ArtistFilter.php
 
 		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\CollectionFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/CollectionFilter.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\DiscIdFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/DiscIdFilter.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\EchoPrintFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/EchoPrintFilter.php
+
+		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\FilterInterface\\:\\:createParameters\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/FilterInterface.php
@@ -344,6 +379,16 @@ parameters:
 			message: "#^Method MusicBrainz\\\\Filters\\\\GenreFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/GenreFilter.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\IsrcFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/IsrcFilter.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\IswcFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/IswcFilter.php
 
 		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\LabelFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
@@ -379,6 +424,11 @@ parameters:
 			message: "#^Method MusicBrainz\\\\Filters\\\\TagFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/TagFilter.php
+
+		-
+			message: "#^Method MusicBrainz\\\\Filters\\\\WorkFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/Filters/WorkFilter.php
 
 		-
 			message: "#^Method MusicBrainz\\\\HttpAdapters\\\\AbstractHttpAdapter\\:\\:call\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"

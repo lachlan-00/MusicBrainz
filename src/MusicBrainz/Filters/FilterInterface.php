@@ -14,6 +14,8 @@ interface FilterInterface
 
     public function hasLink(string $entity): bool;
 
+    public function canSearch(): bool;
+
     /**
      * https://musicbrainz.org/doc/MusicBrainz_API#Linked_entities
      * @return string[]

@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
-use MusicBrainz\Entities\Genre;
-use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
+use MusicBrainz\Objects\Iswc;
 
 /**
- * This is the tag filter and it contains
+ * This is the iswc filter and it contains
  * an array of valid argument types to be used
  * when querying the MusicBrainz web service.
  */
-class GenreFilter extends AbstractFilter implements FilterInterface
+class IswcFilter extends AbstractFilter implements FilterInterface
 {
-    private const ENTITY = 'genre';
+    private const ENTITY = 'iswc';
 
     private const CAN_SEARCH = false;
 
@@ -23,11 +22,27 @@ class GenreFilter extends AbstractFilter implements FilterInterface
     private const LINKS = [];
 
     /** @var string[] $INCLUDES */
-    public const INCLUDES = [];
+    public const INCLUDES = [
+        'artists',
+        'collection',
+    ];
 
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
-        'genre',
+        'alias',
+        'begin',
+        'code',
+        'comment',
+        'country',
+        'end',
+        'ended',
+        'ipi',
+        'label',
+        'labelaccent',
+        'laid',
+        'sortname',
+        'tag',
+        'type',
     ];
 
     public function getEntity(): string
@@ -52,18 +67,18 @@ class GenreFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @return Genre[]
-     * @throws Exception
+     * @return string[]
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $genres = [];
-        foreach ($response['genres'] as $genre) {
-            $genres[] = new Genre($genre, $brainz);
+        $iswcs = [];
+
+        foreach ($response['iswcs'] as $iswc) {
+            $iswcs[] = $iswc;
         }
 
-        return $genres;
+        return $iswcs;
     }
 }

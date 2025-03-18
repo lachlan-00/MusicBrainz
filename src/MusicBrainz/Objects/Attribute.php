@@ -10,7 +10,7 @@ use MusicBrainz\MusicBrainz;
  * Represents a MusicBrainz coordinates object
  * @package MusicBrainz
  */
-class Attributes
+class Attribute
 {
     public string $type_id;
 

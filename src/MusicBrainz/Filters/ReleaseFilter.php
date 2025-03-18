@@ -16,6 +16,9 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
 {
     private const ENTITY = 'release';
 
+    private const CAN_SEARCH = true;
+
+    /** @var string[] $LINKS */
     private const LINKS = [
         'area',
         'artist',
@@ -64,7 +67,6 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         'lang',
         'mediums',
         'primarytype',
-        'puid',
         'reid',
         'release',
         'releaseaccent',
@@ -86,6 +88,11 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
     public function hasLink(string $entity): bool
     {
         return in_array($entity, self::LINKS);
+    }
+
+    public function canSearch(): bool
+    {
+        return self::CAN_SEARCH;
     }
 
     /** @return string[] */

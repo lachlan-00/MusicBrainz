@@ -10,7 +10,7 @@ use MusicBrainz\MusicBrainz;
  * Represents a MusicBrainz coordinates object
  * @package MusicBrainz
  */
-class Coordinates
+class Coordinate
 {
     public ?float $longitude = null;
 

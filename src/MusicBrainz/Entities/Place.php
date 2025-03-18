@@ -6,7 +6,7 @@ namespace MusicBrainz\Entities;
 
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Objects\Coordinates;
+use MusicBrainz\Objects\Coordinate;
 use MusicBrainz\Objects\LifeSpan;
 
 /**
@@ -29,7 +29,7 @@ class Place extends AbstractEntity implements EntityInterface
 
     public Area $area;
 
-    public Coordinates $coordinates;
+    public Coordinate $coordinates;
 
     public string $disambiguation;
 

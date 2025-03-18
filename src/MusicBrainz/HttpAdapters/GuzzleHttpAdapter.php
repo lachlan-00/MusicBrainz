@@ -56,7 +56,7 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
                 $guzzleOptions['auth'] = [
                     $options['user'],
                     $options['password'],
-                    'digest'
+                    'digest',
                 ];
             } else {
                 throw new Exception('Authentication is required');

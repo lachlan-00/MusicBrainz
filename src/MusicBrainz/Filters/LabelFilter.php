@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MusicBrainz\Filters;
 
 use MusicBrainz\Entities\Label;
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
@@ -16,10 +17,13 @@ class LabelFilter extends AbstractFilter implements FilterInterface
 {
     private const ENTITY = 'label';
 
+    private const CAN_SEARCH = true;
+
+    /** @var string[] $LINKS */
     private const LINKS = [
         'area',
         'collection',
-        'release'
+        'release',
     ];
 
     /** @var string[] $INCLUDES */
@@ -60,6 +64,11 @@ class LabelFilter extends AbstractFilter implements FilterInterface
         return in_array($entity, self::LINKS);
     }
 
+    public function canSearch(): bool
+    {
+        return self::CAN_SEARCH;
+    }
+
     /** @return string[] */
     public function getIncludes(): array
     {
@@ -68,6 +77,7 @@ class LabelFilter extends AbstractFilter implements FilterInterface
 
     /**
      * @return Label[]
+     * @throws Exception
      */
     public function parseResponse(
         array $response,

@@ -129,7 +129,7 @@ class Recording extends AbstractEntity implements EntityInterface
             'releases',
             'recordings',
             'release-groups',
-            'user-ratings'
+            'user-ratings',
         ];
 
         $artist = (array)$this->brainz->lookup('artist', $this->artistID, $includes);

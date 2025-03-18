@@ -17,11 +17,14 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
 {
     private const ENTITY = 'recording';
 
+    private const CAN_SEARCH = true;
+
+    /** @var string[] $LINKS */
     private const LINKS = [
         'artist',
         'collection',
         'release',
-        'work'
+        'work',
     ];
 
     /** @var string[] $INCLUDES */
@@ -53,7 +56,6 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
         'number',
         'position',
         'primarytype',
-        'puid',
         'qdur',
         'recording',
         'recordingaccent',
@@ -78,6 +80,11 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
     public function hasLink(string $entity): bool
     {
         return in_array($entity, self::LINKS);
+    }
+
+    public function canSearch(): bool
+    {
+        return self::CAN_SEARCH;
     }
 
     /** @return string[] */

@@ -4,54 +4,58 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
-use MusicBrainz\Entities\Artist;
+use MusicBrainz\Entities\Work;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
- * This is the artist filter and it contains
+ * This is the work filter and it contains
  * an array of valid argument types to be used
  * when querying the MusicBrainz web service.
  */
-class ArtistFilter extends AbstractFilter implements FilterInterface
+class WorkFilter extends AbstractFilter implements FilterInterface
 {
-    private const ENTITY = 'artist';
+    private const ENTITY = 'work';
 
     private const CAN_SEARCH = true;
 
     /** @var string[] $LINKS */
     private const LINKS = [
-        'area',
+        'artist',
         'collection',
-        'recording',
-        'release-group',
-        'release',
-        'work',
     ];
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
         'aliases',
-        'genres',
+        'annotation',
+        'artist-rels',
+        'artists', // sub queries
+        'label-rels',
         'ratings',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
         'tags',
-        'user-ratings',
+        'url-rels',
+        'user-ratings', // misc
         'user-tags',
+        'work-rels',
     ];
 
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'alias',
-        'arid',
-        'artist',
-        'artistaccent',
         'begin',
+        'code',
         'comment',
         'country',
         'end',
         'ended',
-        'gender',
         'ipi',
+        'label',
+        'labelaccent',
+        'laid',
         'sortname',
         'tag',
         'type',
@@ -79,24 +83,19 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @return Artist[]
+     * @return Work[]
      * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $artists = [];
-        if (isset($response['artist'])) {
-            foreach ($response['artist'] as $artist) {
-                $artists[] = new Artist($artist, $brainz);
-            }
-        } elseif (isset($response['artists'])) {
-            foreach ($response['artists'] as $artist) {
-                $artists[] = new Artist($artist, $brainz);
-            }
+        $works = [];
+
+        foreach ($response['works'] as $work) {
+            $works[] = new Work($work, $brainz);
         }
 
-        return $artists;
+        return $works;
     }
 }

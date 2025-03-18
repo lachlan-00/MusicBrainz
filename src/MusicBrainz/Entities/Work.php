@@ -6,7 +6,7 @@ namespace MusicBrainz\Entities;
 
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Objects\Attributes;
+use MusicBrainz\Objects\Attribute;
 
 /**
  * Represents a MusicBrainz work object
@@ -30,7 +30,7 @@ class Work extends AbstractEntity implements EntityInterface
     /** @var string[] $iswcs */
     public array $iswcs;
 
-    /** @var Attributes[] $attributes */
+    /** @var Attribute[] $attributes */
     public array $attributes;
 
     public string $disambiguation;

@@ -8,7 +8,7 @@ use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
- * Represents a MusicBrainz event object
+ * Represents a MusicBrainz instrument object
  * @package MusicBrainz
  */
 class Instrument extends AbstractEntity implements EntityInterface
