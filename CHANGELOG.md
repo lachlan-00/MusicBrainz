@@ -29,11 +29,17 @@
 
 ### Changed
 
+* Combine Include relationship lists instead of validating everything. (Allow mistakes and return the errors instead)
 * Moved GuzzleHttp 3.8 to GuzzleHttpOld class
 * Moved MusicBrainz Entity objects to the Entities folder
 * Moved MusicBrainz Data objects to the Objects folder
 * Move some of the larger data arrays to their Entity classes
 * Require `Entity::getName()` for Entity objects. (`getTitle()` is still available where the object has a title property)
+
+### Removed
+
+* References to `puid`. (Removed from MusicBrainz database)
+* Travis build yml
 
 ### Fixed
 
