@@ -240,7 +240,7 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        $filter = new Filters\ArtistFilter([]);
+        $filter = new Filters\ArtistFilter();
         if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for artist: ' . $entity);
         }
@@ -265,7 +265,7 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        $filter = new Filters\CollectionFilter([]);
+        $filter = new Filters\CollectionFilter();
         if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for collection: ' . $entity);
         }
@@ -290,7 +290,7 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        $filter = new Filters\LabelFilter([]);
+        $filter = new Filters\LabelFilter();
         if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for label: ' . $entity);
         }
@@ -315,7 +315,7 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null
     ): array {
-        $filter = new Filters\RecordingFilter([]);
+        $filter = new Filters\RecordingFilter();
         if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for recording: ' . $entity);
         }
@@ -344,7 +344,7 @@ class MusicBrainz
         array $releaseType = [],
         array $releaseStatus = []
     ): array {
-        $filter = new Filters\ReleaseFilter([]);
+        $filter = new Filters\ReleaseFilter();
         if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for release: ' . $entity);
         }
@@ -380,7 +380,7 @@ class MusicBrainz
         ?int $offset = null,
         array $releaseType = []
     ): array {
-        $filter = new Filters\ReleaseGroupFilter([]);
+        $filter = new Filters\ReleaseGroupFilter();
         if (!$filter->hasLink($entity)) {
             throw new Exception('Invalid browse entity for release-group: ' . $entity);
         }

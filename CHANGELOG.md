@@ -45,6 +45,7 @@
 
 * Updated examples to use new GuzzleHttp version
 * Missing Entity links for filtering by object
+* Broken areas from typed parameters in 0.3.x
 
 ## 0.3.2
 

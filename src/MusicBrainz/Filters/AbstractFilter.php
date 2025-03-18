@@ -27,11 +27,18 @@ abstract class AbstractFilter
         'tid',
     ];
 
-    public function __construct(array $args)
+    /**
+     * __construct
+     *
+     * @param string[]|null $args
+     */
+    public function __construct(?array $args = null)
     {
-        foreach ($args as $key => $value) {
-            if (in_array($key, $this->validArgTypes)) {
-                $this->validArgs[$key] = $value;
+        if (is_array($args)) {
+            foreach ($args as $key => $value) {
+                if (in_array($key, $this->validArgTypes)) {
+                    $this->validArgs[$key] = $value;
+                }
             }
         }
     }
