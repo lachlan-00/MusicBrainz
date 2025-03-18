@@ -41,6 +41,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'recording-rels',
         'release-group-rels',
         'release-rels',
+        'releases',
         'series-rels',
         'tags',
         'url-rels',
