@@ -422,7 +422,7 @@ class MusicBrainz
      */
     private function _isValidEntity(string $entity): bool
     {
-        return array_key_exists($entity, self::ENTITIES);
+        return in_array($entity, self::ENTITIES);
     }
 
     /**
