@@ -8,8 +8,10 @@
 * GitHub QA checks
 * Add `AbstractEntity` and `EntityInterface` classes. (Data objects are Entities that do not have an MBID)
 * Add common functions to abstract classes
+* Exception when searching by invalid entity types
 * Missing Entities
   * Area
+  * DiscId
   * Event
   * Genre
   * Instrument
@@ -18,8 +20,9 @@
   * Url
   * Work
 * Missing data Objects
-  * Attributes
-  * Coordinates
+  * Annotation
+  * Attribute
+  * Coordinate
   * LifeSpan
 * Missing typed parameters and properties
 * Use class constants for common data strings where possible
