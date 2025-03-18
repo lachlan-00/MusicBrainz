@@ -28,14 +28,19 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
+        'aliases',
+        'annotation',
         'area-rels',
         'artist-credits',
         'artist-rels',
+        'artists',
+        'discids',
         'event-rels',
         'genre-rels',
         'genres',
         'instrument-rels',
         'label-rels',
+        'media',
         'place-rels',
         'ratings',
         'recording-rels',
@@ -45,6 +50,8 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'series-rels',
         'tags',
         'url-rels',
+        'user-ratings',
+        'user-tags',
         'work-rels',
     ];
 

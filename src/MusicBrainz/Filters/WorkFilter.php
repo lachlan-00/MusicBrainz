@@ -31,6 +31,7 @@ class WorkFilter extends AbstractFilter implements FilterInterface
         'annotation',
         'area-rels',
         'artist-rels',
+        'artists',
         'event-rels',
         'genre-rels',
         'instrument-rels',
@@ -43,7 +44,7 @@ class WorkFilter extends AbstractFilter implements FilterInterface
         'series-rels',
         'tags',
         'url-rels',
-        'user-ratings', // misc
+        'user-ratings',
         'user-tags',
         'work-rels',
     ];

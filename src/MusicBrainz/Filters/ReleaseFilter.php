@@ -32,17 +32,23 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
+        'aliases',
+        'annotation',
         'area-rels',
         'artist-credits',
         'artist-rels',
+        'artists',
         'discids',
+        'echoprints',
         'event-rels',
         'genre-rels',
         'instrument-rels',
+        'isrcs',
         'label-rels',
         'labels',
         'media',
         'place-rels',
+        'recording-level-rels',
         'recording-rels',
         'recordings',
         'release-group-rels',
@@ -50,6 +56,7 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         'release-rels',
         'series-rels',
         'url-rels',
+        'work-level-rels',
         'work-rels',
     ];
 

@@ -32,13 +32,16 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
         'aliases',
+        'annotation',
         'area-rels',
         'artist-rels',
+        'discids',
         'event-rels',
         'genre-rels',
         'genres',
         'instrument-rels',
         'label-rels',
+        'media',
         'place-rels',
         'ratings',
         'recording-rels',
@@ -52,7 +55,9 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
         'url-rels',
         'user-ratings',
         'user-tags',
+        'various-artists',
         'work-rels',
+        'works',
     ];
 
     /** @var string[] $validArgTypes */
