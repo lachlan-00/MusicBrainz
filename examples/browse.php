@@ -38,7 +38,6 @@ try {
     );
 
     $recordingFilter = new RecordingFilter([]);
-    $recordingFilter->parseResponse($browse, $brainz);
     foreach ($recordingFilter->parseResponse($browse, $brainz) as $recording) {
         print_r($recording->getData());
     }
@@ -63,7 +62,6 @@ try {
     );
 
     $releaseFilter = new ReleaseFilter([]);
-    $releaseFilter->parseResponse($browse, $brainz);
     foreach ($releaseFilter->parseResponse($browse, $brainz) as $release) {
         print_r($release->getData());
     }
@@ -88,7 +86,6 @@ try {
     );
 
     $releaseGroupFilter = new ReleaseGroupFilter([]);
-    $releaseGroupFilter->parseResponse($browse, $brainz);
     foreach ($releaseGroupFilter->parseResponse($browse, $brainz) as $releaseGroup) {
         print_r($releaseGroup->getData());
     }
@@ -112,8 +109,7 @@ try {
     );
 
     $artistFilter = new ArtistFilter([]);
-    $artistFilter->parseResponse($browse, $brainz);
-    $genreFilter = new GenreFilter([]);
+    $genreFilter  = new GenreFilter([]);
     foreach ($artistFilter->parseResponse($browse, $brainz) as $artist) {
         // print Artist data property
         print_r($artist->getData());
@@ -142,7 +138,6 @@ try {
     );
 
     $labelFilter = new LabelFilter([]);
-    $labelFilter->parseResponse($browse, $brainz);
     foreach ($labelFilter->parseResponse($browse, $brainz) as $label) {
         print_r($label->getData());
     }

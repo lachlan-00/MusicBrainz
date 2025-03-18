@@ -22,21 +22,26 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
     $config = [
         'allow_redirects' => true
     ];
-    $client   = new Client($config);
+    $client = new Client($config);
+
     // Some areas require authentication
     $username = 'username';
     $password = 'password';
+
     // Create new MusicBrainz object
     $brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
     $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
-    $args = array(
-        "recording"  => "Buddy Holly",
-        "artist"     => 'Weezer',
-        "creditname" => 'Weezer',
-        "status"     => 'Official'
-    );
     try {
+        // Search for Buddy Holly recordings by Weezer
+        $args = array(
+            "recording"  => "Buddy Holly",
+            "artist"     => 'Weezer',
+            "creditname" => 'Weezer',
+            "status"     => 'Official'
+        );
+
+        // Search for recordings and then return a list of Recording objects
         $recordings = $brainz->search(
             new RecordingFilter($args)
         );
@@ -44,7 +49,34 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
     } catch (Exception $e) {
         print $e->getMessage();
     }
-?>
+    try {
+        // Search for an artist by the recording ID, include the aliases, ratings and genres
+        $includes = ['aliases', 'ratings', 'genres'];
+        $browse   = $brainz->browseArtist(
+            'recording',
+            'd615590b-1546-441d-9703-b3cf88487cbd',
+            $includes,
+            1
+        );
+
+        // Filters are used to parse responses and return data objects    
+        $artistFilter = new ArtistFilter([]);
+        $genreFilter  = new GenreFilter([]);
+
+        // artistFilter::parseResponse returns an array of Artist objects
+        foreach ($artistFilter->parseResponse($browse, $brainz) as $artist) {
+            // print Artist data property
+            print_r($artist->getData());
+
+            // genreFilter::parseResponse returns an array of Genre objects
+            foreach ($genreFilter->parseResponse($artist->getData(), $brainz) as $genre) {
+                // print each genre for the artist
+                print_r($genre->getData());
+            }
+        }
+    } catch (Exception $e) {
+        print $e->getMessage();
+    }
 ```
 
 Look in the [/examples](https://github.com/mikealmond/MusicBrainz/tree/master/examples) folder for more.
