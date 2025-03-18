@@ -59,8 +59,8 @@ class Artist extends AbstractEntity implements EntityInterface
         $this->sortName  = (string)($artist['sort-name'] ?? '');
         $this->gender    = (string)($artist['gender'] ?? '');
         $this->country   = (string)($artist['country'] ?? '');
-        $this->beginDate = $artist['life-span']['begin'] ?? null;
-        $this->endDate   = $artist['life-span']['ended'] ?? null;
+        $this->beginDate = $artist['life-span']->{'begin'} ?: null;
+        $this->endDate   = $artist['life-span']->{'ended'} ?: null;
     }
 
     public function getId(): string

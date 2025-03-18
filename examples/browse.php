@@ -17,6 +17,25 @@ $password = null;
 $brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
+/**
+ * Browse Releases based on an Artist MBID (Weezer in this case)
+ * Include the Labels for the Release and the Recordings in it
+ */
+$includes = [];
+try {
+    $details = $brainz->browseRecording(
+        'artist',
+        '6fe07aa5-fec0-4eca-a456-f29bff451b04',
+        $includes,
+        1
+    );
+    print_r($details);
+} catch (Exception $e) {
+    print $e->getMessage();
+    die();
+}
+print "\n\n";
+
 
 /**
  * Browse Releases based on an Artist MBID (Weezer in this case)
@@ -33,6 +52,27 @@ try {
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
+}
+print "\n\n";
+
+
+/**
+ * Browse ReleaseGroupss based on an Artist MBID (Weezer in this case)
+ * Include the Labels for the Release and the Recordings in it
+ */
+$includes = ['genres', 'artist-credits'];
+try {
+    $details = $brainz->browseReleaseGroup(
+        'artist',
+        '6fe07aa5-fec0-4eca-a456-f29bff451b04',
+        $includes,
+        1
+    );
+    print_r($details);
+} catch (Exception $e) {
+    print $e->getMessage();
+    die();
 }
 print "\n\n";
 
@@ -51,6 +91,7 @@ try {
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }
 print "\n\n";
 
@@ -69,4 +110,5 @@ try {
     print_r($details);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }

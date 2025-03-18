@@ -30,8 +30,8 @@ class Work extends AbstractEntity implements EntityInterface
     /** @var string[] $iswcs */
     public array $iswcs;
 
-    /** @var Attribute[] $attributes */
-    public array $attributes;
+    /** @var null|Attribute[] $attributes */
+    public ?array $attributes = null;
 
     public string $disambiguation;
 
@@ -63,8 +63,8 @@ class Work extends AbstractEntity implements EntityInterface
         $this->type           = (string)($work['type'] ?? '');
         $this->language       = (string)($work['language'] ?? '');
         $this->languages      = $work['languages'];
-        $this->iswcs          = $work['iswcs'];
-        $this->attributes     = $work['attributes'];
+        $this->iswcs          = $work['iswcs'] ?? [];
+        $this->attributes     = $work['attributes'] ?? null;
         $this->disambiguation = (string)($work['disambiguation'] ?? '');
     }
 

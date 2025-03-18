@@ -3,8 +3,10 @@
 use GuzzleHttp\Client;
 use MusicBrainz\Filters\ArtistFilter;
 use MusicBrainz\Filters\LabelFilter;
+use MusicBrainz\Filters\PlaceFilter;
 use MusicBrainz\Filters\RecordingFilter;
 use MusicBrainz\Filters\ReleaseGroupFilter;
+use MusicBrainz\Filters\WorkFilter;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
@@ -26,6 +28,46 @@ $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.
  * @see http://musicbrainz.org/doc/Release_Group
  */
 $args = [
+    'name' => 'Altern'
+];
+try {
+    $search = $brainz->search(
+        new PlaceFilter($args),
+        1
+    );
+    var_dump($search);
+} catch (Exception $e) {
+    print $e->getMessage();
+    die();
+}
+print "\n\n";
+
+
+/**
+ * Get the release groups for an artist
+ * @see http://musicbrainz.org/doc/Release_Group
+ */
+$args = [
+    'title' => 'My Name is Jonas'
+];
+try {
+    $search = $brainz->search(
+        new WorkFilter($args),
+        1
+    );
+    var_dump($search);
+} catch (Exception $e) {
+    print $e->getMessage();
+    die();
+}
+print "\n\n";
+
+
+/**
+ * Get the release groups for an artist
+ * @see http://musicbrainz.org/doc/Release_Group
+ */
+$args = [
     'artist' => 'Weezer'
 ];
 try {
@@ -36,6 +78,7 @@ try {
     var_dump($releaseGroups);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }
 print "\n\n";
 
@@ -56,8 +99,10 @@ try {
     print_r($artists);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }
 print "\n\n";
+
 
 /**
  * Do a recording (song) search
@@ -77,6 +122,7 @@ try {
     print_r($recordings);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }
 print "\n\n";
 
@@ -96,4 +142,5 @@ try {
     print_r($labels);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }

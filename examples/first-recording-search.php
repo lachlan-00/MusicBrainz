@@ -51,7 +51,6 @@ try {
 
     /** @var $recording Recording */
     foreach ($recordings as $recording) {
-
         // if the recording has a lower score than the previous recording, stop the loop.
         // This is because scores less than 100 usually don't match the search well
         if (
@@ -65,19 +64,23 @@ try {
         $releaseDates     = $recording->getReleaseDates();
         $oldestReleaseKey = key($releaseDates);
 
-        if (strtoupper($recording->getArtist()->getName()) == strtoupper($args['artist'])
-            && $releaseDates[$oldestReleaseKey] < $firstRecording['releaseDate']
+        if (
+            strtoupper($recording->getArtist()->getName()) == strtoupper($args['artist']) &&
+            $releaseDates[$oldestReleaseKey]->getTimestamp() < $firstRecording['releaseDate']->getTimestamp()
         ) {
-
             $firstRecording = [
-                'release' => $recording->releases[$oldestReleaseKey],
-                'releaseDate' => $recording->releases[$oldestReleaseKey]->getReleaseDate(),
+                'release' => $recording->releases[key($releaseDate)],
+                'releaseDate' => $recording->releases[key($releaseDate)]->getReleaseDate(),
                 'recording' => $recording,
                 'artistId' => $recording->getArtist()->getId(),
                 'recordingId' => $recording->getId(),
                 'trackLength' => $recording->getLength('long')
             ];
         }
+    }
+
+    if ($firstRecording['release'] === null) {
+        throw new Exception('No search results found');
     }
 
     var_dump([$firstRecording]);

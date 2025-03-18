@@ -4,35 +4,36 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
-use MusicBrainz\Entities\Work;
+use MusicBrainz\Entities\Place;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
- * This is the work filter and it contains
+ * This is the place filter and it contains
  * an array of valid argument types to be used
  * when querying the MusicBrainz web service.
  */
-class WorkFilter extends AbstractFilter implements FilterInterface
+class PlaceFilter extends AbstractFilter implements FilterInterface
 {
-    private const ENTITY = 'work';
+    private const ENTITY = 'place';
 
     private const CAN_SEARCH = true;
 
     /** @var string[] $LINKS */
     private const LINKS = [
-        'artist',
+        'area',
         'collection',
+        'release',
     ];
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
         'aliases',
-        'annotation',
         'area-rels',
         'artist-rels',
         'event-rels',
         'genre-rels',
+        'genres',
         'instrument-rels',
         'label-rels',
         'place-rels',
@@ -43,7 +44,7 @@ class WorkFilter extends AbstractFilter implements FilterInterface
         'series-rels',
         'tags',
         'url-rels',
-        'user-ratings', // misc
+        'user-ratings',
         'user-tags',
         'work-rels',
     ];
@@ -61,9 +62,9 @@ class WorkFilter extends AbstractFilter implements FilterInterface
         'label',
         'labelaccent',
         'laid',
+        'name',
         'sortname',
         'tag',
-        'title',
         'type',
     ];
 
@@ -89,19 +90,19 @@ class WorkFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @return Work[]
+     * @return Place[]
      * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $works = [];
+        $places = [];
 
-        foreach ($response['works'] as $work) {
-            $works[] = new Work($work, $brainz);
+        foreach ($response['places'] as $place) {
+            $places[] = new Place($place, $brainz);
         }
 
-        return $works;
+        return $places;
     }
 }

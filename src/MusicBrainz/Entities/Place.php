@@ -25,11 +25,14 @@ class Place extends AbstractEntity implements EntityInterface
 
     public string $type;
 
-    public LifeSpan $life_span;
+    /** @var LifeSpan[] $life_span */
+    public array $life_span;
 
-    public Area $area;
+    /** @var Area[] $area */
+    public array $area;
 
-    public Coordinate $coordinates;
+    /** @var null|Coordinate[] $coordinates */
+    public ?array $coordinates;
 
     public string $disambiguation;
 
@@ -62,7 +65,7 @@ class Place extends AbstractEntity implements EntityInterface
         $this->type           = (string)($place['type'] ?? '');
         $this->area           = $place['area'];
         $this->life_span      = $place['life-span'];
-        $this->coordinates    = $place['coordinates'];
+        $this->coordinates    = $place['coordinates'] ?? null;
         $this->disambiguation = (string)($place['disambiguation'] ?? '');
     }
 
