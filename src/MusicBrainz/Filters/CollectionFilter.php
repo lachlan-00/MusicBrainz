@@ -102,7 +102,7 @@ class CollectionFilter extends AbstractFilter implements FilterInterface
         $collections = [];
 
         foreach ($response['collections'] as $collection) {
-            $collections[] = new Collection($collection, $brainz);
+            $collections[] = new Collection((array)$collection, $brainz);
         }
 
         return $collections;

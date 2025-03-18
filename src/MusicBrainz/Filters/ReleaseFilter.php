@@ -121,11 +121,11 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         $releases = [];
         if (isset($response['release'])) {
             foreach ($response['release'] as $release) {
-                $releases[] = new Release($release, $brainz);
+                $releases[] = new Release((array)$release, $brainz);
             }
         } elseif (isset($response['releases'])) {
             foreach ($response['releases'] as $release) {
-                $releases[] = new Release($release, $brainz);
+                $releases[] = new Release((array)$release, $brainz);
             }
         }
 

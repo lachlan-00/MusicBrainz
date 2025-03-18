@@ -90,7 +90,7 @@ class AreaFilter extends AbstractFilter implements FilterInterface
         $areas = [];
 
         foreach ($response['areas'] as $area) {
-            $areas[] = new Area($area, $brainz);
+            $areas[] = new Area((array)$area, $brainz);
         }
 
         return $areas;

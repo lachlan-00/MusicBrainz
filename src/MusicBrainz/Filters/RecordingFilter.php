@@ -123,11 +123,11 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
 
         if (isset($response['recording'])) {
             foreach ($response['recording'] as $recording) {
-                $recordings[] = new Recording($recording, $brainz);
+                $recordings[] = new Recording((array)$recording, $brainz);
             }
         } elseif (isset($response['recordings'])) {
             foreach ($response['recordings'] as $recording) {
-                $recordings[] = new Recording($recording, $brainz);
+                $recordings[] = new Recording((array)$recording, $brainz);
             }
         }
 

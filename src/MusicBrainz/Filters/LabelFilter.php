@@ -103,7 +103,7 @@ class LabelFilter extends AbstractFilter implements FilterInterface
         $labels = [];
 
         foreach ($response['labels'] as $label) {
-            $labels[] = new Label($label, $brainz);
+            $labels[] = new Label((array)$label, $brainz);
         }
 
         return $labels;

@@ -63,8 +63,8 @@ class Release extends AbstractEntity implements EntityInterface
         $this->title    = (string)($release['title'] ?? '');
         $this->status   = (string)($release['status'] ?? '');
         $this->quality  = (string)($release['quality'] ?? '');
-        $this->language = (string)($release['text-representation']['language'] ?? '');
-        $this->script   = (string)($release['text-representation']['script'] ?? '');
+        $this->language = ($release['text-representation']->{'language'} ?? '');
+        $this->script   = ($release['text-representation']->{'script'} ?? '');
         $this->date     = (string)($release['date'] ?? '');
         $this->country  = (string)($release['country'] ?? '');
         $this->barcode  = (string)($release['barcode'] ?? '');

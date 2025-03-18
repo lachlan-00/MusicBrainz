@@ -2,7 +2,11 @@
 
 use GuzzleHttp\Client;
 use MusicBrainz\Entities\Artist;
-use MusicBrainz\Entities\ReleaseGroup;
+use MusicBrainz\Filters\ArtistFilter;
+use MusicBrainz\Filters\LabelFilter;
+use MusicBrainz\Filters\RecordingFilter;
+use MusicBrainz\Filters\ReleaseFilter;
+use MusicBrainz\Filters\ReleaseGroupFilter;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
@@ -31,7 +35,12 @@ try {
         $includes,
         1
     );
-    print_r($browse);
+
+    $recordingFilter = new RecordingFilter([]);
+    $recordingFilter->parseResponse($browse, $brainz);
+    foreach ($recordingFilter->parseResponse($browse, $brainz) as $recording) {
+        print_r($recording->getData());
+    }
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -51,7 +60,12 @@ try {
         $includes,
         1
     );
-    print_r($browse);
+
+    $releaseFilter = new ReleaseFilter([]);
+    $releaseFilter->parseResponse($browse, $brainz);
+    foreach ($releaseFilter->parseResponse($browse, $brainz) as $release) {
+        print_r($release->getData());
+    }
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -71,9 +85,11 @@ try {
         $includes,
         1
     );
-    foreach ($browse['release-groups'] as $releaseGroups) {
-        $object = new ReleaseGroup((array)$releaseGroups, $brainz);
-        print_r($object->getData());
+
+    $releaseGroupFilter = new ReleaseGroupFilter([]);
+    $releaseGroupFilter->parseResponse($browse, $brainz);
+    foreach ($releaseGroupFilter->parseResponse($browse, $brainz) as $releaseGroups) {
+        print_r($releaseGroups->getData());
     }
 } catch (Exception $e) {
     print $e->getMessage();
@@ -93,9 +109,11 @@ try {
         $includes,
         1
     );
-    foreach ($browse['artists'] as $artist) {
-        $object = new Artist((array)$artist, $brainz);
-        print_r($object->getData());
+
+    $artistFilter = new ArtistFilter([]);
+    $artistFilter->parseResponse($browse, $brainz);
+    foreach ($artistFilter->parseResponse($browse, $brainz) as $artists) {
+        print_r($artists->getData());
     }
 } catch (Exception $e) {
     print $e->getMessage();
@@ -115,7 +133,12 @@ try {
         $includes,
         1
     );
-    print_r($browse);
+
+    $labelFilter = new LabelFilter([]);
+    $labelFilter->parseResponse($browse, $brainz);
+    foreach ($labelFilter->parseResponse($browse, $brainz) as $label) {
+        print_r($label->getData());
+    }
 } catch (Exception $e) {
     print $e->getMessage();
     die();

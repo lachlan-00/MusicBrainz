@@ -75,7 +75,7 @@ class GenreFilter extends AbstractFilter implements FilterInterface
     ): array {
         $genres = [];
         foreach ($response['genres'] as $genre) {
-            $genres[] = new Genre($genre, $brainz);
+            $genres[] = new Genre((array)$genre, $brainz);
         }
 
         return $genres;

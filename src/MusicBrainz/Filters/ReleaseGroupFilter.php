@@ -111,7 +111,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 
         $releaseGroups = [];
         foreach ($response['release-groups'] as $releaseGroup) {
-            $releaseGroups[] = new ReleaseGroup($releaseGroup, $brainz);
+            $releaseGroups[] = new ReleaseGroup((array)$releaseGroup, $brainz);
         }
 
         return $releaseGroups;

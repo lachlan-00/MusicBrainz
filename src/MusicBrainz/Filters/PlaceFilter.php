@@ -100,7 +100,7 @@ class PlaceFilter extends AbstractFilter implements FilterInterface
         $places = [];
 
         foreach ($response['places'] as $place) {
-            $places[] = new Place($place, $brainz);
+            $places[] = new Place((array)$place, $brainz);
         }
 
         return $places;
