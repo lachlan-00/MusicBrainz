@@ -23,23 +23,24 @@ class DiscIdFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
+        'area-rels',
         'artist-credits',
         'artist-rels',
         'artists',
-        'discids',
-        'echoprints',
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
         'isrcs',
         'label-rels',
         'labels',
-        'media',
-        'recording-level-rels',
+        'place-rels',
         'recording-rels',
         'recordings',
         'release-group-rels',
         'release-groups',
         'release-rels',
+        'series-rels',
         'url-rels',
-        'work-level-rels',
         'work-rels',
     ];
 

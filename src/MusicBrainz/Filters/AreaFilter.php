@@ -4,49 +4,37 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
-use MusicBrainz\Entities\Release;
+use MusicBrainz\Entities\Area;
 use MusicBrainz\MusicBrainz;
 
 /**
- * This is the release filter and it contains
+ * This is the area filter and it contains
  * an array of valid argument types to be used
  * when querying the MusicBrainz web service.
  */
-class ReleaseFilter extends AbstractFilter implements FilterInterface
+class AreaFilter extends AbstractFilter implements FilterInterface
 {
-    private const ENTITY = 'release';
+    private const ENTITY = 'area';
 
-    private const CAN_SEARCH = true;
+    private const CAN_SEARCH = false;
 
     /** @var string[] $LINKS */
     private const LINKS = [
         'area',
-        'artist',
-        'collection',
-        'label',
-        'recording',
-        'release-group',
-        'track_artist',
-        'track',
+        'country',
     ];
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
         'area-rels',
-        'artist-credits',
         'artist-rels',
-        'discids',
         'event-rels',
         'genre-rels',
         'instrument-rels',
         'label-rels',
-        'labels',
-        'media',
         'place-rels',
         'recording-rels',
-        'recordings',
         'release-group-rels',
-        'release-groups',
         'release-rels',
         'series-rels',
         'url-rels',
@@ -55,34 +43,19 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
-        'arid',
-        'artist',
-        'artistname',
-        'asin',
-        'barcode',
-        'catno',
+        'alias',
+        'begin',
+        'code',
         'comment',
         'country',
-        'creditname',
-        'date',
-        'discids',
-        'discidsmedium',
-        'format',
+        'end',
+        'ended',
+        'ipi',
         'label',
+        'labelaccent',
         'laid',
-        'lang',
-        'mediums',
-        'primarytype',
-        'reid',
-        'release',
-        'releaseaccent',
-        'rgid',
-        'script',
-        'secondarytype',
-        'status',
+        'sortname',
         'tag',
-        'tracks',
-        'tracksmedium',
         'type',
     ];
 
@@ -107,21 +80,19 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         return self::INCLUDES;
     }
 
+    /**
+     * @return Area[]
+     */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $releases = [];
-        if (isset($response['release'])) {
-            foreach ($response['release'] as $release) {
-                $releases[] = new Release($release, $brainz);
-            }
-        } elseif (isset($response['releases'])) {
-            foreach ($response['releases'] as $release) {
-                $releases[] = new Release($release, $brainz);
-            }
+        $areas = [];
+
+        foreach ($response['areas'] as $area) {
+            $areas[] = new Area($area, $brainz);
         }
 
-        return $releases;
+        return $areas;
     }
 }

@@ -22,7 +22,21 @@ class TagFilter extends AbstractFilter implements FilterInterface
     private const LINKS = [];
 
     /** @var string[] $INCLUDES */
-    public const INCLUDES = [];
+    public const INCLUDES = [
+        'area-rels',
+        'artist-rels',
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
+        'label-rels',
+        'place-rels',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
+        'series-rels',
+        'url-rels',
+        'work-rels',
+    ];
 
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [

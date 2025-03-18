@@ -23,8 +23,21 @@ class IswcFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
+        'area-rels',
+        'artist-rels',
         'artists',
         'collection',
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
+        'label-rels',
+        'place-rels',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
+        'series-rels',
+        'url-rels',
+        'work-rels',
     ];
 
     /** @var string[] $validArgTypes */

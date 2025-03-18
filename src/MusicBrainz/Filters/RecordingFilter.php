@@ -29,15 +29,28 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
+        'area-rels',
         'artist-credits',
+        'artist-rels',
         'artist',
         'collection',
+        'event-rels',
+        'genre-rels',
         'genres',
+        'instrument-rels',
+        'label-rels',
+        'place-rels',
         'ratings',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
         'release',
+        'series-rels',
         'tags',
+        'url-rels',
         'user-ratings',
         'user-tags',
+        'work-rels',
         'work',
     ];
 

@@ -23,10 +23,23 @@ class IsrcFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
+        'area-rels',
+        'artist-rels',
         'artists',
         'echoprints',
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
         'isrcs',
+        'label-rels',
+        'place-rels',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
         'releases',
+        'series-rels',
+        'url-rels',
+        'work-rels',
     ];
 
     /** @var string[] $validArgTypes */

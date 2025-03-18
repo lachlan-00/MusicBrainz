@@ -29,13 +29,18 @@ class WorkFilter extends AbstractFilter implements FilterInterface
     public const INCLUDES = [
         'aliases',
         'annotation',
+        'area-rels',
         'artist-rels',
-        'artists', // sub queries
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
         'label-rels',
+        'place-rels',
         'ratings',
         'recording-rels',
         'release-group-rels',
         'release-rels',
+        'series-rels',
         'tags',
         'url-rels',
         'user-ratings', // misc

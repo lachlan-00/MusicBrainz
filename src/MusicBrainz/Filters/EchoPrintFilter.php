@@ -22,8 +22,21 @@ class EchoPrintFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
+        'area-rels',
+        'artist-rels',
         'artists',
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
+        'label-rels',
+        'place-rels',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
         'releases',
+        'series-rels',
+        'url-rels',
+        'work-rels',
     ];
 
     /** @var string[] $validArgTypes */

@@ -29,11 +29,24 @@ class LabelFilter extends AbstractFilter implements FilterInterface
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
         'aliases',
+        'area-rels',
+        'artist-rels',
+        'event-rels',
+        'genre-rels',
         'genres',
+        'instrument-rels',
+        'label-rels',
+        'place-rels',
         'ratings',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
+        'series-rels',
         'tags',
+        'url-rels',
         'user-ratings',
         'user-tags',
+        'work-rels',
     ];
 
     /** @var string[] $validArgTypes */

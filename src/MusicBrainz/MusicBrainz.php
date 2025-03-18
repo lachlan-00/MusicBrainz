@@ -83,6 +83,22 @@ class MusicBrainz
         'withdrawn',
     ];
 
+    public const DEFAULT_INCLUDES = [
+        'area-rels',
+        'artist-rels',
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
+        'label-rels',
+        'place-rels',
+        'recording-rels',
+        'release-rels',
+        'release-group-rels',
+        'series-rels',
+        'url-rels',
+        'work-rels',
+    ];
+
     private string $userAgent;
 
     private ?string $user = null; // The username a MusicBrainz user. Used for authentication.
@@ -134,7 +150,8 @@ class MusicBrainz
         }
 
         match ($entity) {
-            'area', 'annotation', 'event', 'genre', 'instrument', 'place', 'series', 'url' => $this->validateInclude($includes, [], $entity),
+            'annotation', 'event', 'genre', 'instrument', 'place', 'series', 'url' => $this->validateInclude($includes, self::DEFAULT_INCLUDES, $entity),
+            'area' => $this->validateInclude($includes, Filters\AreaFilter::INCLUDES, $entity),
             'artist' => $this->validateInclude($includes, Filters\ArtistFilter::INCLUDES, $entity),
             'collection' => $this->validateInclude($includes, Filters\CollectionFilter::INCLUDES, $entity),
             'discid' => $this->validateInclude($includes, Filters\DiscIdFilter::INCLUDES, $entity),
@@ -241,6 +258,31 @@ class MusicBrainz
      * @return array
      * @throws Exception
      */
+    public function browseCollection(
+        string $entity,
+        string $mbid,
+        array $includes,
+        int $limit = 25,
+        ?int $offset = null
+    ): array {
+        $filter = new Filters\CollectionFilter([]);
+        if (!$filter->hasLink($entity)) {
+            throw new Exception('Invalid browse entity for collection: ' . $entity);
+        }
+
+        return $this->browse($filter, $entity, $mbid, $includes, $limit, $offset);
+    }
+
+    /**
+     * @param string $entity
+     * @param string $mbid
+     * @param array $includes
+     * @param int $limit
+     * @param null|int $offset
+     *
+     * @return array
+     * @throws Exception
+     */
     public function browseLabel(
         string $entity,
         string $mbid,
@@ -322,9 +364,9 @@ class MusicBrainz
     /**
      * @param string $entity
      * @param string $mbid
+     * @param array $includes
      * @param int $limit
      * @param null|int $offset
-     * @param array $includes
      * @param array $releaseType
      *
      * @return array
@@ -333,9 +375,9 @@ class MusicBrainz
     public function browseReleaseGroup(
         string $entity,
         string $mbid,
+        array $includes = [],
         int $limit = 25,
         ?int $offset = null,
-        array $includes = [],
         array $releaseType = []
     ): array {
         $filter = new Filters\ReleaseGroupFilter([]);

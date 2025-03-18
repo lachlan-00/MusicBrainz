@@ -35,8 +35,21 @@ class CollectionFilter extends AbstractFilter implements FilterInterface
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
-        'user-collections',
+        'area-rels',
+        'artist-rels',
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
+        'label-rels',
+        'place-rels',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
         'releases',
+        'series-rels',
+        'url-rels',
+        'user-collections',
+        'work-rels',
     ];
 
     /** @var string[] $validArgTypes */
