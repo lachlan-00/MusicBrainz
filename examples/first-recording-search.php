@@ -44,13 +44,13 @@ $args = [
 ];
 try {
     // Find all the recordings that match the search and loop through them
-    $recordings = $brainz->search(
+    $search = $brainz->search(
         new RecordingFilter($args),
         1
     );
 
     /** @var $recording Recording */
-    foreach ($recordings as $recording) {
+    foreach ($search as $recording) {
         // if the recording has a lower score than the previous recording, stop the loop.
         // This is because scores less than 100 usually don't match the search well
         if (
@@ -83,7 +83,7 @@ try {
         throw new Exception('No search results found');
     }
 
-    var_dump([$firstRecording]);
+    print_r([$firstRecording]);
 } catch (Exception $e) {
     print($e->getMessage());
 }

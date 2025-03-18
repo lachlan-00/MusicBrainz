@@ -21,7 +21,7 @@ class Recording extends AbstractEntity implements EntityInterface
 
     public int $score;
 
-    public string $artistID;
+    public ?string $artistID = null;
 
     /** @var Release[] */
     public array $releases = [];
@@ -52,7 +52,7 @@ class Recording extends AbstractEntity implements EntityInterface
         $this->title    = (string)$recording['title'];
         $this->length   = (int)($recording['length'] ?? 0);
         $this->score    = (int)($recording['score'] ?? 0);
-        $this->artistID = $recording['artist-credit'][0]['artist']['id'];
+        $this->artistID = $recording['artistID'] ?? $recording['artist-credit'][0]['artist']['id'] ?? null;
 
         if (isset($recording['releases'])) {
             $this->setReleases($recording['releases']);
@@ -60,13 +60,15 @@ class Recording extends AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param array $releases
+     * @param Release|array $releases
      * @return Recording
      */
     public function setReleases(array $releases): Recording
     {
         foreach ($releases as $release) {
-            $this->releases[] = new Release($release, $this->brainz);
+            $this->releases[] = ($release instanceof Release)
+                ? $release
+                : new Release($release, $this->brainz);
         }
 
         return $this;

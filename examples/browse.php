@@ -1,6 +1,8 @@
 <pre><?php
 
 use GuzzleHttp\Client;
+use MusicBrainz\Entities\Artist;
+use MusicBrainz\Entities\ReleaseGroup;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
@@ -23,13 +25,13 @@ $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.
  */
 $includes = [];
 try {
-    $details = $brainz->browseRecording(
+    $browse = $brainz->browseRecording(
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
         1
     );
-    print_r($details);
+    print_r($browse);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -43,13 +45,13 @@ print "\n\n";
  */
 $includes = ['labels', 'recordings'];
 try {
-    $details = $brainz->browseRelease(
+    $browse = $brainz->browseRelease(
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
         1
     );
-    print_r($details);
+    print_r($browse);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -58,18 +60,21 @@ print "\n\n";
 
 
 /**
- * Browse ReleaseGroupss based on an Artist MBID (Weezer in this case)
+ * Browse ReleaseGroups based on an Artist MBID (Weezer in this case)
  * Include the Labels for the Release and the Recordings in it
  */
 $includes = ['genres', 'artist-credits'];
 try {
-    $details = $brainz->browseReleaseGroup(
+    $browse = $brainz->browseReleaseGroup(
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
         1
     );
-    print_r($details);
+    foreach ($browse['release-groups'] as $releaseGroups) {
+        $object = new ReleaseGroup((array)$releaseGroups, $brainz);
+        print_r($object->getData());
+    }
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -82,13 +87,16 @@ print "\n\n";
  */
 $includes = ['aliases', 'ratings', 'genres'];
 try {
-    $details = $brainz->browseArtist(
+    $browse = $brainz->browseArtist(
         'recording',
         'd615590b-1546-441d-9703-b3cf88487cbd',
         $includes,
         1
     );
-    print_r($details);
+    foreach ($browse['artists'] as $artist) {
+        $object = new Artist((array)$artist, $brainz);
+        print_r($object->getData());
+    }
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -101,13 +109,13 @@ print "\n\n";
  */
 $includes = ['aliases'];
 try {
-    $details = $brainz->browseLabel(
+    $browse = $brainz->browseLabel(
         'release',
         '5a90bd38-62b6-46f5-9c39-cfceba169019',
         $includes,
         1
     );
-    print_r($details);
+    print_r($browse);
 } catch (Exception $e) {
     print $e->getMessage();
     die();

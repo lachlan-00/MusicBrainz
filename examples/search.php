@@ -1,6 +1,7 @@
 <pre><?php
 
 use GuzzleHttp\Client;
+use MusicBrainz\Entities\Recording;
 use MusicBrainz\Filters\ArtistFilter;
 use MusicBrainz\Filters\LabelFilter;
 use MusicBrainz\Filters\PlaceFilter;
@@ -35,7 +36,7 @@ try {
         new PlaceFilter($args),
         1
     );
-    var_dump($search);
+    print_r($search);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -55,7 +56,7 @@ try {
         new WorkFilter($args),
         1
     );
-    var_dump($search);
+    print_r($search);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -71,11 +72,11 @@ $args = [
     'artist' => 'Weezer'
 ];
 try {
-    $releaseGroups = $brainz->search(
+    $search = $brainz->search(
         new ReleaseGroupFilter($args),
         1
     );
-    var_dump($releaseGroups);
+    print_r($search);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -92,11 +93,11 @@ $args = [
     'artist' => 'Weezer'
 ];
 try {
-    $artists = $brainz->search(
+    $search = $brainz->search(
         new ArtistFilter($args),
         1
     );
-    print_r($artists);
+    print_r($search);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -115,11 +116,14 @@ $args = [
     'status' => 'Official'
 ];
 try {
-    $recordings = $brainz->search(
+    $search = $brainz->search(
         new RecordingFilter($args),
         1
     );
-    print_r($recordings);
+    foreach ($search as $recording) {
+        $object = new Recording((array)$recording, $brainz);
+        print_r($object->getData());
+    }
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -135,11 +139,11 @@ $args = [
     'label' => 'Devils'
 ];
 try {
-    $labels = $brainz->search(
+    $search = $brainz->search(
         new LabelFilter($args),
         1
     );
-    print_r($labels);
+    print_r($search);
 } catch (Exception $e) {
     print $e->getMessage();
     die();

@@ -23,8 +23,8 @@ $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.
  */
 $includes = [];
 try {
-    $area = $brainz->lookup('area', '85752fda-13c4-31a3-bee5-0e5cb1f51dad', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('area', '85752fda-13c4-31a3-bee5-0e5cb1f51dad', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -36,8 +36,8 @@ print "\n\n";
  */
 $includes = [];
 try {
-    $area = $brainz->lookup('discid', 'lwHl8fGzJyLXQR33ug60E8jhf4k-', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('discid', 'lwHl8fGzJyLXQR33ug60E8jhf4k-', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -49,8 +49,8 @@ print "\n\n";
  */
 $includes = MusicBrainz::DEFAULT_INCLUDES;
 try {
-    $area = $brainz->lookup('event', '53bc3923-73f8-4e43-8bd6-1edf96e1b070', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('event', '53bc3923-73f8-4e43-8bd6-1edf96e1b070', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -64,8 +64,8 @@ print "\n\n";
  */
 $includes = [];
 try {
-    $area = $brainz->lookup('genre', 'ceeaa283-5d7b-4202-8d1d-e25d116b2a18', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('genre', 'ceeaa283-5d7b-4202-8d1d-e25d116b2a18', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -79,8 +79,8 @@ print "\n\n";
  */
 $includes = MusicBrainz::DEFAULT_INCLUDES;
 try {
-    $area = $brainz->lookup('instrument', '540280f1-d6cf-46bf-968b-695e99e216d7', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('instrument', '540280f1-d6cf-46bf-968b-695e99e216d7', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -94,8 +94,8 @@ print "\n\n";
  */
 $includes = MusicBrainz::DEFAULT_INCLUDES;
 try {
-    $area = $brainz->lookup('place', 'd10077c1-03d9-4fbb-a038-6e35ada8eb9d', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('place', 'd10077c1-03d9-4fbb-a038-6e35ada8eb9d', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -109,8 +109,8 @@ print "\n\n";
  */
 $includes = MusicBrainz::DEFAULT_INCLUDES;
 try {
-    $area = $brainz->lookup('series', 'a7b6abe0-42fd-46dc-ae9c-c4345c9080dc', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('series', 'a7b6abe0-42fd-46dc-ae9c-c4345c9080dc', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -124,8 +124,8 @@ print "\n\n";
  */
 $includes = MusicBrainz::DEFAULT_INCLUDES;
 try {
-    $area = $brainz->lookup('url', 'aa48bac9-96f9-4776-9a09-9b125717ff63', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('url', 'aa48bac9-96f9-4776-9a09-9b125717ff63', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -139,8 +139,8 @@ print "\n\n";
  */
 $includes = [];
 try {
-    $area = $brainz->lookup('work', 'd3344072-c45c-4d3b-a114-005276f250ba', $includes);
-    print_r($area);
+    $lookup = $brainz->lookup('work', 'd3344072-c45c-4d3b-a114-005276f250ba', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -159,8 +159,8 @@ $includes = [
     'works',
 ];
 try {
-    $artist = $brainz->lookup('artist', '4dbf5678-7a31-406a-abbe-232f8ac2cd63', $includes);
-    print_r($artist);
+    $lookup = $brainz->lookup('artist', '4dbf5678-7a31-406a-abbe-232f8ac2cd63', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -176,8 +176,8 @@ $includes = [
     'releases',
 ];
 try {
-    $artist = $brainz->lookup('label', 'b66d15cc-b372-4dc1-8cbd-efdeb02e23e7', $includes);
-    print_r($artist);
+    $lookup = $brainz->lookup('label', 'b66d15cc-b372-4dc1-8cbd-efdeb02e23e7', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
     print $e->getMessage();
     die();
@@ -192,10 +192,11 @@ print "\n\n";
 $includes = ['artists', 'releases'];
 try {
     //born this way: the remix
-    $releaseGroup = $brainz->lookup('release-group', 'e4307c5f-1959-4163-b4b1-ded4f9d786b0', $includes);
-    print_r($releaseGroup);
+    $lookup = $brainz->lookup('release-group', 'e4307c5f-1959-4163-b4b1-ded4f9d786b0', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
-    echo $e->getMessage();
+    print $e->getMessage();
+    die();
 }
 print "\n\n";
 
@@ -206,8 +207,9 @@ print "\n\n";
  */
 $includes = ['artists', 'release-groups'];
 try {
-    $release = $brainz->lookup('release', 'd8de198d-2162-4264-9cfe-926d92c4c7ad', $includes);
-    print_r($release);
+    $lookup = $brainz->lookup('release', 'd8de198d-2162-4264-9cfe-926d92c4c7ad', $includes);
+    print_r($lookup);
 } catch (Exception $e) {
-    echo $e->getMessage();
+    print $e->getMessage();
+    die();
 }
