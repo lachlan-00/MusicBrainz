@@ -316,16 +316,6 @@ parameters:
 			path: src/MusicBrainz/Entities/Work.php
 
 		-
-			message: "#^Method MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:createParameters\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/AbstractFilter.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:createParameters\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/AbstractFilter.php
-
-		-
 			message: "#^Property MusicBrainz\\\\Filters\\\\AbstractFilter\\:\\:\\$validArgs type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/AbstractFilter.php
@@ -354,16 +344,6 @@ parameters:
 			message: "#^Method MusicBrainz\\\\Filters\\\\EchoPrintFilter\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/Filters/EchoPrintFilter.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Filters\\\\FilterInterface\\:\\:createParameters\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/FilterInterface.php
-
-		-
-			message: "#^Method MusicBrainz\\\\Filters\\\\FilterInterface\\:\\:createParameters\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Filters/FilterInterface.php
 
 		-
 			message: "#^Method MusicBrainz\\\\Filters\\\\FilterInterface\\:\\:parseResponse\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"

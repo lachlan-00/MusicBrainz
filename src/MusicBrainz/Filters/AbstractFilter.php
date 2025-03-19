@@ -34,7 +34,19 @@ abstract class AbstractFilter
      */
     public function __construct(?array $args = null)
     {
+        self::validateArgs($args);
+    }
+
+    /**
+     * validateArgs
+     * Set query parameters from the list of valid includes
+     *
+     * @param string[]|null $args
+     */
+    public function validateArgs(?array $args = null): void
+    {
         if (is_array($args)) {
+            $this->validArgs = [];
             foreach ($args as $key => $value) {
                 if (in_array($key, $this->validArgTypes)) {
                     $this->validArgs[$key] = $value;
@@ -45,6 +57,8 @@ abstract class AbstractFilter
 
     /**
      * createParameters
+     * @param array<string, string|int|null> $params
+     * @return array<string, string|int|null>
      */
     public function createParameters(array $params = []): array
     {
@@ -66,7 +80,7 @@ abstract class AbstractFilter
             if (!in_array($key, $this->protectedArgs)) {
                 // Lucene escape characters
                 $val = urlencode(
-                    (string) preg_replace('/([(){}\[\]^"~:\\/])/', '\\\$1', (string)$val)
+                    (string)preg_replace('/([(){}\[\]^"~:\\/])/', '\\\$1', (string)$val)
                 );
             }
 

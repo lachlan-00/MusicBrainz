@@ -22,6 +22,11 @@ interface FilterInterface
      */
     public function getIncludes(): array;
 
+    /**
+     * createParameters
+     * @param array<string, string|int|null> $params
+     * @return array<string, string|int|null>
+     */
     public function createParameters(array $params = []): array;
 
     /**
