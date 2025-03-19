@@ -34,6 +34,7 @@ class WorkFilter extends AbstractFilter implements FilterInterface
         'artists',
         'event-rels',
         'genre-rels',
+        'genres',
         'instrument-rels',
         'label-rels',
         'place-rels',
