@@ -18,22 +18,65 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
 
     require __DIR__ . '/vendor/autoload.php';
 
-    $brainz = new MusicBrainz(new GuzzleHttpAdapter(new Client()), 'username', 'password');
+    // Create new Guzzle HTTP client
+    $config = [
+        'allow_redirects' => true
+    ];
+    $client = new Client($config);
+
+    // Some areas require authentication
+    $username = 'username';
+    $password = 'password';
+
+    // Create new MusicBrainz object
+    $brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
     $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
-    $args = array(
-        "recording"  => "Buddy Holly",
-        "artist"     => 'Weezer',
-        "creditname" => 'Weezer',
-        "status"     => 'Official'
-    );
     try {
-        $recordings = $brainz->search(new RecordingFilter($args));
+        // Search for Buddy Holly recordings by Weezer
+        $args = array(
+            "recording"  => "Buddy Holly",
+            "artist"     => 'Weezer',
+            "creditname" => 'Weezer',
+            "status"     => 'Official'
+        );
+
+        // Search for recordings and then return a list of Recording objects
+        $recordings = $brainz->search(
+            new RecordingFilter($args)
+        );
         print_r($recordings);
     } catch (Exception $e) {
         print $e->getMessage();
     }
-?>
+    try {
+        // Search for an artist by the recording ID, include the aliases, ratings and genres
+        $includes = ['aliases', 'ratings', 'genres'];
+        $browse   = $brainz->browseArtist(
+            'recording',
+            'd615590b-1546-441d-9703-b3cf88487cbd',
+            $includes,
+            1
+        );
+
+        // Filters are used to parse responses and return data objects    
+        $artistFilter = new ArtistFilter([]);
+        $genreFilter  = new GenreFilter([]);
+
+        // artistFilter::parseResponse returns an array of Artist objects
+        foreach ($artistFilter->parseResponse($browse, $brainz) as $artist) {
+            // print Artist data property
+            print_r($artist->getData());
+
+            // genreFilter::parseResponse returns an array of Genre objects
+            foreach ($genreFilter->parseResponse($artist->getData(), $brainz) as $genre) {
+                // print each genre for the artist
+                print_r($genre->getData());
+            }
+        }
+    } catch (Exception $e) {
+        print $e->getMessage();
+    }
 ```
 
 Look in the [/examples](https://github.com/mikealmond/MusicBrainz/tree/master/examples) folder for more.
@@ -41,6 +84,17 @@ Look in the [/examples](https://github.com/mikealmond/MusicBrainz/tree/master/ex
 ## Requirements
 
 PHP8.2+ and [cURL extension](http://php.net/manual/en/book.curl.php).
+
+You must also choose a HTTP client to use.
+
+They are not included in the composer requirements to allow you to choose your own based on your project requirements.
+
+Add it to your composer requirements with composer require.
+
+* The library is built to use
+  * rmccue/requests
+  * guzzlehttp/guzzle
+  * guzzle/guzzle (deprecated)
 
 ## License
 

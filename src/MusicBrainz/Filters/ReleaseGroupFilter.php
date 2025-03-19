@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Entities\ReleaseGroup;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\ReleaseGroup;
 
 /**
  * This is the release group filter and it contains
@@ -15,6 +15,46 @@ use MusicBrainz\ReleaseGroup;
  */
 class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 {
+    private const ENTITY = 'release-group';
+
+    private const CAN_SEARCH = true;
+
+    /** @var string[] $LINKS */
+    private const LINKS = [
+        'artist',
+        'collection',
+        'release',
+    ];
+
+    /** @var string[] $INCLUDES */
+    public const INCLUDES = [
+        'aliases',
+        'annotation',
+        'area-rels',
+        'artist-credits',
+        'artist-rels',
+        'artists',
+        'discids',
+        'event-rels',
+        'genre-rels',
+        'genres',
+        'instrument-rels',
+        'label-rels',
+        'media',
+        'place-rels',
+        'ratings',
+        'recording-rels',
+        'release-group-rels',
+        'release-rels',
+        'releases',
+        'series-rels',
+        'tags',
+        'url-rels',
+        'user-ratings',
+        'user-tags',
+        'work-rels',
+    ];
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
@@ -23,12 +63,12 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'comment',
         'creditname',
         'primarytype',
-        'rgid',
+        'reid',
+        'release',
         'releasegroup',
         'releasegroupaccent',
         'releases',
-        'release',
-        'reid',
+        'rgid',
         'secondarytype',
         'status',
         'tag',
@@ -37,25 +77,42 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
 
     public function getEntity(): string
     {
-        return 'release-group';
+        return self::ENTITY;
+    }
+
+    public function hasLink(string $entity): bool
+    {
+        return in_array($entity, self::LINKS);
+    }
+
+    public function canSearch(): bool
+    {
+        return self::CAN_SEARCH;
+    }
+
+    /** @return string[] */
+    public function getIncludes(): array
+    {
+        return self::INCLUDES;
     }
 
     /**
      * @return ReleaseGroup[]
      * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
-
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
         if (!isset($response['release-groups'])) {
-            throw new Exception('No release groups found');
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        $releaseGroups = [];
+        $results = [];
         foreach ($response['release-groups'] as $releaseGroup) {
-            $releaseGroups[] = new ReleaseGroup($releaseGroup, $brainz);
+            $results[] = new ReleaseGroup((array)$releaseGroup, $brainz);
         }
 
-        return $releaseGroups;
+        return $results;
     }
 }

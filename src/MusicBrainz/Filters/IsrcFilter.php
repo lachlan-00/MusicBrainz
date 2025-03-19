@@ -4,75 +4,58 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
-use MusicBrainz\Entities\Artist;
+use MusicBrainz\Entities\Isrc;
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
 
 /**
- * This is the artist filter and it contains
+ * This is the isrc filter and it contains
  * an array of valid argument types to be used
  * when querying the MusicBrainz web service.
  */
-class ArtistFilter extends AbstractFilter implements FilterInterface
+class IsrcFilter extends AbstractFilter implements FilterInterface
 {
-    private const ENTITY = 'artist';
+    private const ENTITY = 'isrc';
 
-    private const CAN_SEARCH = true;
+    private const CAN_SEARCH = false;
 
     /** @var string[] $LINKS */
-    private const LINKS = [
-        'area',
-        'collection',
-        'recording',
-        'release-group',
-        'release',
-        'work',
-    ];
+    private const LINKS = [];
 
     /** @var string[] $INCLUDES */
     public const INCLUDES = [
-        'aliases',
-        'annotation',
         'area-rels',
         'artist-rels',
-        'discids',
+        'artists',
+        'echoprints',
         'event-rels',
         'genre-rels',
-        'genres',
         'instrument-rels',
+        'isrcs',
         'label-rels',
-        'media',
         'place-rels',
-        'ratings',
         'recording-rels',
-        'recordings',
         'release-group-rels',
-        'release-groups',
         'release-rels',
         'releases',
         'series-rels',
-        'tags',
         'url-rels',
-        'user-ratings',
-        'user-tags',
-        'various-artists',
         'work-rels',
-        'works',
     ];
 
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'alias',
-        'arid',
-        'artist',
-        'artistaccent',
         'begin',
+        'code',
         'comment',
         'country',
         'end',
         'ended',
-        'gender',
         'ipi',
+        'label',
+        'labelaccent',
+        'laid',
         'sortname',
         'tag',
         'type',
@@ -100,24 +83,20 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
     }
 
     /**
-     * @return Artist[]
+     * @return string[]
      * @throws Exception
      */
     public function parseResponse(
         array $response,
         MusicBrainz $brainz
     ): array {
-        $results = [];
-        if (isset($response['artist'])) {
-            foreach ($response['artist'] as $artist) {
-                $results[] = new Artist((array)$artist, $brainz);
-            }
-        } elseif (isset($response['artists'])) {
-            foreach ($response['artists'] as $artist) {
-                $results[] = new Artist((array)$artist, $brainz);
-            }
-        } else {
+        if (!isset($response['isrcs'])) {
             throw new Exception(sprintf('No %s found', self::ENTITY));
+        }
+
+        $results = [];
+        foreach ($response['isrcs'] as $isrc) {
+            $results[] = $isrc;
         }
 
         return $results;

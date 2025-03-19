@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
 
 use DateTime;
+use MusicBrainz\Exception;
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz release object
  * @package MusicBrainz
  */
-class Release
+class Release extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -42,26 +44,50 @@ class Release
     /**
      * @param array $release
      * @param MusicBrainz $brainz
+     * @throws Exception
      */
-    public function __construct(array $release, MusicBrainz $brainz)
-    {
-        $this->data   = $release;
-        $this->brainz = $brainz;
+    public function __construct(
+        array $release,
+        MusicBrainz $brainz
+    ) {
+        if (
+            !isset($release['id']) ||
+            !$this->hasValidId($release['id'])
+        ) {
+            throw new Exception('Can not create release object. Missing valid MBID');
+        }
 
-        $this->id       = isset($release['id']) ? (string)$release['id'] : '';
-        $this->title    = isset($release['title']) ? (string)$release['title'] : '';
-        $this->status   = isset($release['status']) ? (string)$release['status'] : '';
-        $this->quality  = isset($release['quality']) ? (string)$release['quality'] : '';
-        $this->language = isset($release['text-representation']['language']) ? (string)$release['text-representation']['language'] : '';
-        $this->script   = isset($release['text-representation']['script']) ? (string)$release['text-representation']['script'] : '';
-        $this->date     = isset($release['date']) ? (string)$release['date'] : '';
-        $this->country  = isset($release['country']) ? (string)$release['country'] : '';
-        $this->barcode  = isset($release['barcode']) ? (string)$release['barcode'] : '';
+        $this->brainz   = $brainz;
+        $this->data     = $release;
+        $this->id       = $release['id'];
+        $this->title    = (string)($release['title'] ?? '');
+        $this->status   = (string)($release['status'] ?? '');
+        $this->quality  = (string)($release['quality'] ?? '');
+        $this->language = ($release['text-representation']->{'language'} ?? '');
+        $this->script   = ($release['text-representation']->{'script'} ?? '');
+        $this->date     = (string)($release['date'] ?? '');
+        $this->country  = (string)($release['country'] ?? '');
+        $this->barcode  = (string)($release['barcode'] ?? '');
     }
 
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->title;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->getName();
     }
 
     /**
@@ -74,7 +100,10 @@ class Release
         }
 
         // If there is no release date set, look through the release events
-        if (!isset($this->data['date']) && isset($this->data['release-events'])) {
+        if (
+            !isset($this->data['date']) &&
+            isset($this->data['release-events'])
+        ) {
             return $this->getReleaseEventDates($this->data['release-events']);
         } elseif (isset($this->data['date'])) {
             return new DateTime($this->data['date']);

@@ -12,10 +12,28 @@ interface FilterInterface
 {
     public function getEntity(): string;
 
+    public function hasLink(string $entity): bool;
+
+    public function canSearch(): bool;
+
+    /**
+     * https://musicbrainz.org/doc/MusicBrainz_API#Linked_entities
+     * @return string[]
+     */
+    public function getIncludes(): array;
+
+    /**
+     * createParameters
+     * @param array<string, string|int|null> $params
+     * @return array<string, string|int|null>
+     */
     public function createParameters(array $params = []): array;
 
     /**
-     * Return an array of the Filter's Music Brainz entity objects
+     * Return an array of the Filter's MusicBrainz entity objects
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array;
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array;
 }

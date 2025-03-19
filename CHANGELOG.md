@@ -1,5 +1,52 @@
 # MusicBrainz
 
+## 0.4.0
+
+### Added
+
+* Updated Guzzle to v7. (Based on [mikealmond/MusicBrainz/pull/29](https://github.com/mikealmond/MusicBrainz/pull/29))
+* GitHub QA checks
+* Add `AbstractEntity` and `EntityInterface` classes. (Data objects are Entities that do not have an MBID)
+* Add common functions to abstract classes
+* Exception when searching by invalid entity types
+* Missing Entities
+  * Area
+  * DiscId
+  * Event
+  * Genre
+  * Instrument
+  * Place
+  * Series
+  * Url
+  * Work
+* Missing data Objects
+  * Annotation
+  * Attribute
+  * Coordinate
+  * LifeSpan
+* Missing typed parameters and properties
+* Use class constants for common data strings where possible
+
+### Changed
+
+* Combine Include relationship lists instead of validating everything. (Allow mistakes and return the errors instead)
+* Moved GuzzleHttp 3.8 to GuzzleHttpOld class
+* Moved MusicBrainz Entity objects to the Entities folder
+* Moved MusicBrainz Data objects to the Objects folder
+* Move some of the larger data arrays to their Entity classes
+* Require `Entity::getName()` for Entity objects. (`getTitle()` is still available where the object has a title property)
+
+### Removed
+
+* References to `puid`. (Removed from MusicBrainz database)
+* Travis build yml
+
+### Fixed
+
+* Updated examples to use new GuzzleHttp version
+* Missing Entity links for filtering by object
+* Broken areas from typed parameters in 0.3.x
+
 ## 0.3.2
 
 ### Added

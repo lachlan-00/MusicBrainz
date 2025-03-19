@@ -291,7 +291,7 @@ class Country
         if (!isset(self::$countries[$countryCode])) {
             throw new OutOfBoundsException(
                 sprintf(
-                    "Could not find corresponding country name for the country code %s",
+                    'Could not find corresponding country name for the country code %s',
                     $countryCode
                 )
             );

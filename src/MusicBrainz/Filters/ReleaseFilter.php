@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Filters;
 
+use MusicBrainz\Entities\Release;
+use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
-use MusicBrainz\Release;
 
 /**
  * This is the release filter and it contains
@@ -14,6 +15,52 @@ use MusicBrainz\Release;
  */
 class ReleaseFilter extends AbstractFilter implements FilterInterface
 {
+    private const ENTITY = 'release';
+
+    private const CAN_SEARCH = true;
+
+    /** @var string[] $LINKS */
+    private const LINKS = [
+        'area',
+        'artist',
+        'collection',
+        'label',
+        'recording',
+        'release-group',
+        'track_artist',
+        'track',
+    ];
+
+    /** @var string[] $INCLUDES */
+    public const INCLUDES = [
+        'aliases',
+        'annotation',
+        'area-rels',
+        'artist-credits',
+        'artist-rels',
+        'artists',
+        'discids',
+        'echoprints',
+        'event-rels',
+        'genre-rels',
+        'instrument-rels',
+        'isrcs',
+        'label-rels',
+        'labels',
+        'media',
+        'place-rels',
+        'recording-level-rels',
+        'recording-rels',
+        'recordings',
+        'release-group-rels',
+        'release-groups',
+        'release-rels',
+        'series-rels',
+        'url-rels',
+        'work-level-rels',
+        'work-rels',
+    ];
+
     /** @var string[] $validArgTypes */
     protected array $validArgTypes = [
         'arid',
@@ -29,12 +76,11 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
         'discids',
         'discidsmedium',
         'format',
-        'laid',
         'label',
+        'laid',
         'lang',
         'mediums',
         'primarytype',
-        'puid',
         'reid',
         'release',
         'releaseaccent',
@@ -50,27 +96,46 @@ class ReleaseFilter extends AbstractFilter implements FilterInterface
 
     public function getEntity(): string
     {
-        return 'release';
+        return self::ENTITY;
+    }
+
+    public function hasLink(string $entity): bool
+    {
+        return in_array($entity, self::LINKS);
+    }
+
+    public function canSearch(): bool
+    {
+        return self::CAN_SEARCH;
+    }
+
+    /** @return string[] */
+    public function getIncludes(): array
+    {
+        return self::INCLUDES;
     }
 
     /**
-     * @param array $response
-     * @param MusicBrainz $brainz
-     * @return array
+     * @return Release[]
+     * @throws Exception
      */
-    public function parseResponse(array $response, MusicBrainz $brainz): array
-    {
-        $releases = [];
+    public function parseResponse(
+        array $response,
+        MusicBrainz $brainz
+    ): array {
+        $results = [];
         if (isset($response['release'])) {
             foreach ($response['release'] as $release) {
-                $releases[] = new Release($release, $brainz);
+                $results[] = new Release((array)$release, $brainz);
             }
         } elseif (isset($response['releases'])) {
             foreach ($response['releases'] as $release) {
-                $releases[] = new Release($release, $brainz);
+                $results[] = new Release((array)$release, $brainz);
             }
+        } else {
+            throw new Exception(sprintf('No %s found', self::ENTITY));
         }
 
-        return $releases;
+        return $results;
     }
 }

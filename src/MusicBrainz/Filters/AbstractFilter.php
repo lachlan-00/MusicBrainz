@@ -17,7 +17,7 @@ abstract class AbstractFilter
     /** @var string[] $validArgTypes */
     protected array $validArgTypes;
 
-    protected array $validArgs = [];
+    protected array $validArgs = []; // The valid arguments/query parameters used when querying MusicBrainz
 
     /** @var string[] */
     protected array $protectedArgs = [
@@ -27,17 +27,38 @@ abstract class AbstractFilter
         'tid',
     ];
 
-    public function __construct(array $args)
+    /**
+     * __construct
+     *
+     * @param string[]|null $args
+     */
+    public function __construct(?array $args = null)
     {
-        foreach ($args as $key => $value) {
-            if (in_array($key, $this->validArgTypes)) {
-                $this->validArgs[$key] = $value;
+        self::validateArgs($args);
+    }
+
+    /**
+     * validateArgs
+     * Set query parameters from the list of valid includes
+     *
+     * @param string[]|null $args
+     */
+    public function validateArgs(?array $args = null): void
+    {
+        if (is_array($args)) {
+            $this->validArgs = [];
+            foreach ($args as $key => $value) {
+                if (in_array($key, $this->validArgTypes)) {
+                    $this->validArgs[$key] = $value;
+                }
             }
         }
     }
 
     /**
      * createParameters
+     * @param array<string, string|int|null> $params
+     * @return array<string, string|int|null>
      */
     public function createParameters(array $params = []): array
     {
@@ -59,13 +80,13 @@ abstract class AbstractFilter
             if (!in_array($key, $this->protectedArgs)) {
                 // Lucene escape characters
                 $val = urlencode(
-                    (string) preg_replace('/(\\(|\\)|\\{|\\}|\\[|\\]|\\^|"|~|\:|\\\\|\/)/', '\\\$1', (string)$val)
+                    (string)preg_replace('/([(){}\[\]^"~:\\/])/', '\\\$1', (string)$val)
                 );
             }
 
             // If the search string contains a space, wrap it in quotes
             // This isn't always wanted, but for the searches required in this library.
-            if (preg_match('/[\+]/', (string)$val)) {
+            if (preg_match('/[+]/', (string)$val)) {
                 $val = '"' . $val . '"';
             }
 

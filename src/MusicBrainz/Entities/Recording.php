@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
+
+use MusicBrainz\Exception;
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz Recording object
  * @package MusicBrainz
  */
-class Recording
+class Recording extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -18,7 +21,7 @@ class Recording
 
     public int $score;
 
-    public string $artistID;
+    public ?string $artistID = null;
 
     /** @var Release[] */
     public array $releases = [];
@@ -30,17 +33,26 @@ class Recording
     /**
      * @param array $recording
      * @param MusicBrainz $brainz
+     * @throws Exception
      */
-    public function __construct(array $recording, MusicBrainz $brainz)
-    {
-        $this->data   = $recording;
-        $this->brainz = $brainz;
+    public function __construct(
+        array $recording,
+        MusicBrainz $brainz
+    ) {
+        if (
+            !isset($recording['id']) ||
+            !$this->hasValidId($recording['id'])
+        ) {
+            throw new Exception('Can not create recording object. Missing valid MBID');
+        }
 
+        $this->brainz   = $brainz;
+        $this->data     = $recording;
         $this->id       = (string)$recording['id'];
         $this->title    = (string)$recording['title'];
         $this->length   = (int)($recording['length'] ?? 0);
         $this->score    = (int)($recording['score'] ?? 0);
-        $this->artistID = $recording['artist-credit'][0]['artist']['id'];
+        $this->artistID = $recording['artistID'] ?? $recording['artist-credit'][0]['artist']['id'] ?? null;
 
         if (isset($recording['releases'])) {
             $this->setReleases($recording['releases']);
@@ -48,13 +60,16 @@ class Recording
     }
 
     /**
-     * @param array $releases
+     * @param array|object $releases
      * @return Recording
+     * @throws Exception
      */
-    public function setReleases(array $releases): Recording
+    public function setReleases(array|object $releases): Recording
     {
-        foreach ($releases as $release) {
-            $this->releases[] = new Release($release, $this->brainz);
+        foreach ((array)$releases as $release) {
+            $this->releases[] = ($release instanceof Release)
+                ? $release
+                : new Release((array)$release, $this->brainz);
         }
 
         return $this;
@@ -92,6 +107,21 @@ class Recording
         return $this->id;
     }
 
+    public function getName(): string
+    {
+        return $this->title;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->getName();
+    }
+
     /**
      * @return Artist
      * @throws Exception
@@ -102,8 +132,18 @@ class Recording
             'releases',
             'recordings',
             'release-groups',
-            'user-ratings'
         ];
+
+        // don't get user data if we don't have user/pass
+        if (
+            $this->brainz->getPassword() !== null &&
+            $this->brainz->getUser() !== null
+        ) {
+            $includes[] = 'user-ratings';
+        }
+        if ($this->artistID === null) {
+            throw new Exception('No artistID set for recording');
+        }
 
         $artist = (array)$this->brainz->lookup('artist', $this->artistID, $includes);
 
@@ -115,7 +155,7 @@ class Recording
      *
      * @return int|string
      */
-    public function getLength($format = 'int')
+    public function getLength($format = 'int'): int|string
     {
         switch ($format) {
             case 'short':

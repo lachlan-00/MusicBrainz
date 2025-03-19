@@ -22,7 +22,8 @@
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^11",
         "rector/rector": "^1",
-        "rmccue/requests": "^2.0"
+        "rmccue/requests": "^2.0",
+        "guzzlehttp/guzzle": "^7.9"
     },
     "scripts": {
         "qa": "composer run-script cs:check && composer run-script tests",

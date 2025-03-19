@@ -2,14 +2,13 @@
 
 namespace MusicBrainz\HttpAdapters;
 
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\GuzzleException;
+use Guzzle\Http\ClientInterface;
 use MusicBrainz\Exception;
 
 /**
- * GuzzleHttp Adapter
+ * Guzzle Http Adapter
  */
-class GuzzleHttpAdapter extends AbstractHttpAdapter
+class GuzzleHttpOldAdapter extends AbstractHttpAdapter
 {
     public function __construct(
         private readonly ClientInterface $client, // The Guzzle client used to make cURL requests
@@ -26,7 +25,8 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
     /**
      * Perform an HTTP request on MusicBrainz
      *
-     * @throws Exception|GuzzleException
+     * @param boolean $returnArray disregarded
+     * @throws Exception
      */
     public function call(
         string $path,
@@ -39,35 +39,40 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');
         }
 
-        $guzzleOptions = [
-            'base_uri' => $this->endpoint . '/',
-            'headers' => [
-                'Accept' => 'application/json',
-                'User-Agent' => $options['user-agent'],
-            ],
-            'query' => $params,
-        ];
+        $this->client->setBaseUrl($this->endpoint);
+        $this->client->setConfig(
+            array_merge(
+                $this->client->getConfig()->toArray(),
+                [
+                    'data' => $params
+                ]
+            )
+        );
+
+        $request = $this->client->get($path . '{?data*}');
+        $request->setHeader('Accept', 'application/json');
+        $request->setHeader('User-Agent', $options['user-agent']);
 
         if ($isAuthRequired) {
             if (
                 $options['user'] != null &&
                 $options['password'] != null
             ) {
-                $guzzleOptions['auth'] = [
-                    $options['user'],
-                    $options['password'],
-                    'digest',
-                ];
+                $request->setAuth($options['user'], $options['password'], 'Digest');
             } else {
                 throw new Exception('Authentication is required');
             }
         }
 
-        $request = $this->client->request('GET', $path, $guzzleOptions);
+        $request->getQuery()->useUrlEncoding(false);
 
         // musicbrainz throttle
         sleep(1);
 
-        return json_decode((string) $request->getBody(), $returnArray);
+        $result = $request->send()->json();
+
+        return (is_array($result) || is_object($result))
+            ? $result
+            : [];
     }
 }

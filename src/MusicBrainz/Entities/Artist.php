@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace MusicBrainz;
+namespace MusicBrainz\Entities;
+
+use MusicBrainz\Exception;
+use MusicBrainz\MusicBrainz;
 
 /**
  * Represents a MusicBrainz artist object
  * @package MusicBrainz
  */
-class Artist
+class Artist extends AbstractEntity implements EntityInterface
 {
     public string $id;
 
@@ -35,34 +38,44 @@ class Artist
     /**
      * @param array $artist
      * @param MusicBrainz $brainz
-     *
      * @throws Exception
      */
-    public function __construct(array $artist, MusicBrainz $brainz)
-    {
+    public function __construct(
+        array $artist,
+        MusicBrainz $brainz
+    ) {
         if (
             !isset($artist['id']) ||
-            !$brainz->isValidMBID($artist['id'])
+            !$this->hasValidId($artist['id'])
         ) {
             throw new Exception('Can not create artist object. Missing valid MBID');
         }
 
-        $this->data   = $artist;
-        $this->brainz = $brainz;
-
+        $this->brainz    = $brainz;
+        $this->data      = $artist;
         $this->id        = (string)$artist['id'];
         $this->name      = (string)($artist['name'] ?? '');
         $this->type      = (string)($artist['type'] ?? '');
         $this->sortName  = (string)($artist['sort-name'] ?? '');
         $this->gender    = (string)($artist['gender'] ?? '');
         $this->country   = (string)($artist['country'] ?? '');
-        $this->beginDate = $artist['life-span']['begin'] ?? null;
-        $this->endDate   = $artist['life-span']['ended'] ?? null;
+        $this->beginDate = $artist['life-span']->{'begin'} ?: null;
+        $this->endDate   = $artist['life-span']->{'ended'} ?: null;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
     }
 
     public function getType(): string
@@ -111,10 +124,5 @@ class Artist
         }
 
         return $this->releases;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 }

@@ -1,31 +1,85 @@
 <pre><?php
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
+use MusicBrainz\Entities\Recording;
 use MusicBrainz\Filters\ArtistFilter;
 use MusicBrainz\Filters\LabelFilter;
+use MusicBrainz\Filters\PlaceFilter;
 use MusicBrainz\Filters\RecordingFilter;
 use MusicBrainz\Filters\ReleaseGroupFilter;
+use MusicBrainz\Filters\WorkFilter;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 // Create new MusicBrainz object
-$brainz = new MusicBrainz(new GuzzleHttpAdapter(new Client()));
-$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'http://example.com');
+$config = [
+    'allow_redirects' => true,
+    'verify' => false,
+];
+$client   = new Client($config);
+$username = null;
+$password = null;
+$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+$brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**
  * Get the release groups for an artist
  * @see http://musicbrainz.org/doc/Release_Group
  */
-$args = array(
-    "artist" => 'Weezer'
-);
+$args = [
+    'name' => 'Altern'
+];
 try {
-    $releaseGroups = $brainz->search(new ReleaseGroupFilter($args));
-    var_dump($releaseGroups);
+    $search = $brainz->search(
+        new PlaceFilter($args),
+        1
+    );
+    print_r($search);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
+}
+print "\n\n";
+
+
+/**
+ * Get the release groups for an artist
+ * @see http://musicbrainz.org/doc/Release_Group
+ */
+$args = [
+    'title' => 'My Name is Jonas'
+];
+try {
+    $search = $brainz->search(
+        new WorkFilter($args),
+        1
+    );
+    print_r($search);
+} catch (Exception $e) {
+    print $e->getMessage();
+    die();
+}
+print "\n\n";
+
+
+/**
+ * Get the release groups for an artist
+ * @see http://musicbrainz.org/doc/Release_Group
+ */
+$args = [
+    'artist' => 'Weezer'
+];
+try {
+    $search = $brainz->search(
+        new ReleaseGroupFilter($args),
+        1
+    );
+    print_r($search);
+} catch (Exception $e) {
+    print $e->getMessage();
+    die();
 }
 print "\n\n";
 
@@ -35,32 +89,44 @@ print "\n\n";
  * a search
  * @see http://musicbrainz.org/doc/Artist
  */
-$args = array(
-    "artist" => 'Weezer'
-);
+$args = [
+    'artist' => 'Weezer'
+];
 try {
-    $artists = $brainz->search(new ArtistFilter($args));
-    print_r($artists);
+    $search = $brainz->search(
+        new ArtistFilter($args),
+        1
+    );
+    print_r($search);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }
 print "\n\n";
+
 
 /**
  * Do a recording (song) search
  * @see http://musicbrainz.org/doc/Recording
  */
-$args = array(
-    "recording"  => "Buddy Holly",
-    "artist"     => 'Weezer',
-    "creditname" => 'Weezer',
-    "status"     => 'Official'
-);
+$args = [
+    'recording' => 'Buddy Holly',
+    'artist' => 'Weezer',
+    'creditname' => 'Weezer',
+    'status' => 'Official'
+];
 try {
-    $recordings = $brainz->search(new RecordingFilter($args));
-    print_r($recordings);
+    $search = $brainz->search(
+        new RecordingFilter($args),
+        1
+    );
+    foreach ($search as $recording) {
+        $object = new Recording((array)$recording, $brainz);
+        print_r($object->getData());
+    }
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }
 print "\n\n";
 
@@ -69,12 +135,16 @@ print "\n\n";
  * Do a search for a label
  * @see http://musicbrainz.org/doc/Label
  */
-$args = array(
-    "label" => "Devils"
-);
+$args = [
+    'label' => 'Devils'
+];
 try {
-    $labels = $brainz->search(new LabelFilter($args));
-    print_r($labels);
+    $search = $brainz->search(
+        new LabelFilter($args),
+        1
+    );
+    print_r($search);
 } catch (Exception $e) {
     print $e->getMessage();
+    die();
 }
