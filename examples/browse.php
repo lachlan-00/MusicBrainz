@@ -1,13 +1,6 @@
 <pre><?php
 
 use GuzzleHttp\Client;
-use MusicBrainz\Entities\Artist;
-use MusicBrainz\Filters\ArtistFilter;
-use MusicBrainz\Filters\GenreFilter;
-use MusicBrainz\Filters\LabelFilter;
-use MusicBrainz\Filters\RecordingFilter;
-use MusicBrainz\Filters\ReleaseFilter;
-use MusicBrainz\Filters\ReleaseGroupFilter;
 use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
@@ -37,8 +30,7 @@ try {
         1
     );
 
-    $recordingFilter = new RecordingFilter();
-    foreach ($recordingFilter->parseResponse($browse, $brainz) as $recording) {
+    foreach ($brainz->getObjects($browse, 'recording') as $recording) {
         print_r($recording->getData());
     }
 } catch (Exception $e) {
@@ -61,8 +53,7 @@ try {
         1
     );
 
-    $releaseFilter = new ReleaseFilter();
-    foreach ($releaseFilter->parseResponse($browse, $brainz) as $release) {
+    foreach ($brainz->getObjects($browse, 'release') as $release) {
         print_r($release->getData());
     }
 } catch (Exception $e) {
@@ -85,8 +76,7 @@ try {
         1
     );
 
-    $releaseGroupFilter = new ReleaseGroupFilter();
-    foreach ($releaseGroupFilter->parseResponse($browse, $brainz) as $releaseGroup) {
+    foreach ($brainz->getObjects($browse, 'release-group') as $releaseGroup) {
         print_r($releaseGroup->getData());
     }
 } catch (Exception $e) {
@@ -108,12 +98,10 @@ try {
         1
     );
 
-    $artistFilter = new ArtistFilter();
-    $genreFilter  = new GenreFilter();
-    foreach ($artistFilter->parseResponse($browse, $brainz) as $artist) {
+    foreach ($brainz->getObjects($browse, 'artist') as $artist) {
         // print Artist data property
         print_r($artist->getData());
-        foreach ($genreFilter->parseResponse($artist->getData(), $brainz) as $genre) {
+        foreach ($brainz->getObjects($artist->getData(), 'genre') as $genre) {
             // print each genre for the artist
             print_r($genre->getData());
         }
@@ -137,8 +125,7 @@ try {
         1
     );
 
-    $labelFilter = new LabelFilter();
-    foreach ($labelFilter->parseResponse($browse, $brainz) as $label) {
+    foreach ($brainz->getObjects($browse, 'label') as $label) {
         print_r($label->getData());
     }
 } catch (Exception $e) {

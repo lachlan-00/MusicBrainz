@@ -29,7 +29,7 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
     $password = 'password';
 
     // Create new MusicBrainz object
-    $brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+    $brainz = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
     $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
     try {
@@ -59,19 +59,14 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
             1
         );
 
-        // Filters are used to parse responses and return data objects    
-        $artistFilter = new ArtistFilter([]);
-        $genreFilter  = new GenreFilter([]);
-
-        // artistFilter::parseResponse returns an array of Artist objects
-        foreach ($artistFilter->parseResponse($browse, $brainz) as $artist) {
-            // print Artist data property
-            print_r($artist->getData());
-
-            // genreFilter::parseResponse returns an array of Genre objects
-            foreach ($genreFilter->parseResponse($artist->getData(), $brainz) as $genre) {
+        // return an array of Artist objects
+        foreach ($brainz->getObjects($browse, 'artist') as $artist) {
+            // print Artist data property which is an array of the original response
+            print_r($artist->getName() . "\n");
+              // return an array of Genre objects
+            foreach ($brainz->getObjects($artist->getData(), 'genre') as $genre) {
                 // print each genre for the artist
-                print_r($genre->getData());
+                print_r($genre->getName() . "\n");
             }
         }
     } catch (Exception $e) {

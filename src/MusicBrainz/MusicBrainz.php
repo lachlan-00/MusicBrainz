@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MusicBrainz;
 
+use MusicBrainz\Filters\FilterInterface;
 use MusicBrainz\HttpAdapters\AbstractHttpAdapter;
 use OutOfBoundsException;
 
@@ -107,6 +108,8 @@ class MusicBrainz
 
     private AbstractHttpAdapter $adapter; // The Http adapter used to make requests
 
+    private ?FilterInterface $filter = null; // Result filter used to get output objects from requests
+
     /**
      * Initializes the class. You can pass the user’s username and password
      * However, you can modify or add all values later.
@@ -114,9 +117,11 @@ class MusicBrainz
     public function __construct(
         AbstractHttpAdapter $adapter,
         ?string $user = null,
-        ?string $password = null
+        ?string $password = null,
+        ?FilterInterface $filter = null
     ) {
         $this->adapter   = $adapter;
+        $this->filter    = $filter;
         $this->userAgent = 'MusicBrainz PHP Api/' . self::VERSION;
 
         if (!empty($user)) {
@@ -126,6 +131,48 @@ class MusicBrainz
         if (!empty($password)) {
             $this->setPassword($password);
         }
+    }
+
+    /**
+     * Check the list of allowed entities
+     */
+    private function _isValidEntity(string $entity): bool
+    {
+        return in_array($entity, self::ENTITIES);
+    }
+
+    /**
+     * Some calls require authentication
+     */
+    private function _isAuthRequired(
+        string $entity,
+        array $includes
+    ): bool {
+        if (
+            in_array('user-tags', $includes) ||
+            in_array('user-ratings', $includes)
+        ) {
+            return true;
+        }
+
+        if (str_starts_with($entity, 'collection')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isValidMBID(?string $mbid): bool
+    {
+        return self::isMBID((string)$mbid);
+    }
+
+    /**
+     * Public function to check if a string is a valid MusicBrainz ID
+     */
+    public static function isMBID(string $mbid = ''): bool
+    {
+        return (bool)preg_match(self::MBID_REGEX, $mbid);
     }
 
     /**
@@ -166,7 +213,7 @@ class MusicBrainz
             default => throw new Exception('Invalid entity')
         };
 
-        $authRequired = $this->isAuthRequired($entity, $includes);
+        $authRequired = $this->_isAuthRequired($entity, $includes);
 
         $params = [
             'inc' => implode('+', $includes),
@@ -189,7 +236,7 @@ class MusicBrainz
      * @return array
      * @throws Exception
      */
-    protected function browse(
+    public function browse(
         Filters\FilterInterface $filter,
         string $entity,
         string $mbid,
@@ -209,7 +256,7 @@ class MusicBrainz
 
         $this->validateInclude($includes, $filter->getIncludes(), $filter->getEntity());
 
-        $authRequired = $this->isAuthRequired($filter->getEntity(), $includes);
+        $authRequired = $this->_isAuthRequired($filter->getEntity(), $includes);
 
         $params = $this->getBrowseFilterParams($filter->getEntity(), $includes, $releaseType, $releaseStatus);
         $params += [
@@ -221,6 +268,72 @@ class MusicBrainz
         ];
 
         return (array)$this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), $authRequired);
+    }
+
+    /**
+     * Performs a query based on the parameters supplied in the Filter object.
+     * Returns an array of possible matches with scores, as returned by the
+     * musicBrainz web service.
+     *
+     * Note that these types of queries only return some information, and not all the
+     * information available about a particular item is available using this type of query.
+     * You will need to get the MusicBrainz id (mbid) and perform a lookup with browse
+     * to return complete information about a release. This method returns an array of
+     * objects that are possible matches.
+     *
+     * @param Filters\FilterInterface $filter
+     * @param int $limit
+     * @param null|int $offset
+     * @param boolean $parseResponse parse the results array or simply return the result
+     *
+     * @return array|object
+     * @throws Exception
+     */
+    public function search(
+        Filters\FilterInterface $filter,
+        int $limit = 25,
+        ?int $offset = null,
+        bool $parseResponse = true
+    ): array|object {
+        if (count($filter->createParameters()) < 1) {
+            throw new Exception('The search filter object needs at least 1 argument to create a query.');
+        }
+        if (!$filter->canSearch()) {
+            throw new Exception(sprintf('The filter object %s does not support search queries.', $filter->getEntity()));
+        }
+
+        if ($limit > 100) {
+            throw new Exception('Limit can only be between 1 and 100');
+        }
+
+        $params = $filter->createParameters(['limit' => $limit, 'offset' => $offset, 'fmt' => 'json']);
+
+        $response = $this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), false, true);
+
+        if (
+            $parseResponse &&
+            is_array($response)
+        ) {
+            return self::getObjects($response, $filter->getEntity());
+        }
+
+        return $response;
+    }
+
+    public function getObjects(
+        array|object $response,
+        ?string $filterName = null
+    ): array {
+        if ($filterName !== null) {
+            $this->setFilterByString($filterName);
+        }
+
+        $filter = $this->getFilter();
+        if ($filter === null) {
+            throw new Exception('No filter set');
+        }
+
+        return $filter->parseResponse((array)$response, $this);
     }
 
     /**
@@ -397,98 +510,6 @@ class MusicBrainz
     }
 
     /**
-     * Performs a query based on the parameters supplied in the Filter object.
-     * Returns an array of possible matches with scores, as returned by the
-     * musicBrainz web service.
-     *
-     * Note that these types of queries only return some information, and not all the
-     * information available about a particular item is available using this type of query.
-     * You will need to get the MusicBrainz id (mbid) and perform a lookup with browse
-     * to return complete information about a release. This method returns an array of
-     * objects that are possible matches.
-     *
-     * @param Filters\FilterInterface $filter
-     * @param int $limit
-     * @param null|int $offset
-     * @param boolean $parseResponse parse the results array or simply return the result
-     *
-     * @return array|object
-     * @throws Exception
-     */
-    public function search(
-        Filters\FilterInterface $filter,
-        int $limit = 25,
-        ?int $offset = null,
-        bool $parseResponse = true
-    ): array|object {
-        if (count($filter->createParameters()) < 1) {
-            throw new Exception('The search filter object needs at least 1 argument to create a query.');
-        }
-        if (!$filter->canSearch()) {
-            throw new Exception(sprintf('The filter object %s does not support search queries.', $filter->getEntity()));
-        }
-
-        if ($limit > 100) {
-            throw new Exception('Limit can only be between 1 and 100');
-        }
-
-        $params = $filter->createParameters(['limit' => $limit, 'offset' => $offset, 'fmt' => 'json']);
-
-        $response = $this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), false, true);
-
-        if (
-            $parseResponse &&
-            is_array($response)
-        ) {
-            return $filter->parseResponse($response, $this);
-        }
-
-        return $response;
-    }
-
-    public function isValidMBID(?string $mbid): bool
-    {
-        return self::isMBID((string)$mbid);
-    }
-
-    /**
-     * Public function to check if a string is a valid MusicBrainz ID
-     */
-    public static function isMBID(string $mbid = ''): bool
-    {
-        return (bool)preg_match(self::MBID_REGEX, $mbid);
-    }
-
-    /**
-     * Check the list of allowed entities
-     */
-    private function _isValidEntity(string $entity): bool
-    {
-        return in_array($entity, self::ENTITIES);
-    }
-
-    /**
-     * Some calls require authentication
-     */
-    protected function isAuthRequired(
-        string $entity,
-        array $includes
-    ): bool {
-        if (
-            in_array('user-tags', $includes) ||
-            in_array('user-ratings', $includes)
-        ) {
-            return true;
-        }
-
-        if (str_starts_with($entity, 'collection')) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * @param array $includes
      * @param array $validIncludes
      *
@@ -649,5 +670,46 @@ class MusicBrainz
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    /**
+     * Returnsthe output filter
+     */
+    public function getFilter(): ?FilterInterface
+    {
+        return $this->filter;
+    }
+
+    /**
+     * Sets the output filter
+     */
+    public function setFilter(?FilterInterface $filter): void
+    {
+        $this->filter = $filter;
+    }
+    /**
+     * Sets the output filter
+     * @param string $filterName
+     * @param string[]|null $args
+     */
+    public function setFilterByString(string $filterName, ?array $args = null): void
+    {
+        match ($filterName) {
+            'area' => $this->setFilter(new Filters\AreaFilter($args)),
+            'artist' => $this->setFilter(new Filters\ArtistFilter($args)),
+            'collection' => $this->setFilter(new Filters\CollectionFilter($args)),
+            'discid' => $this->setFilter(new Filters\DiscIdFilter($args)),
+            'echoprint' => $this->setFilter(new Filters\EchoPrintFilter($args)),
+            'genre' => $this->setFilter(new Filters\GenreFilter($args)),
+            'isrc' => $this->setFilter(new Filters\IsrcFilter($args)),
+            'iswc' => $this->setFilter(new Filters\IswcFilter($args)),
+            'label' => $this->setFilter(new Filters\LabelFilter($args)),
+            'place' => $this->setFilter(new Filters\PlaceFilter($args)),
+            'recording' => $this->setFilter(new Filters\RecordingFilter($args)),
+            'release' => $this->setFilter(new Filters\ReleaseFilter($args)),
+            'release-group' => $this->setFilter(new Filters\ReleaseGroupFilter($args)),
+            'tag' => $this->setFilter(new Filters\TagFilter($args)),
+            'work' => $this->setFilter(new Filters\WorkFilter($args)),
+        };
     }
 }
