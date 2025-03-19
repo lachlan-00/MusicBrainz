@@ -4,8 +4,29 @@ declare(strict_types=1);
 
 namespace MusicBrainz;
 
+use MusicBrainz\Entities\Area;
+use MusicBrainz\Entities\Artist;
+use MusicBrainz\Entities\Collection;
+use MusicBrainz\Entities\DiscId;
+use MusicBrainz\Entities\EntityInterface;
+use MusicBrainz\Entities\Event;
+use MusicBrainz\Entities\Genre;
+use MusicBrainz\Entities\Instrument;
+use MusicBrainz\Entities\Label;
+use MusicBrainz\Entities\Place;
+use MusicBrainz\Entities\Recording;
+use MusicBrainz\Entities\Release;
+use MusicBrainz\Entities\ReleaseGroup;
+use MusicBrainz\Entities\Series;
+use MusicBrainz\Entities\Url;
+use MusicBrainz\Entities\Work;
 use MusicBrainz\Filters\FilterInterface;
 use MusicBrainz\HttpAdapters\AbstractHttpAdapter;
+use MusicBrainz\Objects\Annotation;
+use MusicBrainz\Objects\Attribute;
+use MusicBrainz\Objects\Coordinate;
+use MusicBrainz\Objects\LifeSpan;
+use MusicBrainz\Objects\Tag;
 use OutOfBoundsException;
 
 /**
@@ -334,6 +355,39 @@ class MusicBrainz
         }
 
         return $filter->parseResponse((array)$response, $this);
+    }
+
+    /**
+     * Parse the response from the web service and return an object based on what you're expecting
+     * @throws Exception
+     */
+    public function getObject(
+        array|object $response,
+        ?string $filterName = null
+    ): EntityInterface {
+        return match ($filterName) {
+            'annotation' => new Annotation((array)$response),
+            'area' => new Area((array)$response, $this),
+            'artist' => new Artist((array)$response, $this),
+            'attribute' => new Attribute((array)$response),
+            'collection' => new Collection((array)$response, $this),
+            'coordinate' => new Coordinate((array)$response),
+            'discid' => new DiscId((array)$response, $this),
+            'event' => new Event((array)$response, $this),
+            'genre' => new Genre((array)$response, $this),
+            'instrument' => new Instrument((array)$response, $this),
+            'label' => new Label((array)$response, $this),
+            'life-span' => new LifeSpan((array)$response),
+            'place' => new Place((array)$response, $this),
+            'recording' => new Recording((array)$response, $this),
+            'release' => new Release((array)$response, $this),
+            'release-group' => new ReleaseGroup((array)$response, $this),
+            'tag' => new Tag((array)$response),
+            'series' => new Series((array)$response, $this),
+            'url' => new Url((array)$response, $this),
+            'work' => new Work((array)$response, $this),
+            default => throw new Exception('Invalid filter name')
+        };
     }
 
     /**
