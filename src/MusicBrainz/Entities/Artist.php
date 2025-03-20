@@ -63,7 +63,7 @@ class Artist extends AbstractEntity implements EntityInterface
             ? $artist['life-span']->{'begin'} ?: null
             : null;
         $this->endDate   = (isset($artist['life-span']))
-            ? $artist['life-span']->{'ended'} ?: null
+            ? $artist['life-span']->{'end'} ?: null
             : null;
     }
 
