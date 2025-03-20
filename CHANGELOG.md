@@ -1,6 +1,6 @@
 # MusicBrainz
 
-## 0.x.x
+## 0.5.0
 
 Added functions so you don't have to call other classes outside the MusicBrainz class
 
@@ -10,13 +10,24 @@ More examples have been updated to show how to use these new methods.
 
 ### Added
 
+* Add function `MusicBrainz::newMusicBrainz()` to create a new MusicBrainz object without importing the http classes
+* Add function `MusicBrainz::newFilter()` to create a new Filter object without importing the filter classes
 * Add function `MusicBrainz->setFilterByString()` to set an object filter without having to call the classes
-* Add `MusicBrainz->getFilter()` so you don't need to import more classes
+* Add function `MusicBrainz->setFilter()` so you can store the filter object in the MusicBrainz class
+* Add function `MusicBrainz->getFilter()` so you don't need to import more classes
+* Add function `MusicBrainz->getObjects()` Get the sub-entities from a browse response / object
+* Add function `MusicBrainz->getObject()` cast a data response into the matching Entity or Object class
+* Add property `filter` to MusicBrainz class allowing you to store and use a filter object
 
 ### Changed
 
-* Make browse a public method
+* Make browse a public method to allow outside class usage
 * Change composer suggestion from the old `guzzle/guzzle` to the new package `guzzlehttp/guzzle`
+
+### Fixed
+
+* Query parameters for search being mangled with URL encoding
+* Empty query parameters being overwritten with an empty array
 
 ## 0.4.0
 

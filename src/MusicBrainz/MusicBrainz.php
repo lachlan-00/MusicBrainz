@@ -41,7 +41,7 @@ use OutOfBoundsException;
  */
 class MusicBrainz
 {
-    public const VERSION = '0.4.0';
+    public const VERSION = '0.5.0';
 
     private const MBID_REGEX = '/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)})$/i';
 
