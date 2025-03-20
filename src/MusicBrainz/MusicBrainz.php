@@ -204,7 +204,6 @@ class MusicBrainz
         };
     }
 
-
     /**
      * Check the list of allowed entities
      */
