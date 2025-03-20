@@ -34,6 +34,7 @@ class WorkFilter extends AbstractFilter implements FilterInterface
         'artists',
         'event-rels',
         'genre-rels',
+        'genres',
         'instrument-rels',
         'label-rels',
         'place-rels',
@@ -95,7 +96,7 @@ class WorkFilter extends AbstractFilter implements FilterInterface
      */
     public function parseResponse(
         array $response,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ): array {
         if (!isset($response['works'])) {
             throw new Exception(sprintf('No %s found', self::ENTITY));

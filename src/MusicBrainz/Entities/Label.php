@@ -37,7 +37,7 @@ class Label extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $label,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($label['id']) ||

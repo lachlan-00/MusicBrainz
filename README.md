@@ -10,72 +10,70 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
 
 ```php
 <?php
-    use Guzzle\Http\Client;
-    use MusicBrainz\Filters\ArtistFilter;
-    use MusicBrainz\Filters\RecordingFilter;
-    use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
     use MusicBrainz\MusicBrainz;
-
-    require __DIR__ . '/vendor/autoload.php';
-
-    // Create new Guzzle HTTP client
+    
+    require dirname(__DIR__) . '/vendor/autoload.php';
+    
+    // Create Guzzle HTTP client config (if you want)
     $config = [
-        'allow_redirects' => true
+        'allow_redirects' => true,
+        'verify' => false,
     ];
-    $client = new Client($config);
-
+    
     // Some areas require authentication
     $username = 'username';
     $password = 'password';
-
     // Create new MusicBrainz object
-    $brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+    $brainz = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $config);
     $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
-
+    
     try {
-        // Search for Buddy Holly recordings by Weezer
-        $args = array(
-            "recording"  => "Buddy Holly",
-            "artist"     => 'Weezer',
-            "creditname" => 'Weezer',
-            "status"     => 'Official'
-        );
-
         // Search for recordings and then return a list of Recording objects
+        $args = [
+            'recording' => 'Buddy Holly',
+            'artist' => 'Weezer',
+            'creditname' => 'Weezer',
+            'status' => 'Official'
+        ];
+    
+        /**
+         * Search will return objects by default which are arrays of data
+         * @var array $recordings
+         */
         $recordings = $brainz->search(
-            new RecordingFilter($args)
+            MusicBrainz::newFilter('recording', $args)
         );
-        print_r($recordings);
+        foreach ($recordings as $recording) {
+            print('RECORDING ' . $recording->getId() . "\n");
+            print_r($recording->getData());
+        }
     } catch (Exception $e) {
         print $e->getMessage();
+        die();
     }
+    
+    
     try {
-        // Search for an artist by the recording ID, include the aliases, ratings and genres
-        $includes = ['aliases', 'ratings', 'genres'];
-        $browse   = $brainz->browseArtist(
+        // Look up the artist for a recording and print the Artist object data
+        $includes = [
+            'aliases',
+            'ratings',
+            'genres'
+        ];
+    
+        $browse = $brainz->browseArtist(
             'recording',
             'd615590b-1546-441d-9703-b3cf88487cbd',
             $includes,
             1
         );
-
-        // Filters are used to parse responses and return data objects    
-        $artistFilter = new ArtistFilter([]);
-        $genreFilter  = new GenreFilter([]);
-
-        // artistFilter::parseResponse returns an array of Artist objects
-        foreach ($artistFilter->parseResponse($browse, $brainz) as $artist) {
-            // print Artist data property
+        foreach ($brainz->getObjects($browse, 'artist') as $artist) {
+            print('ARTIST ' . $artist->getId() . "\n");
             print_r($artist->getData());
-
-            // genreFilter::parseResponse returns an array of Genre objects
-            foreach ($genreFilter->parseResponse($artist->getData(), $brainz) as $genre) {
-                // print each genre for the artist
-                print_r($genre->getData());
-            }
         }
     } catch (Exception $e) {
         print $e->getMessage();
+        die();
     }
 ```
 

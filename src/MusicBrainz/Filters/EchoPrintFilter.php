@@ -85,7 +85,7 @@ class EchoPrintFilter extends AbstractFilter implements FilterInterface
      */
     public function parseResponse(
         array $response,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ): array {
         if (!isset($response['echoprints'])) {
             throw new Exception(sprintf('No %s found', self::ENTITY));

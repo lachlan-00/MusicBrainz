@@ -98,7 +98,7 @@ class LabelFilter extends AbstractFilter implements FilterInterface
      */
     public function parseResponse(
         array $response,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ): array {
         if (!isset($response['labels'])) {
             throw new Exception(sprintf('No %s found', self::ENTITY));

@@ -1,7 +1,5 @@
-<pre><?php
+<?php
 
-use GuzzleHttp\Client;
-use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -11,10 +9,10 @@ $config = [
     'allow_redirects' => true,
     'verify' => false,
 ];
-$client   = new Client($config);
+
 $username = null;
 $password = null;
-$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+$brainz   = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $config);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**
@@ -191,7 +189,7 @@ print "\n\n";
  */
 $includes = ['artists', 'releases'];
 try {
-    //born this way: the remix
+    // born this way: the remix
     $lookup = $brainz->lookup('release-group', 'e4307c5f-1959-4163-b4b1-ded4f9d786b0', $includes);
     print_r($lookup);
 } catch (Exception $e) {

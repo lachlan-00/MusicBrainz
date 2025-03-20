@@ -30,7 +30,7 @@ class Genre extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $genre,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($genre['id']) ||

@@ -42,7 +42,7 @@ class Artist extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $artist,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($artist['id']) ||
@@ -59,8 +59,12 @@ class Artist extends AbstractEntity implements EntityInterface
         $this->sortName  = (string)($artist['sort-name'] ?? '');
         $this->gender    = (string)($artist['gender'] ?? '');
         $this->country   = (string)($artist['country'] ?? '');
-        $this->beginDate = $artist['life-span']->{'begin'} ?: null;
-        $this->endDate   = $artist['life-span']->{'ended'} ?: null;
+        $this->beginDate = (isset($artist['life-span']))
+            ? $artist['life-span']->{'begin'} ?: null
+            : null;
+        $this->endDate   = (isset($artist['life-span']))
+            ? $artist['life-span']->{'end'} ?: null
+            : null;
     }
 
     public function getId(): string

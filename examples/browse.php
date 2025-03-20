@@ -1,14 +1,5 @@
-<pre><?php
+<?php
 
-use GuzzleHttp\Client;
-use MusicBrainz\Entities\Artist;
-use MusicBrainz\Filters\ArtistFilter;
-use MusicBrainz\Filters\GenreFilter;
-use MusicBrainz\Filters\LabelFilter;
-use MusicBrainz\Filters\RecordingFilter;
-use MusicBrainz\Filters\ReleaseFilter;
-use MusicBrainz\Filters\ReleaseGroupFilter;
-use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -18,10 +9,10 @@ $config = [
     'allow_redirects' => true,
     'verify' => false,
 ];
-$client   = new Client($config);
+
 $username = null;
 $password = null;
-$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+$brainz   = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $config);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**
@@ -34,11 +25,10 @@ try {
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
-        1
+        1,
     );
 
-    $recordingFilter = new RecordingFilter();
-    foreach ($recordingFilter->parseResponse($browse, $brainz) as $recording) {
+    foreach ($brainz->getObjects($browse, 'recording') as $recording) {
         print_r($recording->getData());
     }
 } catch (Exception $e) {
@@ -58,11 +48,10 @@ try {
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
-        1
+        1,
     );
 
-    $releaseFilter = new ReleaseFilter();
-    foreach ($releaseFilter->parseResponse($browse, $brainz) as $release) {
+    foreach ($brainz->getObjects($browse, 'release') as $release) {
         print_r($release->getData());
     }
 } catch (Exception $e) {
@@ -82,11 +71,10 @@ try {
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
-        1
+        1,
     );
 
-    $releaseGroupFilter = new ReleaseGroupFilter();
-    foreach ($releaseGroupFilter->parseResponse($browse, $brainz) as $releaseGroup) {
+    foreach ($brainz->getObjects($browse, 'release-group') as $releaseGroup) {
         print_r($releaseGroup->getData());
     }
 } catch (Exception $e) {
@@ -105,15 +93,13 @@ try {
         'recording',
         'd615590b-1546-441d-9703-b3cf88487cbd',
         $includes,
-        1
+        1,
     );
 
-    $artistFilter = new ArtistFilter();
-    $genreFilter  = new GenreFilter();
-    foreach ($artistFilter->parseResponse($browse, $brainz) as $artist) {
+    foreach ($brainz->getObjects($browse, 'artist') as $artist) {
         // print Artist data property
         print_r($artist->getData());
-        foreach ($genreFilter->parseResponse($artist->getData(), $brainz) as $genre) {
+        foreach ($brainz->getObjects($artist->getData(), 'genre') as $genre) {
             // print each genre for the artist
             print_r($genre->getData());
         }
@@ -134,11 +120,10 @@ try {
         'release',
         '5a90bd38-62b6-46f5-9c39-cfceba169019',
         $includes,
-        1
+        1,
     );
 
-    $labelFilter = new LabelFilter();
-    foreach ($labelFilter->parseResponse($browse, $brainz) as $label) {
+    foreach ($brainz->getObjects($browse, 'label') as $label) {
         print_r($label->getData());
     }
 } catch (Exception $e) {

@@ -1,14 +1,6 @@
-<pre><?php
+<?php
 
-use GuzzleHttp\Client;
 use MusicBrainz\Entities\Recording;
-use MusicBrainz\Filters\ArtistFilter;
-use MusicBrainz\Filters\LabelFilter;
-use MusicBrainz\Filters\PlaceFilter;
-use MusicBrainz\Filters\RecordingFilter;
-use MusicBrainz\Filters\ReleaseGroupFilter;
-use MusicBrainz\Filters\WorkFilter;
-use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -18,10 +10,10 @@ $config = [
     'allow_redirects' => true,
     'verify' => false,
 ];
-$client   = new Client($config);
+
 $username = null;
 $password = null;
-$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+$brainz   = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $config);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**
@@ -33,8 +25,8 @@ $args = [
 ];
 try {
     $search = $brainz->search(
-        new PlaceFilter($args),
-        1
+        MusicBrainz::newFilter('place', $args),
+        1,
     );
     print_r($search);
 } catch (Exception $e) {
@@ -53,8 +45,8 @@ $args = [
 ];
 try {
     $search = $brainz->search(
-        new WorkFilter($args),
-        1
+        MusicBrainz::newFilter('work', $args),
+        1,
     );
     print_r($search);
 } catch (Exception $e) {
@@ -73,8 +65,8 @@ $args = [
 ];
 try {
     $search = $brainz->search(
-        new ReleaseGroupFilter($args),
-        1
+        MusicBrainz::newFilter('release-group', $args),
+        1,
     );
     print_r($search);
 } catch (Exception $e) {
@@ -94,8 +86,8 @@ $args = [
 ];
 try {
     $search = $brainz->search(
-        new ArtistFilter($args),
-        1
+        MusicBrainz::newFilter('artist', $args),
+        1,
     );
     print_r($search);
 } catch (Exception $e) {
@@ -117,8 +109,8 @@ $args = [
 ];
 try {
     $search = $brainz->search(
-        new RecordingFilter($args),
-        1
+        MusicBrainz::newFilter('recording', $args),
+        1,
     );
     foreach ($search as $recording) {
         $object = new Recording((array)$recording, $brainz);
@@ -140,8 +132,8 @@ $args = [
 ];
 try {
     $search = $brainz->search(
-        new LabelFilter($args),
-        1
+        MusicBrainz::newFilter('label', $args),
+        1,
     );
     print_r($search);
 } catch (Exception $e) {

@@ -36,7 +36,7 @@ class Collection extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $collection,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($collection['id']) ||

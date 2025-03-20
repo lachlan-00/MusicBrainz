@@ -34,6 +34,6 @@ interface FilterInterface
      */
     public function parseResponse(
         array $response,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ): array;
 }
