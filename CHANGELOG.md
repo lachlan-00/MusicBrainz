@@ -1,5 +1,23 @@
 # MusicBrainz
 
+## 0.x.x
+
+Added functions so you don't have to call other classes outside the MusicBrainz class
+
+Provide more options to simplify the identification and access of response data
+
+More examples have been updated to show how to use these new methods.
+
+### Added
+
+* Add function `MusicBrainz->setFilterByString()` to set an object filter without having to call the classes
+* Add `MusicBrainz->getFilter()` so you don't need to import more classes
+
+### Changed
+
+* Make browse a public method
+* Change composer suggestion from the old `guzzle/guzzle` to the new package `guzzlehttp/guzzle`
+
 ## 0.4.0
 
 ### Added
