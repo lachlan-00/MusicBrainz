@@ -1,7 +1,5 @@
 <pre><?php
 
-use GuzzleHttp\Client;
-use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -11,10 +9,10 @@ $config = [
     'allow_redirects' => true,
     'verify' => false,
 ];
-$client   = new Client($config);
+
 $username = null;
 $password = null;
-$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+$brainz   = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $config);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**

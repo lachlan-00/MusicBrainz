@@ -1,9 +1,6 @@
 <pre><?php
 
-use GuzzleHttp\Client;
 use MusicBrainz\Entities\Recording;
-use MusicBrainz\Filters\RecordingFilter;
-use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -13,10 +10,10 @@ $config = [
     'allow_redirects' => true,
     'verify' => false,
 ];
-$client   = new Client($config);
+
 $username = null;
 $password = null;
-$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+$brainz   = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $config);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 // set defaults
@@ -45,8 +42,8 @@ $args = [
 try {
     // Find all the recordings that match the search and loop through them
     $search = $brainz->search(
-        new RecordingFilter($args),
-        1
+        MusicBrainz::newFilter('recording', $args),
+        1,
     );
 
     /** @var $recording Recording */

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MusicBrainz;
 
+use GuzzleHttp\Client;
+use Guzzle\Http\Client as OldClient;
 use MusicBrainz\Entities\Area;
 use MusicBrainz\Entities\Artist;
 use MusicBrainz\Entities\Collection;
@@ -155,6 +157,55 @@ class MusicBrainz
     }
 
     /**
+     * Create a new MusicBrainz object without having to create a new Http adapter
+     */
+    public static function newMusicBrainz(
+        string $adapter,
+        ?string $user = null,
+        ?string $password = null,
+        ?FilterInterface $filter = null,
+        array $guzzleOptions = [],
+    ): MusicBrainz {
+        $adapter = match ($adapter) {
+            'guzzle' => new HttpAdapters\GuzzleHttpAdapter(new Client($guzzleOptions)),
+            'guzzle-old' => new HttpAdapters\GuzzleHttpOldAdapter(new OldClient('', $guzzleOptions)),
+            'requests' => new HttpAdapters\RequestsHttpAdapter(),
+            default => throw new Exception('Invalid http adapter')
+        };
+
+        return new MusicBrainz($adapter, $user, $password, $filter);
+    }
+
+
+    /**
+     * Create a new MusicBrainz object without having to create a new Http adapter
+     */
+    public static function newFilter(
+        string $filterName,
+        array $args = [],
+    ): ?FilterInterface {
+        return match ($filterName) {
+            'area' => self::newFilter('area', $args),
+            'artist' => self::newFilter('artist', $args),
+            'collection' => self::newFilter('collection', $args),
+            'discid' => self::newFilter('discid', $args),
+            'echoprint' => self::newFilter('echoprint', $args),
+            'genre' => self::newFilter('genre', $args),
+            'isrc' => self::newFilter('isrc', $args),
+            'iswc' => self::newFilter('iswc', $args),
+            'label' => self::newFilter('label', $args),
+            'place' => self::newFilter('place', $args),
+            'recording' => self::newFilter('recording', $args),
+            'release' => self::newFilter('release', $args),
+            'release-group', 'releasegroup' => self::newFilter('release-group', $args),
+            'tag' => self::newFilter('tag', $args),
+            'work' => self::newFilter('work', $args),
+            default => throw new Exception('Invalid filter type'),
+        };
+    }
+
+
+    /**
      * Check the list of allowed entities
      */
     private function _isValidEntity(string $entity): bool
@@ -167,7 +218,7 @@ class MusicBrainz
      */
     private function _isAuthRequired(
         string $entity,
-        array $includes
+        array $includes,
     ): bool {
         if (
             in_array('user-tags', $includes) ||
@@ -211,7 +262,7 @@ class MusicBrainz
     public function lookup(
         string $entity,
         string $mbid,
-        array $includes = []
+        array $includes = [],
     ): array|object {
         if (!$this->_isValidEntity($entity)) {
             throw new Exception('Invalid entity');
@@ -229,7 +280,7 @@ class MusicBrainz
             'label' => $this->validateInclude($includes, Filters\LabelFilter::INCLUDES, $entity),
             'recording' => $this->validateInclude($includes, Filters\RecordingFilter::INCLUDES, $entity),
             'release' => $this->validateInclude($includes, Filters\ReleaseFilter::INCLUDES, $entity),
-            'release-group' => $this->validateInclude($includes, Filters\ReleaseGroupFilter::INCLUDES, $entity),
+            'release-group', 'releasegroup' => $this->validateInclude($includes, Filters\ReleaseGroupFilter::INCLUDES, $entity),
             'work' => $this->validateInclude($includes, Filters\WorkFilter::INCLUDES, $entity),
             default => throw new Exception('Invalid entity')
         };
@@ -265,7 +316,7 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null,
         array $releaseType = [],
-        array $releaseStatus = []
+        array $releaseStatus = [],
     ): array {
         if (!$this->isValidMBID($mbid)) {
             throw new Exception('Invalid Music Brainz ID');
@@ -314,7 +365,7 @@ class MusicBrainz
         Filters\FilterInterface $filter,
         int $limit = 25,
         ?int $offset = null,
-        bool $parseResponse = true
+        bool $parseResponse = true,
     ): array|object {
         if (count($filter->createParameters()) < 1) {
             throw new Exception('The search filter object needs at least 1 argument to create a query.');
@@ -343,7 +394,7 @@ class MusicBrainz
 
     public function getObjects(
         array|object $response,
-        ?string $filterName = null
+        ?string $filterName = null,
     ): array {
         if ($filterName !== null) {
             $this->setFilterByString($filterName);
@@ -363,7 +414,7 @@ class MusicBrainz
      */
     public function getObject(
         array|object $response,
-        ?string $filterName = null
+        ?string $filterName = null,
     ): EntityInterface {
         return match ($filterName) {
             'annotation' => new Annotation((array)$response),
@@ -381,7 +432,7 @@ class MusicBrainz
             'place' => new Place((array)$response, $this),
             'recording' => new Recording((array)$response, $this),
             'release' => new Release((array)$response, $this),
-            'release-group' => new ReleaseGroup((array)$response, $this),
+            'release-group', 'releasegroup' => new ReleaseGroup((array)$response, $this),
             'tag' => new Tag((array)$response),
             'series' => new Series((array)$response, $this),
             'url' => new Url((array)$response, $this),
@@ -405,7 +456,7 @@ class MusicBrainz
         string $mbid,
         array $includes = [],
         int $limit = 25,
-        ?int $offset = null
+        ?int $offset = null,
     ): array {
         $filter = new Filters\ArtistFilter();
         if (!$filter->hasLink($entity)) {
@@ -430,7 +481,7 @@ class MusicBrainz
         string $mbid,
         array $includes,
         int $limit = 25,
-        ?int $offset = null
+        ?int $offset = null,
     ): array {
         $filter = new Filters\CollectionFilter();
         if (!$filter->hasLink($entity)) {
@@ -455,7 +506,7 @@ class MusicBrainz
         string $mbid,
         array $includes,
         int $limit = 25,
-        ?int $offset = null
+        ?int $offset = null,
     ): array {
         $filter = new Filters\LabelFilter();
         if (!$filter->hasLink($entity)) {
@@ -480,7 +531,7 @@ class MusicBrainz
         string $mbid,
         array $includes = [],
         int $limit = 25,
-        ?int $offset = null
+        ?int $offset = null,
     ): array {
         $filter = new Filters\RecordingFilter();
         if (!$filter->hasLink($entity)) {
@@ -509,7 +560,7 @@ class MusicBrainz
         int $limit = 25,
         ?int $offset = null,
         array $releaseType = [],
-        array $releaseStatus = []
+        array $releaseStatus = [],
     ): array {
         $filter = new Filters\ReleaseFilter();
         if (!$filter->hasLink($entity)) {
@@ -545,7 +596,7 @@ class MusicBrainz
         array $includes = [],
         int $limit = 25,
         ?int $offset = null,
-        array $releaseType = []
+        array $releaseType = [],
     ): array {
         $filter = new Filters\ReleaseGroupFilter();
         if (!$filter->hasLink($entity)) {
@@ -573,7 +624,7 @@ class MusicBrainz
     public function validateInclude(
         array $includes,
         array $validIncludes,
-        string $entity
+        string $entity,
     ): bool {
         foreach ($includes as $include) {
             if (!in_array($include, $validIncludes)) {
@@ -593,7 +644,7 @@ class MusicBrainz
      */
     public function validateFilter(
         array $values,
-        array $valid
+        array $valid,
     ): bool {
         foreach ($values as $value) {
             if (!in_array($value, $valid)) {
@@ -620,7 +671,7 @@ class MusicBrainz
         string $entity,
         array $includes,
         array $releaseType = [],
-        array $releaseStatus = []
+        array $releaseStatus = [],
     ): array {
         //$this->validateFilter(array($entity), self::ENTITY_INCLUDES);
         $this->validateFilter($releaseStatus, self::RELEASE_STATUS);
@@ -685,7 +736,7 @@ class MusicBrainz
     public function setUserAgent(
         string $application,
         string $version,
-        string $contactInfo
+        string $contactInfo,
     ): void {
         if (str_contains($version, '-')) {
             throw new Exception('User agent: version should not contain a \'-\' character.');
@@ -727,7 +778,7 @@ class MusicBrainz
     }
 
     /**
-     * Returnsthe output filter
+     * Returns the current output filter
      */
     public function getFilter(): ?FilterInterface
     {
@@ -761,7 +812,7 @@ class MusicBrainz
             'place' => $this->setFilter(new Filters\PlaceFilter($args)),
             'recording' => $this->setFilter(new Filters\RecordingFilter($args)),
             'release' => $this->setFilter(new Filters\ReleaseFilter($args)),
-            'release-group' => $this->setFilter(new Filters\ReleaseGroupFilter($args)),
+            'release-group', 'releasegroup' => $this->setFilter(new Filters\ReleaseGroupFilter($args)),
             'tag' => $this->setFilter(new Filters\TagFilter($args)),
             'work' => $this->setFilter(new Filters\WorkFilter($args)),
         };

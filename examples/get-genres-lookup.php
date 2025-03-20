@@ -1,7 +1,5 @@
 <pre><?php
 
-use GuzzleHttp\Client;
-use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -11,10 +9,10 @@ $config = [
     'allow_redirects' => true,
     'verify' => false,
 ];
-$client   = new Client($config);
+
 $username = null;
 $password = null;
-$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+$brainz   = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $config);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**
@@ -23,6 +21,7 @@ $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.
  */
 $includes = [
     'genres',
+    'tags',
 ];
 try {
     $lookup = $brainz->lookup('artist', '4dbf5678-7a31-406a-abbe-232f8ac2cd63', $includes);
@@ -32,6 +31,10 @@ try {
     print_r("===========\n   GENRES  \n===========\n");
     foreach ($brainz->getObjects($lookup, 'genre') as $genre) {
         print_r($genre->getName() . "\n");
+    }
+    print_r("===========\n   TAGS  \n===========\n");
+    foreach ($brainz->getObjects($lookup, 'tag') as $tag) {
+        print_r($tag->name . "\n");
     }
 } catch (Exception $e) {
     print $e->getMessage();

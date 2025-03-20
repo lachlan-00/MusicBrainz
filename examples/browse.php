@@ -1,7 +1,5 @@
 <pre><?php
 
-use GuzzleHttp\Client;
-use MusicBrainz\HttpAdapters\GuzzleHttpAdapter;
 use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -11,10 +9,10 @@ $config = [
     'allow_redirects' => true,
     'verify' => false,
 ];
-$client   = new Client($config);
+
 $username = null;
 $password = null;
-$brainz   = new MusicBrainz(new GuzzleHttpAdapter($client), $username, $password);
+$brainz   = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $config);
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**
@@ -27,7 +25,7 @@ try {
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
-        1
+        1,
     );
 
     foreach ($brainz->getObjects($browse, 'recording') as $recording) {
@@ -50,7 +48,7 @@ try {
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
-        1
+        1,
     );
 
     foreach ($brainz->getObjects($browse, 'release') as $release) {
@@ -73,7 +71,7 @@ try {
         'artist',
         '6fe07aa5-fec0-4eca-a456-f29bff451b04',
         $includes,
-        1
+        1,
     );
 
     foreach ($brainz->getObjects($browse, 'release-group') as $releaseGroup) {
@@ -95,7 +93,7 @@ try {
         'recording',
         'd615590b-1546-441d-9703-b3cf88487cbd',
         $includes,
-        1
+        1,
     );
 
     foreach ($brainz->getObjects($browse, 'artist') as $artist) {
@@ -122,7 +120,7 @@ try {
         'release',
         '5a90bd38-62b6-46f5-9c39-cfceba169019',
         $includes,
-        1
+        1,
     );
 
     foreach ($brainz->getObjects($browse, 'label') as $label) {
