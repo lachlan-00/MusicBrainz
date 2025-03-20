@@ -32,7 +32,7 @@ class Url extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $url,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($url['id']) ||

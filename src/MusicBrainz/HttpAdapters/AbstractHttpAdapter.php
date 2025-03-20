@@ -17,6 +17,6 @@ abstract class AbstractHttpAdapter
         array $params = [],
         array $options = [],
         bool $isAuthRequired = false,
-        bool $returnArray = false
+        bool $returnArray = false,
     ): array|object;
 }

@@ -36,7 +36,7 @@ class DiscId extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $discid,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($discid['id']) ||

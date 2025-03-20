@@ -36,7 +36,7 @@ class Instrument extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $instrument,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($instrument['id']) ||

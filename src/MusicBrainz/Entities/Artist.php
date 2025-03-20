@@ -42,7 +42,7 @@ class Artist extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $artist,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($artist['id']) ||

@@ -47,7 +47,7 @@ class Place extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $place,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($place['id']) ||

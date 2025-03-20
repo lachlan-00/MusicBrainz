@@ -42,7 +42,7 @@ class Area extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $area,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($area['id']) ||

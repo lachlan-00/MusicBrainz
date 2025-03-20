@@ -43,7 +43,7 @@ class Event extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $event,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($event['id']) ||

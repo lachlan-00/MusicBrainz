@@ -12,7 +12,7 @@ class GuzzleHttpOldAdapter extends AbstractHttpAdapter
 {
     public function __construct(
         private readonly ClientInterface $client, // The Guzzle client used to make cURL requests
-        ?string $endpoint = null
+        ?string $endpoint = null,
     ) {
         if (
             $endpoint !== null &&
@@ -33,7 +33,7 @@ class GuzzleHttpOldAdapter extends AbstractHttpAdapter
         array $params = [],
         array $options = [],
         bool $isAuthRequired = false,
-        bool $returnArray = false
+        bool $returnArray = false,
     ): array|object {
         if ($options['user-agent'] == '') {
             throw new Exception('You must set a valid User Agent before accessing the MusicBrainz API');

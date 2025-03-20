@@ -23,7 +23,7 @@ class Tag
      * } $tag
      */
     public function __construct(
-        array $tag
+        array $tag,
     ) {
         $this->name  = (string)($tag['name'] ?? '');
         $this->count = (int)($tag['count'] ?? 0);

@@ -33,7 +33,7 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $releaseGroup,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($releaseGroup['id']) ||

@@ -46,7 +46,7 @@ class Work extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $work,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($work['id']) ||

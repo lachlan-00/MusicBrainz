@@ -34,7 +34,7 @@ class Series extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $series,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($series['id']) ||

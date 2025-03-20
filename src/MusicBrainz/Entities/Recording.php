@@ -37,7 +37,7 @@ class Recording extends AbstractEntity implements EntityInterface
      */
     public function __construct(
         array $recording,
-        MusicBrainz $brainz
+        MusicBrainz $brainz,
     ) {
         if (
             !isset($recording['id']) ||
