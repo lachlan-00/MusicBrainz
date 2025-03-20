@@ -189,7 +189,7 @@ print "\n\n";
  */
 $includes = ['artists', 'releases'];
 try {
-    //born this way: the remix
+    // born this way: the remix
     $lookup = $brainz->lookup('release-group', 'e4307c5f-1959-4163-b4b1-ded4f9d786b0', $includes);
     print_r($lookup);
 } catch (Exception $e) {

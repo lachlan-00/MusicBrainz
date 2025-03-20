@@ -5,7 +5,7 @@ use MusicBrainz\MusicBrainz;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-//Create new MusicBrainz object
+// Create new MusicBrainz object
 $config = [
     'allow_redirects' => true,
     'verify' => false,
@@ -37,17 +37,24 @@ $args = [
     'recording' => 'we will rock you',
     'artist' => 'Queen',
     'status' => 'official',
-    'country' => 'GB'
+    'country' => 'GB',
 ];
 try {
     // Find all the recordings that match the search and loop through them
     $search = $brainz->search(
-        MusicBrainz::newFilter('recording', $args),
-        1,
+        MusicBrainz::newFilter('recording', $args)
     );
 
     /** @var $recording Recording */
     foreach ($search as $recording) {
+
+        $lastScore        = $recording->getScore();
+        $releaseDates     = $recording->getReleaseDates();
+        $oldestReleaseKey = key($releaseDates);
+
+        echo "FOUND " . $recording->getName() . "\n";
+        print_r($recording->getArtist()->getName() . "\n");
+        print_r($releaseDates[$oldestReleaseKey]->getTimestamp() . "\n");
         // if the recording has a lower score than the previous recording, stop the loop.
         // This is because scores less than 100 usually don't match the search well
         if (
@@ -57,17 +64,13 @@ try {
             break;
         }
 
-        $lastScore        = $recording->getScore();
-        $releaseDates     = $recording->getReleaseDates();
-        $oldestReleaseKey = key($releaseDates);
-
         if (
             strtoupper($recording->getArtist()->getName()) == strtoupper($args['artist']) &&
             $releaseDates[$oldestReleaseKey]->getTimestamp() < $firstRecording['releaseDate']->getTimestamp()
         ) {
             $firstRecording = [
-                'release' => $recording->releases[key($releaseDate)],
-                'releaseDate' => $recording->releases[key($releaseDate)]->getReleaseDate(),
+                'release' => $recording->releases[$oldestReleaseKey],
+                'releaseDate' => $recording->releases[$oldestReleaseKey]->getReleaseDate(),
                 'recording' => $recording,
                 'artistId' => $recording->getArtist()->getId(),
                 'recordingId' => $recording->getId(),
