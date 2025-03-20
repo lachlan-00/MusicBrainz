@@ -158,6 +158,7 @@ class MusicBrainz
 
     /**
      * Create a new MusicBrainz object without having to create a new Http adapter
+     * @throws Exception
      */
     public static function newMusicBrainz(
         string $adapter,
@@ -179,10 +180,14 @@ class MusicBrainz
 
     /**
      * Create a new MusicBrainz object without having to create a new Http adapter
+     * @param string $filterName
+     * @param string[]|null $args
+     * @return FilterInterface|null
+     * @throws Exception
      */
     public static function newFilter(
         string $filterName,
-        array $args = [],
+        ?array $args = null,
     ): ?FilterInterface {
         return match ($filterName) {
             'area' => new Filters\AreaFilter($args),
