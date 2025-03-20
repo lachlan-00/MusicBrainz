@@ -1,4 +1,4 @@
-<pre><?php
+<?php
 
 use MusicBrainz\Entities\Recording;
 use MusicBrainz\MusicBrainz;
@@ -47,14 +47,13 @@ try {
 
     /** @var $recording Recording */
     foreach ($search as $recording) {
-
         $lastScore        = $recording->getScore();
         $releaseDates     = $recording->getReleaseDates();
         $oldestReleaseKey = key($releaseDates);
 
-        echo "FOUND " . $recording->getName() . "\n";
-        print_r($recording->getArtist()->getName() . "\n");
-        print_r($releaseDates[$oldestReleaseKey]->getTimestamp() . "\n");
+        echo "\nSong: " . $recording->getName() . "\n";
+        print_r("Artist: " . $recording->getArtist()->getName() . "\n");
+        print_r("Timestamp: " . $releaseDates[$oldestReleaseKey]->getTimestamp() . "\n");
         // if the recording has a lower score than the previous recording, stop the loop.
         // This is because scores less than 100 usually don't match the search well
         if (
@@ -84,6 +83,7 @@ try {
     }
 
     print_r([$firstRecording]);
+    print_r($firstRecording['releaseDate']);
 } catch (Exception $e) {
     print($e->getMessage());
 }

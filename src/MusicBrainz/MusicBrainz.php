@@ -170,7 +170,7 @@ class MusicBrainz
         $adapter = match ($adapter) {
             'guzzle' => new HttpAdapters\GuzzleHttpAdapter(new Client($guzzleOptions)),
             'guzzle-old' => new HttpAdapters\GuzzleHttpOldAdapter(new OldClient('', $guzzleOptions)),
-            'requests' => new HttpAdapters\RequestsHttpAdapter(),
+            'requests', 'request' => new HttpAdapters\RequestsHttpAdapter(),
             default => throw new Exception('Invalid http adapter')
         };
 

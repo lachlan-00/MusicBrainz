@@ -1,4 +1,4 @@
-<pre><?php
+<?php
 
 use MusicBrainz\Entities\Recording;
 use MusicBrainz\MusicBrainz;
