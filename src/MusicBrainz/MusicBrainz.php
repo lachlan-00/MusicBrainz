@@ -371,11 +371,11 @@ class MusicBrainz
         ?int $offset = null,
         bool $parseResponse = true,
     ): array|object {
-        if (count($filter->createParameters()) < 1) {
-            throw new Exception('The search filter object needs at least 1 argument to create a query.');
-        }
         if (!$filter->canSearch()) {
             throw new Exception(sprintf('The filter object %s does not support search queries.', $filter->getEntity()));
+        }
+        if (count($filter->createParameters()) < 1) {
+            throw new Exception('The search filter object needs at least 1 argument to create a query.');
         }
 
         if ($limit > 100) {
@@ -383,8 +383,10 @@ class MusicBrainz
         }
 
         $params = $filter->createParameters(['limit' => $limit, 'offset' => $offset, 'fmt' => 'json']);
-
-        $response = $this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), false, true);
+        // URL encoding screws up search queries so take that out of the http_build_query
+        $query  = $params['query'];
+        unset($params['query']);
+        $response = $this->adapter->call($filter->getEntity() . '/?query=' . $query . '&' . http_build_query($params), [], $this->getHttpOptions(), false, true);
 
         if (
             $parseResponse &&

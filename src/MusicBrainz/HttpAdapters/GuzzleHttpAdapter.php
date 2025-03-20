@@ -48,6 +48,10 @@ class GuzzleHttpAdapter extends AbstractHttpAdapter
             'query' => $params,
         ];
 
+        if ($params === []) {
+            unset($guzzleOptions['query']);
+        }
+
         if ($isAuthRequired) {
             if (
                 $options['user'] != null &&
