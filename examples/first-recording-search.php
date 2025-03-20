@@ -45,7 +45,7 @@ try {
         MusicBrainz::newFilter('recording', $args)
     );
 
-    /** @var $recording Recording */
+    /** @var Recording $recording */
     foreach ($search as $recording) {
         $lastScore        = $recording->getScore();
         $releaseDates     = $recording->getReleaseDates();
@@ -82,8 +82,12 @@ try {
         throw new Exception('No search results found');
     }
 
-    print_r([$firstRecording]);
+    print_r([$firstRecording['release']]);
+    echo "\n";
+    print_r($firstRecording['recordingId']);
+    echo "\n";
     print_r($firstRecording['releaseDate']);
+    echo "\n";
 } catch (Exception $e) {
     print($e->getMessage());
 }
