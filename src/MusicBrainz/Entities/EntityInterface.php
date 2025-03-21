@@ -13,4 +13,9 @@ interface EntityInterface
     public function getName(): string;
 
     public function getData(): array;
+
+    /**
+     * @return array<string, string|int|float|null>
+     */
+    public function getProps(): array;
 }
