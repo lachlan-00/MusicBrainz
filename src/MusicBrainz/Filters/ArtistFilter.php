@@ -73,8 +73,10 @@ class ArtistFilter extends AbstractFilter implements FilterInterface
         'ended',
         'gender',
         'ipi',
+        'name',
         'sortname',
         'tag',
+        'title',
         'type',
     ];
 

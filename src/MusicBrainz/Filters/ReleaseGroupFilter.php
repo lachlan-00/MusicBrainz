@@ -62,6 +62,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'artistname',
         'comment',
         'creditname',
+        'name',
         'primarytype',
         'reid',
         'release',
@@ -72,6 +73,7 @@ class ReleaseGroupFilter extends AbstractFilter implements FilterInterface
         'secondarytype',
         'status',
         'tag',
+        'title',
         'type',
     ];
 

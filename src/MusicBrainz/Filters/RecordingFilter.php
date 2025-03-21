@@ -50,7 +50,7 @@ class RecordingFilter extends AbstractFilter implements FilterInterface
         'recording-rels',
         'release-group-rels',
         'release-rels',
-        'release',
+        'releases',
         'series-rels',
         'tags',
         'url-rels',
