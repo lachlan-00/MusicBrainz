@@ -45,7 +45,7 @@ class Series extends AbstractEntity implements EntityInterface
 
         $this->brainz         = $brainz;
         $this->data           = $series;
-        $this->id             = $series['id'];
+        $this->id             = (string)$series['id'];
         $this->name           = (string)($series['name'] ?? '');
         $this->type_id        = (string)($series['type-id'] ?? '');
         $this->type           = (string)($series['type'] ?? '');
@@ -65,5 +65,25 @@ class Series extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     name: string,
+     *     type-id: string,
+     *     type: string,
+     *     disambiguation: string
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'type-id' => $this->type_id,
+            'type' => $this->type,
+            'disambiguation' => $this->disambiguation,
+        ];
     }
 }

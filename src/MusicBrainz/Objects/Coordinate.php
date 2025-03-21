@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Objects;
 
-use MusicBrainz\MusicBrainz;
-
 /**
  * Represents a MusicBrainz coordinates object
  * @package MusicBrainz
  */
-class Coordinate
+class Coordinate implements ObjectInterface
 {
     public ?float $longitude = null;
 
@@ -28,5 +26,21 @@ class Coordinate
     ) {
         $this->longitude = ($tag['longitude'] ?? null);
         $this->latitude  = ($tag['latitude'] ?? null);
+    }
+
+    /**
+     * Get the object properties as an array
+     *
+     * @return array{
+     *     longitude: ?float,
+     *     latitude: ?float
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude
+        ];
     }
 }

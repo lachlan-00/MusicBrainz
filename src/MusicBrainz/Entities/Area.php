@@ -53,7 +53,7 @@ class Area extends AbstractEntity implements EntityInterface
 
         $this->brainz           = $brainz;
         $this->data             = $area;
-        $this->id               = $area['id'];
+        $this->id               = (string)$area['id'];
         $this->name             = (string)($area['name'] ?? '');
         $this->sort_name        = (string)($area['sort-name'] ?? '');
         $this->type_id          = (string)($area['type-id'] ?? '');
@@ -76,5 +76,31 @@ class Area extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     name: string,
+     *     sort_name: string,
+     *     type_id: string,
+     *     type: string,
+     *     iso_3166_1_codes: string[],
+     *     life_span: array<string, string|bool|null>,
+     *     disambiguation: string
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'sort_name' => $this->sort_name,
+            'type_id' => $this->type_id,
+            'type' => $this->type,
+            'iso_3166_1_codes' => $this->iso_3166_1_codes,
+            'life_span' => $this->life_span->getProps(),
+            'disambiguation' => $this->disambiguation,
+        ];
     }
 }

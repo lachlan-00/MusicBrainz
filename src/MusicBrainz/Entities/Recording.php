@@ -52,7 +52,7 @@ class Recording extends AbstractEntity implements EntityInterface
         $this->title    = (string)$recording['title'];
         $this->length   = (int)($recording['length'] ?? 0);
         $this->score    = (int)($recording['score'] ?? 0);
-        $this->artistID = $recording['artistID'] ?? $recording['artist-credit'][0]['artist']['id'] ?? null;
+        $this->artistID = $recording['artistID'] ?? $recording['artist-credit'][0]->{'artist'}->{'id'} ?? null;
 
         if (isset($recording['releases'])) {
             $this->setReleases($recording['releases']);
@@ -115,6 +115,28 @@ class Recording extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     title: string,
+     *     length: int,
+     *     score: int,
+     *     artistID: string|null,
+     *     releases: Release[]
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'length' => $this->length,
+            'score' => $this->score,
+            'artistID' => $this->artistID,
+            'releases' => $this->releases,
+        ];
     }
 
     public function getTitle(): string

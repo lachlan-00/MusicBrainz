@@ -59,12 +59,18 @@ class Artist extends AbstractEntity implements EntityInterface
         $this->sortName  = (string)($artist['sort-name'] ?? '');
         $this->gender    = (string)($artist['gender'] ?? '');
         $this->country   = (string)($artist['country'] ?? '');
-        $this->beginDate = (isset($artist['life-span']))
-            ? $artist['life-span']->{'begin'} ?: null
-            : null;
-        $this->endDate   = (isset($artist['life-span']))
-            ? $artist['life-span']->{'end'} ?: null
-            : null;
+        if ((isset($artist['life-span']))) {
+            if (is_array($artist['life-span'])) {
+                $this->beginDate = $artist['life-span']['begin'] ?: null;
+            } else {
+                $this->beginDate = $artist['life-span']->{'begin'} ?: null;
+            }
+            if (is_array($artist['life-span'])) {
+                $this->endDate = $artist['life-span']['end'] ?: null;
+            } else {
+                $this->endDate = $artist['life-span']->{'end'} ?: null;
+            }
+        }
     }
 
     public function getId(): string
@@ -80,6 +86,32 @@ class Artist extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     name: string,
+     *     type: string,
+     *     sort-name: string,
+     *     gender: string,
+     *     country: string,
+     *     begin-date: ?string,
+     *     end-date: ?string
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'type' => $this->type,
+            'sort-name' => $this->sortName,
+            'gender' => $this->gender,
+            'country' => $this->country,
+            'begin-date' => $this->beginDate,
+            'end-date' => $this->endDate,
+        ];
     }
 
     public function getType(): string

@@ -47,10 +47,10 @@ class DiscId extends AbstractEntity implements EntityInterface
 
         $this->brainz       = $brainz;
         $this->data         = $discid;
-        $this->id           = $discid['id'];
+        $this->id           = (string)$discid['id'];
         $this->offset_count = (int)($discid['offset-count'] ?? 0);
         $this->sectors      = (int)($discid['sectors'] ?? 0);
-        $this->offsets      = $discid['offsets'] ?? [];
+        $this->offsets      = $discid['offsets'] ?? null;
         $this->releases     = $discid['releases'] ?? null;
     }
 
@@ -67,5 +67,25 @@ class DiscId extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *      id: string,
+     *      offset-count: int,
+     *      sectors: int,
+     *      offsets: ?int[],
+     *      releases: ?Release[]
+     *  }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'offset-count' => $this->offset_count,
+            'sectors' => $this->sectors,
+            'offsets' => $this->offsets,
+            'releases' => $this->releases,
+        ];
     }
 }

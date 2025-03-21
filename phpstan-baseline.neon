@@ -161,11 +161,6 @@ parameters:
 			path: src/MusicBrainz/Entities/Label.php
 
 		-
-			message: "#^Property MusicBrainz\\\\Entities\\\\Label\\:\\:\\$aliases type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/MusicBrainz/Entities/Label.php
-
-		-
 			message: "#^Property MusicBrainz\\\\Entities\\\\Label\\:\\:\\$brainz is never read, only written\\.$#"
 			count: 1
 			path: src/MusicBrainz/Entities/Label.php
@@ -586,12 +581,12 @@ parameters:
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:isAuthRequired\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:getObject\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
 		-
-			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:lookup\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
+			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:getObjects\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 
@@ -622,6 +617,31 @@ parameters:
 
 		-
 			message: "#^Method MusicBrainz\\\\MusicBrainz\\:\\:validateInclude\\(\\) has parameter \\$validIncludes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MusicBrainz/MusicBrainz.php
+
+		-
+			message: "#^Parameter \\#1 \\$annotation of class MusicBrainz\\\\Objects\\\\Annotation constructor expects array\\{entity\\: string, type\\: string, score\\: int\\|null, text\\: string\\|null\\}, array given\\.$#"
+			count: 1
+			path: src/MusicBrainz/MusicBrainz.php
+
+		-
+			message: "#^Parameter \\#1 \\$attribute of class MusicBrainz\\\\Objects\\\\Attribute constructor expects array\\{type\\-id\\: string\\|null, type\\: string\\|null, value\\: string\\|null\\}, array given\\.$#"
+			count: 1
+			path: src/MusicBrainz/MusicBrainz.php
+
+		-
+			message: "#^Parameter \\#1 \\$tag of class MusicBrainz\\\\Objects\\\\Coordinate constructor expects array\\{ended\\: bool\\|null, longitude\\: float\\|null, latitude\\: float\\|null\\}, array given\\.$#"
+			count: 1
+			path: src/MusicBrainz/MusicBrainz.php
+
+		-
+			message: "#^Parameter \\#1 \\$tag of class MusicBrainz\\\\Objects\\\\LifeSpan constructor expects array\\{ended\\: bool\\|null, end\\: string\\|null, begin\\: string\\|null\\}, array given\\.$#"
+			count: 1
+			path: src/MusicBrainz/MusicBrainz.php
+
+		-
+			message: "#^Parameter \\#1 \\$tag of class MusicBrainz\\\\Objects\\\\Tag constructor expects array\\{name\\: string\\|null, count\\: string\\|null\\}, array given\\.$#"
 			count: 1
 			path: src/MusicBrainz/MusicBrainz.php
 

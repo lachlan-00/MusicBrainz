@@ -57,7 +57,7 @@ class Work extends AbstractEntity implements EntityInterface
 
         $this->brainz         = $brainz;
         $this->data           = $work;
-        $this->id             = $work['id'];
+        $this->id             = (string)$work['id'];
         $this->title          = (string)($work['title'] ?? '');
         $this->type_id        = (string)($work['type-id'] ?? '');
         $this->type           = (string)($work['type'] ?? '');
@@ -81,6 +81,34 @@ class Work extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     title: string,
+     *     type_id: string,
+     *     type: string,
+     *     language: string,
+     *     languages: string[],
+     *     iswcs: string[],
+     *     attributes: Attribute[]|null,
+     *     disambiguation: string
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'type_id' => $this->type_id,
+            'type' => $this->type,
+            'language' => $this->language,
+            'languages' => $this->languages,
+            'iswcs' => $this->iswcs,
+            'attributes' => $this->attributes,
+            'disambiguation' => $this->disambiguation,
+        ];
     }
 
     public function getTitle(): string

@@ -1,19 +1,13 @@
 <?php
 
-namespace MusicBrainz\Entities;
+namespace MusicBrainz\Objects;
 
 /**
  * Class EntityInterface
  * @package MusicBrainz\Entities
  */
-interface EntityInterface
+interface ObjectInterface
 {
-    public function getId(): string;
-
-    public function getName(): string;
-
-    public function getData(): array;
-
     /**
      * @return array<string, string|int|float|null>
      */

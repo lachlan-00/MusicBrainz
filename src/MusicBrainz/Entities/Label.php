@@ -6,6 +6,7 @@ namespace MusicBrainz\Entities;
 
 use MusicBrainz\Exception;
 use MusicBrainz\MusicBrainz;
+use MusicBrainz\Objects\Alias;
 
 /**
  * Represents a MusicBrainz label object
@@ -18,7 +19,8 @@ class Label extends AbstractEntity implements EntityInterface
 
     public string $type;
 
-    public array $aliases;
+    /** @var Alias[]|null $aliases */
+    public ?array $aliases = null;
 
     public int $score;
 
@@ -48,13 +50,13 @@ class Label extends AbstractEntity implements EntityInterface
 
         $this->brainz   = $brainz;
         $this->data     = $label;
-        $this->id       = $label['id'];
+        $this->id       = (string)$label['id'];
         $this->type     = (string)($label['type'] ?? '');
         $this->score    = (int)($label['score'] ?? 0);
         $this->sortName = (string)($label['sort-name'] ?? '');
         $this->name     = (string)($label['name'] ?? '');
         $this->country  = (string)($label['country'] ?? '');
-        $this->aliases  = $label['aliases'] ?? [];
+        $this->aliases  = $label['aliases'] ?? null;
     }
 
     public function getId(): string
@@ -70,5 +72,28 @@ class Label extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+    /**
+     * @return array{
+     *     id: string,
+     *     name: string,
+     *     type: string,
+     *     aliases: ?Alias[],
+     *     score: int,
+     *     sortName: string,
+     *     country: string
+     *  }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'type' => $this->type,
+            'aliases' => $this->aliases,
+            'score' => $this->score,
+            'sortName' => $this->sortName,
+            'country' => $this->country,
+        ];
     }
 }

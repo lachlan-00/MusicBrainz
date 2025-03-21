@@ -54,13 +54,13 @@ class Event extends AbstractEntity implements EntityInterface
 
         $this->brainz         = $brainz;
         $this->data           = $event;
-        $this->id             = $event['id'];
+        $this->id             = (string)$event['id'];
         $this->name           = (string)($event['name'] ?? '');
         $this->type_id        = (string)($event['type-id'] ?? '');
         $this->type           = (string)($event['type'] ?? '');
         $this->time           = (string)($event['time'] ?? '');
         $this->setlist        = (string)($event['setlist'] ?? '');
-        $this->life_span      = $event['life-span'];
+        $this->life_span      = $event['life-span'] ?? null;
         $this->disambiguation = (string)($event['disambiguation'] ?? '');
     }
 
@@ -77,5 +77,31 @@ class Event extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *      id: string,
+     *      name: string,
+     *      type-id: string,
+     *      type: ?string,
+     *      time: string,
+     *      setlist: string,
+     *      life-span: ?LifeSpan,
+     *      disambiguation: string
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'type-id' => $this->type_id,
+            'type' => $this->type,
+            'time' => $this->time,
+            'setlist' => $this->setlist,
+            'life-span' => $this->life_span,
+            'disambiguation' => $this->disambiguation,
+        ];
     }
 }

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Objects;
 
-use MusicBrainz\MusicBrainz;
-
 /**
  * Represents a MusicBrainz tag object
  * @package MusicBrainz
  */
-class Tag
+class Tag implements ObjectInterface
 {
     public string $name;
 
@@ -27,5 +25,21 @@ class Tag
     ) {
         $this->name  = (string)($tag['name'] ?? '');
         $this->count = (int)($tag['count'] ?? 0);
+    }
+
+    /**
+     * Get the object properties as an array
+     *
+     * @return array{
+     *     name: string,
+     *     count: int
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'name' => $this->name,
+            'count' => $this->count
+        ];
     }
 }

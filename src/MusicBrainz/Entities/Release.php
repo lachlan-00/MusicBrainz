@@ -59,7 +59,7 @@ class Release extends AbstractEntity implements EntityInterface
 
         $this->brainz   = $brainz;
         $this->data     = $release;
-        $this->id       = $release['id'];
+        $this->id       = (string)$release['id'];
         $this->title    = (string)($release['title'] ?? '');
         $this->status   = (string)($release['status'] ?? '');
         $this->quality  = (string)($release['quality'] ?? '');
@@ -83,6 +83,34 @@ class Release extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     title: string,
+     *     status: string,
+     *     quality: string,
+     *     language: string,
+     *     script: string,
+     *     date: string,
+     *     country: string,
+     *     barcode: string
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'status' => $this->status,
+            'quality' => $this->quality,
+            'language' => $this->language,
+            'script' => $this->script,
+            'date' => $this->date,
+            'country' => $this->country,
+            'barcode' => $this->barcode,
+        ];
     }
 
     public function getTitle(): string

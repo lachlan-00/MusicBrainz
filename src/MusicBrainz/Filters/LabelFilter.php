@@ -66,8 +66,10 @@ class LabelFilter extends AbstractFilter implements FilterInterface
         'label',
         'labelaccent',
         'laid',
+        'name',
         'sortname',
         'tag',
+        'title',
         'type',
     ];
 

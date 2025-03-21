@@ -26,10 +26,10 @@ class Place extends AbstractEntity implements EntityInterface
     public string $type;
 
     /** @var LifeSpan[] $life_span */
-    public array $life_span;
+    public ?array $life_span = null;
 
-    /** @var Area[] $area */
-    public array $area;
+    /** @var Area[]|null $area */
+    public ?array $area = null;
 
     /** @var null|Coordinate[] $coordinates */
     public ?array $coordinates;
@@ -58,7 +58,7 @@ class Place extends AbstractEntity implements EntityInterface
 
         $this->brainz         = $brainz;
         $this->data           = $place;
-        $this->id             = $place['id'];
+        $this->id             = (string)$place['id'];
         $this->name           = (string)($place['name'] ?? '');
         $this->address        = (string)($place['address'] ?? '');
         $this->type_id        = (string)($place['type-id'] ?? '');
@@ -82,5 +82,33 @@ class Place extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *      id: string,
+     *      name: string,
+     *      address: string,
+     *      type-id: string,
+     *      type: string,
+     *      area: ?Area[],
+     *      life-span: ?LifeSpan[],
+     *      coordinates: ?Coordinate[],
+     *      disambiguation: string
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'address' => $this->address,
+            'type-id' => $this->type_id,
+            'type' => $this->type,
+            'area' => $this->area,
+            'life-span' => $this->life_span,
+            'coordinates' => $this->coordinates,
+            'disambiguation' => $this->disambiguation,
+        ];
     }
 }

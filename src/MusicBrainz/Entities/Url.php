@@ -43,8 +43,8 @@ class Url extends AbstractEntity implements EntityInterface
 
         $this->brainz   = $brainz;
         $this->data     = $url;
-        $this->id       = $url['id'];
-        $this->resource = $url['resource'];
+        $this->id       = (string)$url['id'];
+        $this->resource = (string)$url['resource'];
         $this->tags     = $url['tags'] ?? null;
     }
 
@@ -61,5 +61,21 @@ class Url extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     resource: string,
+     *     tags: Tag[]|null
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'resource' => $this->resource,
+            'tags' => $this->tags,
+        ];
     }
 }

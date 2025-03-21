@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace MusicBrainz\Objects;
 
-use MusicBrainz\MusicBrainz;
-
 /**
  * Represents a MusicBrainz annotation object
  * @package MusicBrainz
  */
-class Annotation
+class Annotation implements ObjectInterface
 {
     public string $entity;
 
@@ -35,5 +33,25 @@ class Annotation
         $this->type   = $annotation['type'];
         $this->score  = (int)($annotation['score'] ?? 0);
         $this->text   = $annotation['text'] ?? '';
+    }
+
+    /**
+     * Get the object properties as an array
+     *
+     * @return array{
+     *     entity: string,
+     *     type: string,
+     *     score: int,
+     *     text: string
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'entity' => $this->entity,
+            'type' => $this->type,
+            'score' => $this->score,
+            'text' => $this->text
+        ];
     }
 }
