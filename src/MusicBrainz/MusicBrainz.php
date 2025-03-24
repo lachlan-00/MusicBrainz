@@ -28,6 +28,7 @@ use MusicBrainz\Objects\Annotation;
 use MusicBrainz\Objects\Attribute;
 use MusicBrainz\Objects\Coordinate;
 use MusicBrainz\Objects\LifeSpan;
+use MusicBrainz\Objects\ObjectInterface;
 use MusicBrainz\Objects\Tag;
 use OutOfBoundsException;
 
@@ -41,7 +42,7 @@ use OutOfBoundsException;
  */
 class MusicBrainz
 {
-    public const VERSION = '0.5.0';
+    public const VERSION = '0.6.0';
 
     private const MBID_REGEX = '/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)})$/i';
 
@@ -131,7 +132,7 @@ class MusicBrainz
 
     private AbstractHttpAdapter $adapter; // The Http adapter used to make requests
 
-    private ?FilterInterface $filter = null; // Result filter used to get output objects from requests
+    private ?FilterInterface $filter; // Result filter used to get output objects from requests
 
     /**
      * Initializes the class. You can pass the user’s username and password
@@ -158,6 +159,12 @@ class MusicBrainz
 
     /**
      * Create a new MusicBrainz object without having to create a new Http adapter
+     * @param string $adapter
+     * @param string|null $user
+     * @param string|null $password
+     * @param FilterInterface|null $filter
+     * @param array<string, mixed> $guzzleOptions
+     * @return MusicBrainz
      * @throws Exception
      */
     public static function newMusicBrainz(
@@ -219,6 +226,9 @@ class MusicBrainz
 
     /**
      * Some calls require authentication
+     * @param string $entity
+     * @param string[] $includes
+     * @return bool
      */
     private function _isAuthRequired(
         string $entity,
@@ -258,7 +268,7 @@ class MusicBrainz
      *
      * @param string $entity
      * @param string $mbid MusicBrainz ID
-     * @param array $includes
+     * @param string[] $includes
      *
      * @return array|object
      * @throws Exception
@@ -398,6 +408,11 @@ class MusicBrainz
         return $response;
     }
 
+    /**
+     * Parse the response from the web service and return an array of objects based on what you're expecting
+     * @return EntityInterface[]|ObjectInterface[]
+     * @throws Exception
+     */
     public function getObjects(
         array|object $response,
         ?string $filterName = null,
@@ -421,7 +436,7 @@ class MusicBrainz
     public function getObject(
         array|object $response,
         ?string $filterName = null,
-    ): EntityInterface {
+    ): EntityInterface|ObjectInterface {
         return match ($filterName) {
             'annotation' => new Annotation((array)$response),
             'area' => new Area((array)$response, $this),
@@ -623,9 +638,8 @@ class MusicBrainz
     /**
      * @param array $includes
      * @param array $validIncludes
-     *
+     * @param string $entity
      * @return bool
-     * @throws OutOfBoundsException
      */
     public function validateInclude(
         array $includes,
@@ -798,10 +812,12 @@ class MusicBrainz
     {
         $this->filter = $filter;
     }
+
     /**
      * Sets the output filter
      * @param string $filterName
      * @param string[]|null $args
+     * @throws Exception
      */
     public function setFilterByString(string $filterName, ?array $args = null): void
     {
@@ -821,6 +837,7 @@ class MusicBrainz
             'release-group', 'releasegroup' => $this->setFilter(new Filters\ReleaseGroupFilter($args)),
             'tag' => $this->setFilter(new Filters\TagFilter($args)),
             'work' => $this->setFilter(new Filters\WorkFilter($args)),
+            default => throw new Exception('Invalid filter type'),
         };
     }
 }

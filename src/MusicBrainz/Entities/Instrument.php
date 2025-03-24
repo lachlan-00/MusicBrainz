@@ -47,7 +47,7 @@ class Instrument extends AbstractEntity implements EntityInterface
 
         $this->brainz         = $brainz;
         $this->data           = $instrument;
-        $this->id             = $instrument['id'];
+        $this->id             = (string)$instrument['id'];
         $this->name           = (string)($instrument['name'] ?? '');
         $this->type_id        = (string)($instrument['type-id'] ?? '');
         $this->type           = (string)($instrument['type'] ?? '');
@@ -68,5 +68,27 @@ class Instrument extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     name: string,
+     *     type-id: string,
+     *     type: ?string,
+     *     description: string,
+     *     disambiguation: string
+     *  }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'type-id' => $this->type_id,
+            'type' => $this->type,
+            'description' => $this->description,
+            'disambiguation' => $this->disambiguation,
+        ];
     }
 }

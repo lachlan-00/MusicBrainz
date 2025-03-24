@@ -44,7 +44,7 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
 
         $this->brainz = $brainz;
         $this->data   = $releaseGroup;
-        $this->id     = $releaseGroup['id'];
+        $this->id     = (string)$releaseGroup['id'];
         $this->title  = (string)($releaseGroup['title'] ?? '');
         $this->score  = (int)($releaseGroup['score'] ?? 0);
     }
@@ -62,6 +62,22 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     title: string,
+     *     score: int
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'score' => $this->score,
+        ];
     }
 
     public function getTitle(): string

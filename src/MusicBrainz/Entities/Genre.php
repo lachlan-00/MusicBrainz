@@ -41,7 +41,7 @@ class Genre extends AbstractEntity implements EntityInterface
 
         $this->brainz         = $brainz;
         $this->data           = $genre;
-        $this->id             = $genre['id'];
+        $this->id             = (string)$genre['id'];
         $this->name           = (string)($genre['name'] ?? '');
         $this->disambiguation = (string)($genre['disambiguation'] ?? '');
     }
@@ -59,5 +59,21 @@ class Genre extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *      id: string,
+     *      name: string,
+     *      disambiguation: string
+     *  }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'disambiguation' => $this->disambiguation,
+        ];
     }
 }

@@ -14,6 +14,7 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
         __DIR__ . '/src/MusicBrainz/Filters',
         __DIR__ . '/src/MusicBrainz/HttpAdapters',
+        __DIR__ . '/src/MusicBrainz/Objects',
     ])
     ->withCache(__DIR__ . '/build/rector', FileCacheStorage::class)
     ->withImportNames()
@@ -24,6 +25,5 @@ return RectorConfig::configure()
     ->withPreparedSets(deadCode: true, codeQuality: true, codingStyle: true)
     ->withSkip([
         FlipTypeControlToUseExclusiveTypeRector::class,
-        StaticClosureRector::class,
         SymplifyQuoteEscapeRector::class,
     ]);

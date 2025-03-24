@@ -47,7 +47,7 @@ class Collection extends AbstractEntity implements EntityInterface
 
         $this->brainz      = $brainz;
         $this->data        = $collection;
-        $this->id          = $collection['id'];
+        $this->id          = (string)$collection['id'];
         $this->name        = (string)($collection['name'] ?? '');
         $this->type        = (string)($collection['type'] ?? '');
         $this->type_id     = (string)($collection['type-id'] ?? '');
@@ -68,5 +68,27 @@ class Collection extends AbstractEntity implements EntityInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *     id: string,
+     *     name: string,
+     *     type: string,
+     *     type-id: string,
+     *     editor: string,
+     *     event-count: int
+     * }
+     */
+    public function getProps(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'type' => $this->type,
+            'type-id' => $this->type_id,
+            'editor' => $this->editor,
+            'event-count' => $this->event_count,
+        ];
     }
 }

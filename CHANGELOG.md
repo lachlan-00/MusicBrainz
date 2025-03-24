@@ -1,5 +1,28 @@
 # MusicBrainz
 
+## 0.6.0
+
+### Added
+
+* Add Ampache examples
+* Include `/objects` in rector config
+* Added `getProps()` function to Entity and Object classes. (return class properties)
+* New class `Object\Alias`
+* Add `ObjectInterface` class
+
+### Changed
+
+* Don't include `/test` or `/examples` in release zip using `.gitattributes`
+
+### Fixed
+
+* Reading life-span in Artist
+* Null life-span in Event, Place
+* Null alias in Label
+* Null Area in Place
+* Missing includes (`name`, `title`) for ArtistFilter, Labelfilter, ReleaseFilter and ReleaseGroupFilter
+* RecordingFilter typo for `releases`
+
 ## 0.5.0
 
 Added functions so you don't have to call other classes outside the MusicBrainz class
