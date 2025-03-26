@@ -21,7 +21,7 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /** @var Release[] */
     private array $releases = [];
@@ -68,16 +68,23 @@ class ReleaseGroup extends AbstractEntity implements EntityInterface
      * @return array{
      *     id: string,
      *     title: string,
-     *     score: int
+     *     score: int,
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'title' => $this->title,
             'score' => $this->score,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 
     public function getTitle(): string

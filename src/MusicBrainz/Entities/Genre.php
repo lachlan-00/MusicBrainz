@@ -21,7 +21,7 @@ class Genre extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /**
      * @param array $genre
@@ -68,12 +68,18 @@ class Genre extends AbstractEntity implements EntityInterface
      *      disambiguation: string
      *  }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'name' => $this->name,
             'disambiguation' => $this->disambiguation,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 }

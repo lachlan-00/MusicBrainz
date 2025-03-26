@@ -38,7 +38,7 @@ class Place extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /**
      * @param array $place
@@ -94,12 +94,13 @@ class Place extends AbstractEntity implements EntityInterface
      *      area: ?Area[],
      *      life-span: ?LifeSpan[],
      *      coordinates: ?Coordinate[],
-     *      disambiguation: string
+     *      disambiguation: string,
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'name' => $this->name,
             'address' => $this->address,
@@ -110,5 +111,11 @@ class Place extends AbstractEntity implements EntityInterface
             'coordinates' => $this->coordinates,
             'disambiguation' => $this->disambiguation,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 }

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class MusicBrainzTest extends TestCase
 {
-    protected MusicBrainz $brainz;
+    private MusicBrainz $brainz;
 
     /**
      * @throws Exception

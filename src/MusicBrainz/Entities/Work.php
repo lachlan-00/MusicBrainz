@@ -37,7 +37,7 @@ class Work extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /**
      * @param array $work
@@ -93,12 +93,13 @@ class Work extends AbstractEntity implements EntityInterface
      *     languages: string[],
      *     iswcs: string[],
      *     attributes: Attribute[]|null,
-     *     disambiguation: string
+     *     disambiguation: string,
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'title' => $this->title,
             'type_id' => $this->type_id,
@@ -109,6 +110,12 @@ class Work extends AbstractEntity implements EntityInterface
             'attributes' => $this->attributes,
             'disambiguation' => $this->disambiguation,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 
     public function getTitle(): string

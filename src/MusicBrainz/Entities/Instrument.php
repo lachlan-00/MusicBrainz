@@ -27,7 +27,7 @@ class Instrument extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /**
      * @param array $instrument
@@ -80,9 +80,9 @@ class Instrument extends AbstractEntity implements EntityInterface
      *     disambiguation: string
      *  }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'name' => $this->name,
             'type-id' => $this->type_id,
@@ -90,5 +90,11 @@ class Instrument extends AbstractEntity implements EntityInterface
             'description' => $this->description,
             'disambiguation' => $this->disambiguation,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 }

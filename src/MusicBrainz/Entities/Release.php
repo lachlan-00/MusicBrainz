@@ -95,12 +95,13 @@ class Release extends AbstractEntity implements EntityInterface
      *     script: string,
      *     date: string,
      *     country: string,
-     *     barcode: string
+     *     barcode: string,
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'title' => $this->title,
             'status' => $this->status,
@@ -111,6 +112,12 @@ class Release extends AbstractEntity implements EntityInterface
             'country' => $this->country,
             'barcode' => $this->barcode,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 
     public function getTitle(): string
