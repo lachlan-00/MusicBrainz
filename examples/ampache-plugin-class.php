@@ -352,7 +352,7 @@ class AmpacheMusicBrainz
                 $release = $brainzData['releases'][0];
             }
 
-            $results = (array)$results;
+            $results = $results->getProps(true);
             if (isset($artist)) {
                 $results['mb_artistid'] = $artist['id'];
                 $results['artist']      = $artist['name'];
@@ -364,11 +364,18 @@ class AmpacheMusicBrainz
                     : $release->title;
             }
         } else {
-            $results = (array)$results;
+            $results = $results->getProps(true);
         }
 
         if (!empty($genres)) {
             $results['genre'] = array_unique($genres);
+        }
+
+        // unset the MusicBrainz object before returning output
+        foreach ($results as $key => $value) {
+            if ($value instanceof MusicBrainz) {
+                unset($results[$key]);
+            }
         }
 
         return $results;
