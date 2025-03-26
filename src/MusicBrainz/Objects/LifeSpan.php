@@ -31,6 +31,11 @@ class LifeSpan implements ObjectInterface
         $this->begin = (string)($tag['begin'] ?? '');
     }
 
+    public function getData(): LifeSpan
+    {
+        return $this;
+    }
+
     /**
      * Get the object properties as an array
      *

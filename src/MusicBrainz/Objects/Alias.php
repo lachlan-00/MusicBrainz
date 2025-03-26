@@ -47,6 +47,11 @@ class Alias implements ObjectInterface
         $this->end_date   = (string)($tag['end-date'] ?? '');
     }
 
+    public function getData(): Alias
+    {
+        return $this;
+    }
+
     /**
      * @return array{
      *     name: string,

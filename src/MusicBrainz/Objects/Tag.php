@@ -27,6 +27,11 @@ class Tag implements ObjectInterface
         $this->count = (int)($tag['count'] ?? 0);
     }
 
+    public function getData(): Tag
+    {
+        return $this;
+    }
+
     /**
      * Get the object properties as an array
      *

@@ -28,6 +28,11 @@ class Coordinate implements ObjectInterface
         $this->latitude  = ($tag['latitude'] ?? null);
     }
 
+    public function getData(): Coordinate
+    {
+        return $this;
+    }
+
     /**
      * Get the object properties as an array
      *

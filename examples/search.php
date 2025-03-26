@@ -17,8 +17,8 @@ $brainz   = MusicBrainz::newMusicBrainz('guzzle', $username, $password, null, $c
 $brainz->setUserAgent('ApplicationName', MusicBrainz::VERSION, 'https://example.com');
 
 /**
- * Get the release groups for an artist
- * @see http://musicbrainz.org/doc/Release_Group
+ * Get the release groups for a place
+ * @see http://musicbrainz.org/doc/Place
  */
 $args = [
     'name' => 'Altern'
@@ -37,8 +37,8 @@ print "\n\n";
 
 
 /**
- * Get the release groups for an artist
- * @see http://musicbrainz.org/doc/Release_Group
+ * Get the release groups for a work
+ * @see http://musicbrainz.org/doc/Work
  */
 $args = [
     'title' => 'My Name is Jonas'
@@ -57,7 +57,7 @@ print "\n\n";
 
 
 /**
- * Get the release groups for an artist
+ * Get the release groups for an release-group
  * @see http://musicbrainz.org/doc/Release_Group
  */
 $args = [

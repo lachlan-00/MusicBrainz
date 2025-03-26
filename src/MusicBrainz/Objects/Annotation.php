@@ -35,6 +35,11 @@ class Annotation implements ObjectInterface
         $this->text   = $annotation['text'] ?? '';
     }
 
+    public function getData(): Annotation
+    {
+        return $this;
+    }
+
     /**
      * Get the object properties as an array
      *
