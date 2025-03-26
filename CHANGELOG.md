@@ -1,5 +1,17 @@
 # MusicBrainz
 
+## x.x.x
+
+### Added
+
+* Add an option to Entity `getData` calls to include the data property in results
+* Add `getData` to ObjectInterface to match Entity classes
+* Updated Ampache example to use `getProps`
+
+### Changed
+
+* Make MusicBrainz a protected property on Entity classes
+
 ## 0.6.0
 
 ### Added
