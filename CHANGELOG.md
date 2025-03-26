@@ -153,7 +153,7 @@ No functional changes but many code quality updates and strict typing is enabled
 
 ### Removed
 
-* PHP support less that PHP8.2
+* PHP support less than PHP8.2
 * GitHub funding link
 
 ### Fixed
