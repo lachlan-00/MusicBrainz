@@ -124,12 +124,13 @@ class Recording extends AbstractEntity implements EntityInterface
      *     length: int,
      *     score: int,
      *     artistID: string|null,
-     *     releases: Release[]
+     *     releases: Release[],
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'title' => $this->title,
             'length' => $this->length,
@@ -137,6 +138,12 @@ class Recording extends AbstractEntity implements EntityInterface
             'artistID' => $this->artistID,
             'releases' => $this->releases,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 
     public function getTitle(): string

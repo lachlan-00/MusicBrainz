@@ -27,7 +27,7 @@ class DiscId extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /**
      * @param array $discid
@@ -71,21 +71,27 @@ class DiscId extends AbstractEntity implements EntityInterface
 
     /**
      * @return array{
-     *      id: string,
-     *      offset-count: int,
-     *      sectors: int,
-     *      offsets: ?int[],
-     *      releases: ?Release[]
+     *     id: string,
+     *     offset-count: int,
+     *     sectors: int,
+     *     offsets: ?int[],
+     *     releases: ?Release[]
      *  }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'offset-count' => $this->offset_count,
             'sectors' => $this->sectors,
             'offsets' => $this->offsets,
             'releases' => $this->releases,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 }

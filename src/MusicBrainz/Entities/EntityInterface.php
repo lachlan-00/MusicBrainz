@@ -17,5 +17,5 @@ interface EntityInterface
     /**
      * @return array<string, string|int|float|null>
      */
-    public function getProps(): array;
+    public function getProps(bool $includeData = false): array;
 }

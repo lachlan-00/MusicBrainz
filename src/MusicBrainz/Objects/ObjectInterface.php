@@ -8,6 +8,8 @@ namespace MusicBrainz\Objects;
  */
 interface ObjectInterface
 {
+    public function getData(): ObjectInterface;
+
     /**
      * @return array<string, string|int|float|null>
      */

@@ -26,13 +26,13 @@ class Alias implements ObjectInterface
 
     /**
      * @param array{
-     *      name: ?string,
-     *      sort-name: ?string,
-     *      type: ?string,
-     *      type-id: ?string,
-     *      primary: ?bool,
-     *      begin-date: ?string,
-     *      end-date: ?string
+     *     name: ?string,
+     *     sort-name: ?string,
+     *     type: ?string,
+     *     type-id: ?string,
+     *     primary: ?bool,
+     *     begin-date: ?string,
+     *     end-date: ?string
      * } $tag
      */
     public function __construct(
@@ -45,6 +45,11 @@ class Alias implements ObjectInterface
         $this->primary    = (bool)($tag['primary'] ?? null);
         $this->begin_date = (string)($tag['begin-date'] ?? '');
         $this->end_date   = (string)($tag['end-date'] ?? '');
+    }
+
+    public function getData(): Alias
+    {
+        return $this;
     }
 
     /**

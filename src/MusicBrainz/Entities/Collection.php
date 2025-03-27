@@ -27,7 +27,7 @@ class Collection extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /**
      * @param array $collection
@@ -77,12 +77,13 @@ class Collection extends AbstractEntity implements EntityInterface
      *     type: string,
      *     type-id: string,
      *     editor: string,
-     *     event-count: int
+     *     event-count: int,
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
@@ -90,5 +91,11 @@ class Collection extends AbstractEntity implements EntityInterface
             'editor' => $this->editor,
             'event-count' => $this->event_count,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 }

@@ -23,7 +23,7 @@ class Url extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /**
      * @param array $url
@@ -67,15 +67,22 @@ class Url extends AbstractEntity implements EntityInterface
      * @return array{
      *     id: string,
      *     resource: string,
-     *     tags: Tag[]|null
+     *     tags: Tag[]|null,
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'resource' => $this->resource,
             'tags' => $this->tags,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 }

@@ -97,12 +97,13 @@ class Artist extends AbstractEntity implements EntityInterface
      *     gender: string,
      *     country: string,
      *     begin-date: ?string,
-     *     end-date: ?string
+     *     end-date: ?string,
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
@@ -112,6 +113,12 @@ class Artist extends AbstractEntity implements EntityInterface
             'begin-date' => $this->beginDate,
             'end-date' => $this->endDate,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 
     public function getType(): string

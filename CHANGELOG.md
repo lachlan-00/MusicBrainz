@@ -1,5 +1,23 @@
 # MusicBrainz
 
+## 0.6.1
+
+This release is to address issues with Entity objects returning the brainz property.
+
+Use `{EntityInterface}->getProps(true)` to return an array of object properties without brainz.
+
+This will make your data returns a bit more reliable and allow you to hold the returned data without affecting the response.
+
+### Added
+
+* Add parameter `includeData` to Entity `getData` calls to include the data property in results
+* Add `getData` to ObjectInterface to match Entity classes. (no parameters, just return the object)
+* Updated Ampache example to use the new version of `getProps`
+
+### Changed
+
+* Make MusicBrainz a protected property on Entity classes
+
 ## 0.6.0
 
 ### Added
@@ -141,7 +159,7 @@ No functional changes but many code quality updates and strict typing is enabled
 
 ### Removed
 
-* PHP support less that PHP8.2
+* PHP support less than PHP8.2
 * GitHub funding link
 
 ### Fixed

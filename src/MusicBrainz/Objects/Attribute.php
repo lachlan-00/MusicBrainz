@@ -31,6 +31,11 @@ class Attribute implements ObjectInterface
         $this->value   = (string)($attribute['value'] ?? '');
     }
 
+    public function getData(): Attribute
+    {
+        return $this;
+    }
+
     /**
      * Get the object properties as an array
      *

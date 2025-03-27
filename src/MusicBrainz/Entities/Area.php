@@ -33,7 +33,7 @@ class Area extends AbstractEntity implements EntityInterface
 
     private array $data;
 
-    private MusicBrainz $brainz;
+    protected MusicBrainz $brainz;
 
     /**
      * @param array $area
@@ -87,12 +87,13 @@ class Area extends AbstractEntity implements EntityInterface
      *     type: string,
      *     iso_3166_1_codes: string[],
      *     life_span: array<string, string|bool|null>,
-     *     disambiguation: string
+     *     disambiguation: string,
+     *     data?: array<string, mixed>
      * }
      */
-    public function getProps(): array
+    public function getProps(bool $includeData = false): array
     {
-        return [
+        $results = [
             'id' => $this->id,
             'name' => $this->name,
             'sort_name' => $this->sort_name,
@@ -102,5 +103,11 @@ class Area extends AbstractEntity implements EntityInterface
             'life_span' => $this->life_span->getProps(),
             'disambiguation' => $this->disambiguation,
         ];
+
+        if ($includeData) {
+            $results['data'] = $this->data;
+        }
+
+        return $results;
     }
 }

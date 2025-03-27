@@ -160,7 +160,6 @@ class AmpacheMusicBrainz
                         $results = $brainz->getObject($lookup, $object_type);
                         break;
                     case 'track':
-                        echo "track\n";
                         $lookup = $brainz->lookup('recording', $mbid, ['artists', 'releases', 'genres', 'tags']);
                         /**
                          * https://musicbrainz.org/ws/2/recording/140e8071-d7bb-4e05-9547-bfeea33916d0?inc=artists+releases&fmt=json
@@ -353,7 +352,7 @@ class AmpacheMusicBrainz
                 $release = $brainzData['releases'][0];
             }
 
-            $results = (array)$results;
+            $results = $results->getProps(true);
             if (isset($artist)) {
                 $results['mb_artistid'] = $artist['id'];
                 $results['artist']      = $artist['name'];
@@ -365,11 +364,18 @@ class AmpacheMusicBrainz
                     : $release->title;
             }
         } else {
-            $results = (array)$results;
+            $results = $results->getProps(true);
         }
 
         if (!empty($genres)) {
             $results['genre'] = array_unique($genres);
+        }
+
+        // unset the MusicBrainz object before returning output
+        foreach ($results as $key => $value) {
+            if ($value instanceof MusicBrainz) {
+                unset($results[$key]);
+            }
         }
 
         return $results;
