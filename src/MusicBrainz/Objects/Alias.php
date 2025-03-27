@@ -26,13 +26,13 @@ class Alias implements ObjectInterface
 
     /**
      * @param array{
-     *      name: ?string,
-     *      sort-name: ?string,
-     *      type: ?string,
-     *      type-id: ?string,
-     *      primary: ?bool,
-     *      begin-date: ?string,
-     *      end-date: ?string
+     *     name: ?string,
+     *     sort-name: ?string,
+     *     type: ?string,
+     *     type-id: ?string,
+     *     primary: ?bool,
+     *     begin-date: ?string,
+     *     end-date: ?string
      * } $tag
      */
     public function __construct(

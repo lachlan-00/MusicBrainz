@@ -71,11 +71,11 @@ class DiscId extends AbstractEntity implements EntityInterface
 
     /**
      * @return array{
-     *      id: string,
-     *      offset-count: int,
-     *      sectors: int,
-     *      offsets: ?int[],
-     *      releases: ?Release[]
+     *     id: string,
+     *     offset-count: int,
+     *     sectors: int,
+     *     offsets: ?int[],
+     *     releases: ?Release[]
      *  }
      */
     public function getProps(bool $includeData = false): array

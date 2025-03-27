@@ -81,15 +81,14 @@ class Event extends AbstractEntity implements EntityInterface
 
     /**
      * @return array{
-     *      id: string,
-     *      name: string,
-     *      type-id: string,
-     *      type: ?string,
-     *      time: string,
-     *      setlist: string,
-     *      life-span: ?LifeSpan,
-     *      disambiguation: string,
-     *     data?: array<string, mixed>,
+     *     id: string,
+     *     name: string,
+     *     type-id: string,
+     *     type: ?string,
+     *     time: string,
+     *     setlist: string,
+     *     life-span: ?LifeSpan,
+     *     disambiguation: string,
      *     data?: array<string, mixed>
      * }
      */

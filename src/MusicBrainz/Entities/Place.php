@@ -86,15 +86,15 @@ class Place extends AbstractEntity implements EntityInterface
 
     /**
      * @return array{
-     *      id: string,
-     *      name: string,
-     *      address: string,
-     *      type-id: string,
-     *      type: string,
-     *      area: ?Area[],
-     *      life-span: ?LifeSpan[],
-     *      coordinates: ?Coordinate[],
-     *      disambiguation: string,
+     *     id: string,
+     *     name: string,
+     *     address: string,
+     *     type-id: string,
+     *     type: string,
+     *     area: ?Area[],
+     *     life-span: ?LifeSpan[],
+     *     coordinates: ?Coordinate[],
+     *     disambiguation: string,
      *     data?: array<string, mixed>
      * }
      */

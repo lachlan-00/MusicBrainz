@@ -63,9 +63,9 @@ class Genre extends AbstractEntity implements EntityInterface
 
     /**
      * @return array{
-     *      id: string,
-     *      name: string,
-     *      disambiguation: string
+     *     id: string,
+     *     name: string,
+     *     disambiguation: string
      *  }
      */
     public function getProps(bool $includeData = false): array
