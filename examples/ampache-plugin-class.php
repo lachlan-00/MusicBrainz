@@ -182,7 +182,7 @@ class AmpacheMusicBrainz
                     case 'label':
                         $args   = ['name' => $fullname];
                         $filter = MusicBrainz::newFilter('label', $args);
-                        $search = $brainz->search(
+                        $search = (array)$brainz->search(
                             $filter,
                             1,
                             null,
