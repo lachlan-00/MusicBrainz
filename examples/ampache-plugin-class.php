@@ -182,7 +182,12 @@ class AmpacheMusicBrainz
                     case 'label':
                         $args   = ['name' => $fullname];
                         $filter = MusicBrainz::newFilter('label', $args);
-                        $search = $brainz->search($filter, 1, null, false);
+                        $search = $brainz->search(
+                            $filter,
+                            1,
+                            null,
+                            false
+                        );
                         /**
                          * https://musicbrainz.org/ws/2/label?query=Arrow%20land&fmt=json
                          * @var Label[] $results
@@ -499,7 +504,11 @@ class AmpacheMusicBrainz
         if (MusicBrainz::isMBID($mbid)) {
             try {
                 $brainz = MusicBrainz::newMusicBrainz('request');
-                $lookup = $brainz->lookup('artist', $mbid, ['tags']);
+                $lookup = $brainz->lookup(
+                    'artist',
+                    $mbid,
+                    ['genres', 'tags']
+                );
                 /**
                  * https://musicbrainz.org/ws/2/artist/859a5c63-08df-42da-905c-7307f56db95d?inc=release-groups&fmt=json
                  * @var Artist $results
