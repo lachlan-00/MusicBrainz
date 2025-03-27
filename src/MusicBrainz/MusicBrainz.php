@@ -306,7 +306,12 @@ class MusicBrainz
             'fmt' => 'json',
         ];
 
-        return $this->adapter->call($entity . '/' . $mbid, $params, $this->getHttpOptions(), $authRequired);
+        return $this->adapter->call(
+            $entity . '/' . $mbid,
+            $params,
+            $this->getHttpOptions(),
+            $authRequired
+        );
     }
 
     /**
@@ -353,7 +358,12 @@ class MusicBrainz
             'fmt' => 'json',
         ];
 
-        return (array)$this->adapter->call($filter->getEntity() . '/', $params, $this->getHttpOptions(), $authRequired);
+        return (array)$this->adapter->call(
+            $filter->getEntity() . '/',
+            $params,
+            $this->getHttpOptions(),
+            $authRequired
+        );
     }
 
     /**
@@ -396,7 +406,13 @@ class MusicBrainz
         // URL encoding screws up search queries so take that out of the http_build_query
         $query  = $params['query'];
         unset($params['query']);
-        $response = $this->adapter->call($filter->getEntity() . '/?query=' . $query . '&' . http_build_query($params), [], $this->getHttpOptions(), false, true);
+        $response = $this->adapter->call(
+            $filter->getEntity() . '/?query=' . $query . '&' . http_build_query($params),
+            [],
+            $this->getHttpOptions(),
+            false,
+            true
+        );
 
         if (
             $parseResponse &&
