@@ -77,7 +77,7 @@ As of 2025-03-12 the project has been forked again from [mikealmond/MusicBrainz]
     }
 ```
 
-Look in the [/examples](https://github.com/mikealmond/MusicBrainz/tree/master/examples) folder for more.
+Look in the [/examples](https://github.com/lachlan-00/MusicBrainz/tree/master/examples) folder for more.
 
 ## Requirements
 
