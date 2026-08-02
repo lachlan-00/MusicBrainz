@@ -17,11 +17,9 @@ class Attribute implements ObjectInterface
     public string $value;
 
     /**
-     * @param array{
-     *     type-id: ?string,
-     *     type: ?string,
-     *     value: ?string
-     * } $attribute
+     * Web service data with the keys type-id, type and value
+     *
+     * @param array<string, mixed> $attribute
      */
     public function __construct(
         array $attribute

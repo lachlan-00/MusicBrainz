@@ -15,10 +15,9 @@ class Tag implements ObjectInterface
     public int $count;
 
     /**
-     * @param array{
-     *     name: ?string,
-     *     count: ?string
-     * } $tag
+     * Web service data with the keys name and count
+     *
+     * @param array<string, mixed> $tag
      */
     public function __construct(
         array $tag,

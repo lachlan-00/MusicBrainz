@@ -30,7 +30,7 @@ class Event extends AbstractEntity implements EntityInterface
 
     public bool $cancelled;
 
-    public LifeSpan $life_span;
+    public ?LifeSpan $life_span = null;
 
     private array $data;
 
@@ -60,7 +60,9 @@ class Event extends AbstractEntity implements EntityInterface
         $this->type           = (string)($event['type'] ?? '');
         $this->time           = (string)($event['time'] ?? '');
         $this->setlist        = (string)($event['setlist'] ?? '');
-        $this->life_span      = $event['life-span'] ?? null;
+        $this->life_span      = isset($event['life-span'])
+            ? new LifeSpan((array)$event['life-span'])
+            : null;
         $this->disambiguation = (string)($event['disambiguation'] ?? '');
     }
 

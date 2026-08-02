@@ -1,5 +1,35 @@
 # MusicBrainz
 
+## 0.6.2
+
+This release is tested and supported on PHP 8.2 through PHP 8.5.
+
+Four entity classes could not be created from a web service response before this release.
+
+### Added
+
+* PHP 8.4 and 8.5 to the CI matrix, with every version gated
+* Static analysis to the CI run
+* Composer scripts `syntax` and `coverage`
+* Keep development and tooling files out of the release zip using `.gitattributes`
+* Offline tests for entity construction and search query building
+
+### Changed
+
+* `qa` runs `syntax` before `cs:check` and `tests`
+* Require PHPStan 2, Rector 2, and php-cs-fixer 3.95 for PHP 8.5 support
+* Analyse `tests` alongside `src`, against every PHP version from 8.2 to 8.5
+* `Area::$life_span` and `Event::$life_span` are nullable and hold a `LifeSpan`
+* `Place::$area`, `Place::$life_span` and `Place::$coordinates` hold an `Area`, a `LifeSpan` and a `Coordinate`
+* `Objects` constructors accept any decoded response array instead of a fixed set of keys
+
+### Fixed
+
+* Create `Area`, `Event` and `Place` objects from a lookup response
+* Create `DiscId` objects, which are identified by a disc id and never by an MBID
+* Reading an artist life-span that has no begin or end date
+* Reading an annotation that has no `entity` or `type`
+
 ## 0.6.1
 
 This release is to address issues with Entity objects returning the brainz property.

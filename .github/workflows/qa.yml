@@ -10,10 +10,11 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: ['ubuntu-latest']
-        php: ['8.2', '8.3']
-    continue-on-error: ${{ matrix.php == '8.3' }}
+        # 8.2 is the composer.json floor, 8.5 is what Ampache develop requires of its consumers
+        php: ['8.2', '8.3', '8.4', '8.5']
     steps:
       - uses: actions/checkout@v4
 
@@ -22,27 +23,18 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: Validate composer.json and composer.lock
+      - name: Validate composer.json
         run: composer validate
 
       - name: Install dependencies
-        if: ${{ matrix.php != '8.3' }}
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 5
           max_attempts: 3
           command: composer update --no-interaction --no-progress
 
-      - name: Install Dependencies (ignore platform)
-        if: ${{ matrix.php == '8.3' }}
-        uses: nick-fields/retry@v3
-        with:
-          timeout_minutes: 5
-          max_attempts: 3
-          command: composer update --no-interaction --no-progress --ignore-platform-req=php
-
       - name: Run test suite
         run: composer run-script qa
-        env:
-          PHP_CS_FIXER_IGNORE_ENV: 1
 
+      - name: Run static analysis
+        run: composer run-script stan

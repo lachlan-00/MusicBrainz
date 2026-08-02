@@ -17,11 +17,9 @@ class LifeSpan implements ObjectInterface
     public ?string $begin = null;
 
     /**
-     * @param array{
-     *     ended: ?bool,
-     *     end: ?string,
-     *     begin: ?string
-     * } $tag
+     * Web service data with the keys ended, end and begin
+     *
+     * @param array<string, mixed> $tag
      */
     public function __construct(
         array $tag

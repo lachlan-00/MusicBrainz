@@ -62,13 +62,10 @@ abstract class AbstractFilter
      */
     public function createParameters(array $params = []): array
     {
-        // Replace the query key with an empty string if it exists
+        // The query is always rebuilt from the filter's valid args, so a caller-supplied query is discarded
         $params = ['query' => ''] + $params;
 
-        if (
-            $this->validArgs === [] ||
-            $params['query'] != ''
-        ) {
+        if ($this->validArgs === []) {
             return $params;
         }
 

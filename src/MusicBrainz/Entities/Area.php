@@ -24,7 +24,7 @@ class Area extends AbstractEntity implements EntityInterface
 
     public string $type;
 
-    public LifeSpan $life_span;
+    public ?LifeSpan $life_span = null;
 
     /** @var string[] $iso_3166_1_codes */
     public array $iso_3166_1_codes;
@@ -59,7 +59,9 @@ class Area extends AbstractEntity implements EntityInterface
         $this->type_id          = (string)($area['type-id'] ?? '');
         $this->type             = (string)($area['type'] ?? '');
         $this->iso_3166_1_codes = $area['iso-3166-1-codes'] ?? [];
-        $this->life_span        = $area['life-span'];
+        $this->life_span        = isset($area['life-span'])
+            ? new LifeSpan((array)$area['life-span'])
+            : null;
         $this->disambiguation   = (string)($area['disambiguation'] ?? '');
     }
 
@@ -86,7 +88,7 @@ class Area extends AbstractEntity implements EntityInterface
      *     type_id: string,
      *     type: string,
      *     iso_3166_1_codes: string[],
-     *     life_span: array<string, string|bool|null>,
+     *     life_span: ?array<string, string|bool|null>,
      *     disambiguation: string,
      *     data?: array<string, mixed>
      * }
@@ -100,7 +102,7 @@ class Area extends AbstractEntity implements EntityInterface
             'type_id' => $this->type_id,
             'type' => $this->type,
             'iso_3166_1_codes' => $this->iso_3166_1_codes,
-            'life_span' => $this->life_span->getProps(),
+            'life_span' => $this->life_span?->getProps(),
             'disambiguation' => $this->disambiguation,
         ];
 

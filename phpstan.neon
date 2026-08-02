@@ -2,5 +2,11 @@ parameters:
   level: 8
   paths:
     - src
+    - tests
+  # analyse against every version composer.json allows, so syntax that only exists on the
+  # newer runtimes is caught here rather than by the 8.2 CI job
+  phpVersion:
+    min: 80200
+    max: 80500
 includes:
     - phpstan-baseline.neon

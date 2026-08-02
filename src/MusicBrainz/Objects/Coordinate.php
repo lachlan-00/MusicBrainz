@@ -15,11 +15,9 @@ class Coordinate implements ObjectInterface
     public ?float $latitude = null;
 
     /**
-     * @param array{
-     *     ended: ?bool,
-     *     longitude: ?float,
-     *     latitude: ?float
-     * } $tag
+     * Web service data with the keys longitude and latitude
+     *
+     * @param array<string, mixed> $tag
      */
     public function __construct(
         array $tag

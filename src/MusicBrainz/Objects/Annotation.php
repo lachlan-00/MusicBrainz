@@ -19,18 +19,15 @@ class Annotation implements ObjectInterface
     public string $text;
 
     /**
-     * @param array{
-     *     entity: string,
-     *     type: string,
-     *     score: ?int,
-     *     text: ?string
-     *  } $annotation
+     * Web service data with the keys entity, type, score and text
+     *
+     * @param array<string, mixed> $annotation
      */
     public function __construct(
         array $annotation
     ) {
-        $this->entity = $annotation['entity'];
-        $this->type   = $annotation['type'];
+        $this->entity = (string)($annotation['entity'] ?? '');
+        $this->type   = (string)($annotation['type'] ?? '');
         $this->score  = (int)($annotation['score'] ?? 0);
         $this->text   = $annotation['text'] ?? '';
     }

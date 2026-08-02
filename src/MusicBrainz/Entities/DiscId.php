@@ -38,11 +38,12 @@ class DiscId extends AbstractEntity implements EntityInterface
         array $discid,
         MusicBrainz $brainz,
     ) {
+        // a disc id is a base64 hash of the disc TOC, never an MBID
         if (
             !isset($discid['id']) ||
-            !$this->hasValidId($discid['id'])
+            (string)$discid['id'] === ''
         ) {
-            throw new Exception('Can not create discid object. Missing valid MBID');
+            throw new Exception('Can not create discid object. Missing valid disc id');
         }
 
         $this->brainz       = $brainz;
@@ -50,7 +51,7 @@ class DiscId extends AbstractEntity implements EntityInterface
         $this->id           = (string)$discid['id'];
         $this->offset_count = (int)($discid['offset-count'] ?? 0);
         $this->sectors      = (int)($discid['sectors'] ?? 0);
-        $this->offsets      = $discid['offsets'] ?? null;
+        $this->offsets      = (array)($discid['offsets'] ?? []);
         $this->releases     = $discid['releases'] ?? null;
     }
 

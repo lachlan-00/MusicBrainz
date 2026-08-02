@@ -59,17 +59,11 @@ class Artist extends AbstractEntity implements EntityInterface
         $this->sortName  = (string)($artist['sort-name'] ?? '');
         $this->gender    = (string)($artist['gender'] ?? '');
         $this->country   = (string)($artist['country'] ?? '');
-        if ((isset($artist['life-span']))) {
-            if (is_array($artist['life-span'])) {
-                $this->beginDate = $artist['life-span']['begin'] ?: null;
-            } else {
-                $this->beginDate = $artist['life-span']->{'begin'} ?: null;
-            }
-            if (is_array($artist['life-span'])) {
-                $this->endDate = $artist['life-span']['end'] ?: null;
-            } else {
-                $this->endDate = $artist['life-span']->{'end'} ?: null;
-            }
+        if (isset($artist['life-span'])) {
+            // MusicBrainz omits begin and end when it has no date for them
+            $lifeSpan        = (array)$artist['life-span'];
+            $this->beginDate = ($lifeSpan['begin'] ?? null) ?: null;
+            $this->endDate   = ($lifeSpan['end'] ?? null) ?: null;
         }
     }
 

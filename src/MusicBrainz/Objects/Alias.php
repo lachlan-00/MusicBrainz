@@ -25,15 +25,9 @@ class Alias implements ObjectInterface
     public ?string $end_date = null;
 
     /**
-     * @param array{
-     *     name: ?string,
-     *     sort-name: ?string,
-     *     type: ?string,
-     *     type-id: ?string,
-     *     primary: ?bool,
-     *     begin-date: ?string,
-     *     end-date: ?string
-     * } $tag
+     * Web service data with the keys name, sort-name, type, type-id, primary, begin-date and end-date
+     *
+     * @param array<string, mixed> $tag
      */
     public function __construct(
         array $tag

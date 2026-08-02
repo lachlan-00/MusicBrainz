@@ -83,6 +83,8 @@ Look in the [/examples](https://github.com/lachlan-00/MusicBrainz/tree/master/ex
 
 PHP8.2+ and [cURL extension](http://php.net/manual/en/book.curl.php).
 
+The library is tested against PHP 8.2, 8.3, 8.4 and 8.5.
+
 You must also choose a HTTP client to use.
 
 They are not included in the composer requirements to allow you to choose your own based on your project requirements.
@@ -93,6 +95,16 @@ Add it to your composer requirements with composer require.
   * rmccue/requests
   * guzzlehttp/guzzle
   * guzzle/guzzle (deprecated)
+
+Note that `lookup()` returns the decoded response as an object, while `search()` returns an array.
+
+## Development
+
+```shell
+composer qa      # php syntax check, code style check and the unit tests
+composer stan    # static analysis
+composer cs:fix  # apply code style corrections
+```
 
 ## License
 

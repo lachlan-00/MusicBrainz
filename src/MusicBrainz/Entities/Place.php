@@ -25,14 +25,11 @@ class Place extends AbstractEntity implements EntityInterface
 
     public string $type;
 
-    /** @var LifeSpan[] $life_span */
-    public ?array $life_span = null;
+    public ?LifeSpan $life_span = null;
 
-    /** @var Area[]|null $area */
-    public ?array $area = null;
+    public ?Area $area = null;
 
-    /** @var null|Coordinate[] $coordinates */
-    public ?array $coordinates;
+    public ?Coordinate $coordinates = null;
 
     public string $disambiguation;
 
@@ -63,9 +60,16 @@ class Place extends AbstractEntity implements EntityInterface
         $this->address        = (string)($place['address'] ?? '');
         $this->type_id        = (string)($place['type-id'] ?? '');
         $this->type           = (string)($place['type'] ?? '');
-        $this->area           = $place['area'];
-        $this->life_span      = $place['life-span'];
-        $this->coordinates    = $place['coordinates'] ?? null;
+        $area                 = isset($place['area']) ? (array)$place['area'] : [];
+        $this->area           = $this->hasValidId($area['id'] ?? null)
+            ? new Area($area, $brainz)
+            : null;
+        $this->life_span      = isset($place['life-span'])
+            ? new LifeSpan((array)$place['life-span'])
+            : null;
+        $this->coordinates    = isset($place['coordinates'])
+            ? new Coordinate((array)$place['coordinates'])
+            : null;
         $this->disambiguation = (string)($place['disambiguation'] ?? '');
     }
 
@@ -91,9 +95,9 @@ class Place extends AbstractEntity implements EntityInterface
      *     address: string,
      *     type-id: string,
      *     type: string,
-     *     area: ?Area[],
-     *     life-span: ?LifeSpan[],
-     *     coordinates: ?Coordinate[],
+     *     area: ?Area,
+     *     life-span: ?LifeSpan,
+     *     coordinates: ?Coordinate,
      *     disambiguation: string,
      *     data?: array<string, mixed>
      * }
